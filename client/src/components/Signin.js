@@ -1,12 +1,15 @@
 import React, {  useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 export default function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(signin(email, password));
   };
 
   return (
