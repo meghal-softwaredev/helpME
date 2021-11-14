@@ -25,7 +25,6 @@ export const isAuth = (req, res, next) => {
           res.status(401).send({ message: 'Invalid Token' });
         } else {
           req.user = decode;
-          console.log("decode",decode);
           next();
         }
       }
