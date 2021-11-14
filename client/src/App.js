@@ -1,61 +1,35 @@
-import './App.css';
+import './App.scss';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import Register from './components/Register';
 import Signin from './components/Signin';
+import LeftSideBar from './components/LeftSideBar';
+import RightSideBar from './components/RightSideBar';
+import Home from './components/Home';
+import FeedList from './components/FeedList';
+import FeedListItem from './components/FeedListItem';
 
 function App() {
   
   return (
     <BrowserRouter>
       <div className="grid-container">
-        <header className="row">
-          <div>
-            <Link className="brand" to="/">
-              helpME
-            </Link>
+        <Header />
+        <main className="base-container">
+          <LeftSideBar />
+          <div className="main-container">
+            <Routes>
+              <Route path="/register" element={<Register />}></Route>
+              <Route path="/signin" element={<Signin />}></Route>
+              <Route path="/feeds" element={<FeedList />}></Route>
+              <Route path="/feeds/:id" element={<FeedListItem />}></Route>
+              <Route path="/" element={<Home />} exact></Route>
+            </Routes>
           </div>
-          
-          <div>
-            <Link to="/getHelp">
-              Get Help
-            </Link>
-            {/* {userInfo ? ( */}
-              <div className="dropdown">
-                <Link to="#"> Name
-                  {/* {userInfo.name} <i className="fa fa-caret-down"></i>{' '} */}
-                </Link>
-                <ul className="dropdown-content">
-                  <li>
-                    <Link to="/profile">User Profile</Link>
-                  </li>
-                  <li>
-                    <Link to="#signout">
-                      Sign Out
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-             {/* ) : (  */}
-              <ul>
-                <li>
-                  <Link to="/register">Register</Link>
-                </li>
-                <li>
-                  <Link to="/signin">Sign In</Link>
-                </li>
-              </ul>
-            {/* )}  */}
-          </div>
-        </header>
-        <main>
-          <Routes>
-            <Route path="/register" element={<Register/>}></Route>
-            <Route path="/signin" element={<Signin/>}></Route>
-          </Routes>
+          <RightSideBar />
         </main>
-        <footer className="row center">
-          <div>All right reserved</div>
-        </footer>
+        <Footer />
       </div>
     </BrowserRouter>
   );
