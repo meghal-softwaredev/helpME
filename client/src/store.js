@@ -4,6 +4,9 @@ import {
   userRegisterReducer,
   userSigninReducer
 } from './reducers/userReducers';
+import {
+  feedListReducer
+} from './reducers/feedReducers';
 
 // const initialState = {
 //   userSignin: {
@@ -16,7 +19,8 @@ const initialState = {}
 
 const reducer = combineReducers({
   userRegister: userRegisterReducer,
-  userSignin: userSigninReducer
+  userSignin: userSigninReducer,
+  feedList: feedListReducer,
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
