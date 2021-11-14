@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom"
 import "./Header.scss";
+import { useDispatch } from 'react-redux';
+import { signout } from "../actions/userActions";
 
 function Header() {
+  const dispatch = useDispatch();
+  const signoutHandler = () => {
+    dispatch(signout());
+  };
+
   return (
     <header className="row">
-      <div class="logo">
+      <div className="logo">
         <Link className="brand link" to="/">
           helpME
         </Link>
@@ -24,7 +31,7 @@ function Header() {
               <Link to="/profile">User Profile</Link>
             </li>
             <li>
-              <Link to="#signout">
+              <Link to="#signout" onClick={signoutHandler}>
                 Sign Out
               </Link>
             </li>
