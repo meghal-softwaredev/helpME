@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom"
+import "./Header.scss";
 
 function Header() {
   return (
     <header className="row">
-      <div>
+      <div class="logo">
         <Link className="brand" to="/">
           helpME
         </Link>
       </div>
 
-      <div>
+      <nav>
         <Link to="/getHelp">
           Get Help
         </Link>
@@ -39,7 +40,7 @@ function Header() {
           </li>
         </ul>
         {/* )}  */}
-      </div>
+      </nav>
     </header>
   )
 }

@@ -1,0 +1,19 @@
+header {
+  display: flex;
+  justify-content: space-between;
+
+  .logo {
+    width: 100px;
+  }
+
+  nav {
+    flex: 1;
+    display: flex;
+    gap: 20px;
+  }
+}
+ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
