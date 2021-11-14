@@ -1,10 +1,17 @@
 import React, {  useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { signin } from '../actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
 export default function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo, loading, error } = userSignin;
+  console.log("userinfo",userInfo );
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
@@ -17,6 +24,10 @@ export default function Signin() {
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Sign In</h1>
+        </div>
+        {loading && <LoadingBox></LoadingBox>}
+        {error && <MessageBox variant="danger">{error}</MessageBox>}
+        <div>
           <label htmlFor="email">Email address</label>
           <input
             type="email"
