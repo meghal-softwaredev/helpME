@@ -1,23 +1,32 @@
-import React, {  useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, {  useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { signin } from '../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 
-export default function Signin() {
+export default function Signin(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo, loading, error } = userSignin;
-  console.log("userinfo",userInfo );
+
+  const navigate = useNavigate();
+  const redirect = userInfo? '/feeds' :'/';
 
   const dispatch = useDispatch();
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(signin(email, password));
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
 
   return (
     <div>
@@ -57,7 +66,7 @@ export default function Signin() {
           <label />
           <div>
             New customer?{' '}
-            <Link to={`/register`}>
+            <Link to={`/register?redirect=${redirect}`}>
               Create your account
             </Link>
           </div>

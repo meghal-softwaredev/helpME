@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../actions/userActions';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
@@ -11,8 +11,11 @@ export default function Register(props) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const navigate = useNavigate();
+
   const userRegister = useSelector((state) => state.userRegister);
   const { userInfo, loading, error } = userRegister;
+  const redirect = userInfo? '/category' :'/';
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
@@ -23,6 +26,12 @@ export default function Register(props) {
       dispatch(register(name, email, password));
     }
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/category');
+    }
+  }, [navigate, redirect, userInfo]);
   
   return (
     <div>
@@ -77,6 +86,13 @@ export default function Register(props) {
           <button className="primary" type="submit">
             Register
           </button>
+        </div>
+        <div>
+          <label />
+          <div>
+            Already have an account?{' '}
+            <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
+          </div>
         </div>
       </form>
     </div>
