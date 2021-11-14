@@ -1,3 +1,7 @@
+body {
+  color: #ffffff;
+}
+
 /* Layout */
 .grid-container {
   display: grid;
@@ -26,6 +30,7 @@ footer {
 
 .base-container {
   display: flex;
+  background-color: #005f73;
 }
 
 .main-container {

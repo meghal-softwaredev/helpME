@@ -1,0 +1,9 @@
+.left-sidebar-container {
+  display: flex;
+  align-items: center;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+  }
+}
