@@ -2,6 +2,7 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import data from '../data.js';
 import Feed from '../models/feedModel.js';
+import { isAuth } from '../helpers/utils.js';
 
 const feedRouter = express.Router();
 
@@ -70,6 +71,7 @@ feedRouter.put(
 
 feedRouter.delete(
   '/:id',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const feed = await Feed.findById(req.params.id);
     if (feed) {
