@@ -9,11 +9,25 @@ header {
   nav {
     flex: 1;
     display: flex;
+    justify-content: space-between;
     gap: 20px;
   }
 }
+
 ul {
   list-style: none;
   display: flex;
   gap: 20px;
+
+  li {
+    text-decoration: none;
+
+    a {
+      color: #fff;
+    }
+  }
+}
+
+.link {
+  color: #fff;
 }

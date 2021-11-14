@@ -5,18 +5,18 @@ function Header() {
   return (
     <header className="row">
       <div class="logo">
-        <Link className="brand" to="/">
+        <Link className="brand link" to="/">
           helpME
         </Link>
       </div>
 
       <nav>
-        <Link to="/getHelp">
+        <Link className="link" to="/getHelp">
           Get Help
         </Link>
         {/* {userInfo ? ( */}
         <div className="dropdown">
-          <Link to="#"> Name
+          <Link className="link" to="#"> Name
             {/* {userInfo.name} <i className="fa fa-caret-down"></i>{' '} */}
           </Link>
           <ul className="dropdown-content">

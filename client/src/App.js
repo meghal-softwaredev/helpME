@@ -1,8 +1,12 @@
-import './App.css';
+import './App.scss';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import Register from './components/Register';
 import Signin from './components/Signin';
-import Header from './components/Header';
+import LeftSideBar from './components/LeftSideBar';
+import RightSideBar from './components/RightSideBar';
+import Home from './components/Home';
 
 function App() {
   
@@ -10,15 +14,18 @@ function App() {
     <BrowserRouter>
       <div className="grid-container">
         <Header />
-        <main>
-          <Routes>
-            <Route path="/register" element={<Register/>}></Route>
-            <Route path="/signin" element={<Signin/>}></Route>
-          </Routes>
+        <main className="base-container">
+          <LeftSideBar />
+          <div className="main-container">
+            <Routes>
+              <Route path="/register" element={<Register />}></Route>
+              <Route path="/signin" element={<Signin />}></Route>
+              <Route path="/" element={<Home />} exact></Route>
+            </Routes>
+          </div>
+          <RightSideBar />
         </main>
-        <footer className="row center">
-          <div>All right reserved</div>
-        </footer>
+        <Footer />
       </div>
     </BrowserRouter>
   );
