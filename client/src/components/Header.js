@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom"
 import "./Header.scss";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signout } from "../actions/userActions";
 
 function Header() {
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
   const dispatch = useDispatch();
   const signoutHandler = () => {
     dispatch(signout());
@@ -16,38 +19,40 @@ function Header() {
           helpME
         </Link>
       </div>
-
-      <nav>
-        <Link className="link" to="/getHelp">
-          Get Help
-        </Link>
-        {/* {userInfo ? ( */}
-        <div className="dropdown">
-          <Link className="link" to="#"> Name
-            {/* {userInfo.name} <i className="fa fa-caret-down"></i>{' '} */}
+      {userInfo ? (
+        <nav>
+          <Link className="link" to="/getHelp">
+            Get Help
           </Link>
-          <ul className="dropdown-content">
+        
+          <div className="dropdown">
+            <Link className="link" to="#"> Name
+              {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
+            </Link>
+            <ul className="dropdown-content">
+              <li>
+                <Link to="/profile">User Profile</Link>
+              </li>
+              <li>
+                <Link to="#signout" onClick={signoutHandler}>
+                  Sign Out
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+          ) : ( 
+        <nav>
+          <ul>
             <li>
-              <Link to="/profile">User Profile</Link>
+              <Link to="/register">Register</Link>
             </li>
             <li>
-              <Link to="#signout" onClick={signoutHandler}>
-                Sign Out
-              </Link>
+              <Link to="/signin">Sign In</Link>
             </li>
           </ul>
-        </div>
-        {/* ) : (  */}
-        <ul>
-          <li>
-            <Link to="/register">Register</Link>
-          </li>
-          <li>
-            <Link to="/signin">Sign In</Link>
-          </li>
-        </ul>
-        {/* )}  */}
-      </nav>
+        </nav>
+        )}  
     </header>
   )
 }
