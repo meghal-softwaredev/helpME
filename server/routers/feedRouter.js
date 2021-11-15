@@ -41,6 +41,7 @@ feedRouter.get(
 
 feedRouter.post(
   '/',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const feed = new Feed({
       title: req.body.title,
@@ -55,6 +56,7 @@ feedRouter.post(
 );
 feedRouter.put(
   '/:id',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const feedId = req.params.id;
     const feed = await Feed.findById(feedId);

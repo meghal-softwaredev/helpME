@@ -29,7 +29,7 @@ categoryRouter.post(
       name: req.body.name
     });
     const createdCategory = await category.save();
-    res.send({ message: 'Feed Category Created', category: createdCategory });
+    res.send({ message: 'Category Created', category: createdCategory });
   })
 );
 
