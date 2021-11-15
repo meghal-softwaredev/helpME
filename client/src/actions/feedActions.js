@@ -2,7 +2,10 @@ import Axios from 'axios';
 import {
   FEED_LIST_FAIL,
   FEED_LIST_REQUEST,
-  FEED_LIST_SUCCESS
+  FEED_LIST_SUCCESS,
+  FEED_CREATE_FAIL,
+  FEED_CREATE_REQUEST,
+  FEED_CREATE_SUCCESS,
 } from '../constants/feedConstants';
 
 export const listFeeds = () => async (dispatch) => {

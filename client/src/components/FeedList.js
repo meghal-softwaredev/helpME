@@ -6,6 +6,7 @@ import {
   listFeeds
 } from '../actions/feedActions';
 import FeedListItem from './FeedListItem';
+import NewFeed from './NewFeed';
 
 function FeedList(props) {
 
@@ -24,12 +25,23 @@ function FeedList(props) {
     props.history
   ]);
 
+  const [openNewFeed, setOpenNewFeed] = React.useState(false);
+
+  const handleOpenNewFeed = () => {
+    setOpenNewFeed(true);
+  };
+
+  const handleCloseNewFeed = () => {
+    setOpenNewFeed(false);
+  };
+
   return (
     <div>
       <div>
-        <Button size="large" variant="contained">
+        <Button size="large" variant="contained" onClick={handleOpenNewFeed}>
           Post Question
         </Button>
+        <NewFeed openNewFeed={openNewFeed} handleCloseNewFeed={handleCloseNewFeed} />
       </div>
       {loading ? (
         <span>Loading</span>
