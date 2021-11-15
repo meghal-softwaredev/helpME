@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import morgan from 'morgan';
 import userRouter from './routers/userRouter.js';
 import feedRouter from './routers/feedRouter.js';
-import feedCategoryRouter from './routers/feedCategoryRouter.js';
+import feedCategoryRouter from './routers/categoryRouter.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -23,7 +23,7 @@ mongoose.connect(process.env.MONGODB_URL, {
 
 app.use('/api/users', userRouter);
 app.use('/api/feeds', feedRouter);
-app.use('/api/feedCategories', feedCategoryRouter);
+app.use('/api/categories', feedCategoryRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });

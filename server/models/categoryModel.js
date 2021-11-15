@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const feedCategorySchema = new mongoose.Schema(
+const categorySchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     img_url: { type: String },
@@ -16,5 +16,5 @@ const feedCategorySchema = new mongoose.Schema(
   }
 );
 
-const FeedCategory = mongoose.model('FeedCategory', feedCategorySchema);
-export default FeedCategory;
+const Category = mongoose.model('FeedCategory', categorySchema);
+export default Category;
