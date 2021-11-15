@@ -1,8 +1,17 @@
+import { Chip, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
+import "./FeedListItem.scss";
 function FeedListItem(props) {
   return (
-    <div>
-      <p>{props.feed.title}</p>
-      <p>{props.feed.tags}</p>
+    <div className="feed-item-container">
+      <Box sx={{ border: 1, my: 2, p: 2 }}>
+        <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+          <Link className="link" to={`/feeds/${props.feed._id}`}>{props.feed.title}</Link>
+        </Box>
+        {props.feed.tags.map(tag => (
+          <Chip sx={{ mr: 1 }} label={tag} color="primary" />
+        ))}
+      </Box>
     </div>
   )
 }

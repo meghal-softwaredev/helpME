@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import { Button } from '@mui/material';
 import {
   listFeeds
 } from '../actions/feedActions';
@@ -26,20 +27,20 @@ function FeedList(props) {
   return (
     <div>
       <div>
-        <button type="button">
+        <Button size="large" variant="contained">
           Post Question
-        </button>
+        </Button>
       </div>
       {loading ? (
         <span>Loading</span>
       ) : error ? (
         <span>Error: {error}</span>
       ) : (
-        <div>
+        <>
           {feeds.map((feed) => (
             <FeedListItem key={feed._id} feed={feed} />
           ))}
-        </div>
+        </>
       )}
     </div>
   );
