@@ -18,3 +18,29 @@ export const listFeeds = () => async (dispatch) => {
     dispatch({ type: FEED_LIST_FAIL, payload: error.message });
   }
 };
+
+export const createFeed = () => async (dispatch, getState) => {
+  dispatch({ type: FEED_CREATE_REQUEST });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.post(
+      '/api/feeds',
+      {},
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
+    );
+    dispatch({
+      type: FEED_CREATE_SUCCESS,
+      payload: data.feed,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: FEED_CREATE_FAIL, payload: message });
+  }
+};
