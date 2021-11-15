@@ -5,7 +5,8 @@ import {
   userSigninReducer
 } from './reducers/userReducers';
 import {
-  feedListReducer
+  feedListReducer,
+  feedCreateReducer,
 } from './reducers/feedReducers';
 
 // const initialState = {
@@ -21,6 +22,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userSignin: userSigninReducer,
   feedList: feedListReducer,
+  feedCreate: feedCreateReducer,
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
