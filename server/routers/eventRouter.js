@@ -27,4 +27,16 @@ eventRouter.get(
   })
 );
 
+eventRouter.get(
+  '/:id',
+  expressAsyncHandler(async (req, res) => {
+    const event = await Event.findById(req.params.id);
+    if (event) {
+      res.send(event);
+    } else {
+      res.status(404).send({ message: 'Event Not Found' });
+    }
+  })
+);
+
 export default eventRouter;
