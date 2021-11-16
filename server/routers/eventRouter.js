@@ -39,4 +39,23 @@ eventRouter.get(
   })
 );
 
+eventRouter.post(
+  '/',
+  expressAsyncHandler(async (req, res) => {
+    const event = new Event({
+      title: req.body.title,
+      description: req.body.description,
+      user_id: req.user._id,
+      date: req.body.date,
+      start_time: req.body.start_time,
+      end_time: req.body.end_time,
+      event_url: req.body.event_url,
+      group_id: req.body.group_id,
+      tags: req.body.tags
+    });
+    const createdEvent = await Event.save();
+    res.send({ message: 'Event Created', event: createdEvent });
+  })
+);
+
 export default eventRouter;
