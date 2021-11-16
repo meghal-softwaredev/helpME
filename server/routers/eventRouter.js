@@ -58,4 +58,20 @@ eventRouter.post(
   })
 );
 
+eventRouter.put(
+  '/:id',
+  expressAsyncHandler(async (req, res) => {
+    const eventId = req.params.id;
+    const event = await Feed.findById(eventId);
+    if (event) {
+      event.title = req.body.title;
+      event.description = req.body.description;
+      const updatedEvent = await event.save();
+      res.send({ message: 'Event Updated', event: updatedEvent });
+    } else {
+      res.status(404).send({ message: 'Event Not Found' });
+    }
+  })
+);
+
 export default eventRouter;
