@@ -40,6 +40,7 @@ function App() {
             <Routes>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/signin" element={<Signin />}></Route>
+              <Route path="/" element={<Home />} exact></Route>
             </Routes>
           </main>
         )}
