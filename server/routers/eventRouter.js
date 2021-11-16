@@ -74,4 +74,18 @@ eventRouter.put(
   })
 );
 
+eventRouter.delete(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const event = await Event.findById(req.params.id);
+    if (event) {
+      const deleteEvent = await event.remove();
+      res.send({ message: 'Event Deleted', event: deleteEvent });
+    } else {
+      res.status(404).send({ message: 'Event Not Found' });
+    }
+  })
+);
+
 export default eventRouter;
