@@ -9,16 +9,12 @@ function EventList(props) {
   const eventList = useSelector((state) => state.eventList);
   const { loading, error, events } = eventList;
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listEvents());
   }, [dispatch]);
-
-  const handleEvent = () => {
-    navigate('/events');
-  }
-
+  
+  const navigate = useNavigate();
   const handleGroup = () => {
     navigate('/groups');
   }
@@ -26,7 +22,7 @@ function EventList(props) {
   return (
     <div>
       <div>
-        <Button size="large" variant="contained" onClick={handleEvent}>
+        <Button size="large" variant="contained">
           Event
         </Button>
         <Button size="large" variant="contained" onClick={handleGroup}>
