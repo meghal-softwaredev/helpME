@@ -2,9 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Button } from '@mui/material';
-import {
-  listFeeds
-} from '../actions/feedActions';
+import { listFeeds } from '../actions/feedActions';
 import FeedListItem from './FeedListItem';
 import NewFeed from './NewFeed';
 
@@ -18,14 +16,8 @@ function FeedList(props) {
   const { userInfo } = userSignin;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      listFeeds()
-    );
-  }, [
-    dispatch,
-    props.history,
-    openNewFeed
-  ]);
+    dispatch( listFeeds() );
+  }, [dispatch, openNewFeed ]);
 
   const handleOpenNewFeed = () => {
     setOpenNewFeed(true);
