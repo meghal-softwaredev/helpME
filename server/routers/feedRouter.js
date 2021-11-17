@@ -46,7 +46,7 @@ feedRouter.post(
       title: req.body.title,
       description: req.body.description,
       user_id: req.user._id,
-      feed_category_id: req.body.feed_category_id,
+      category_id: req.body.category_id,
       tags: req.body.tags,
     });
     const createdFeed = await feed.save();

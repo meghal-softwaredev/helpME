@@ -46,7 +46,8 @@ groupRouter.post(
       title: req.body.title,
       description: req.body.description,
       user_id: req.user._id,
-      group_url: req.body.group_url
+      group_url: req.body.group_url,
+      category_url: req.body.category_url
     });
     const createdGroup = await group.save();
     res.send({ message: 'Group Created', group: createdGroup });

@@ -5,7 +5,7 @@ const feedSchema = new mongoose.Schema(
     description: { type: String, required: true },
     verified_answer_id: { type: mongoose.Schema.Types.ObjectID, ref: 'FeedAnswer' },
     user_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
-    feed_category_id: { type: mongoose.Schema.Types.ObjectID, ref: 'FeedCategory' },
+    category_id: { type: mongoose.Schema.Types.ObjectID, ref: 'Category' },
     tags: [{ type: String, required: true }],
   },
   {
