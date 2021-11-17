@@ -6,6 +6,7 @@ const groupSchema = new mongoose.Schema(
     description: { type: String, required: true },
     user_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
     group_url: { type: String, required: true },
+    category_id: { type: mongoose.Schema.Types.ObjectID, ref: 'Category' },
     followers: [{ type: String }]
   },
   {

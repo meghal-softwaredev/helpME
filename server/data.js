@@ -73,7 +73,7 @@ const data = {
       title: `What to Eat With Hummus?`,
       description: `You’d be hard-pressed to find a spread (or is it a dip?) more universally loved than . The delicious blend of mashed chickpeas, tahini, oils, and spices is a welcome sight on any table. But, after a while,  gets boring. How many different foods can you even eat hummus? `,
       user_id: "618dee2b0b54ac2ca484ba21",
-      feed_category_id: "6190afe0ee6fb3c345e5c6fb",
+      category_id: "6190afe0ee6fb3c345e5c6fb",
       tags: [`Hummus`]
     }
   ],
@@ -104,6 +104,7 @@ const data = {
       title: `Agile`,
       description: `Agile is a time boxed, iterative approach to software delivery that builds software incrementally from the start of the project, instead of trying to deliver it all at once near the end`,
       user_id: "618dcf88205f076ec8f55d11",
+      category_id: "6190afe0ee6fb3c345e5c6fb",
       group_url: "http://localhost:3000/assets/group/agile.png",
       followers: [``]
     },

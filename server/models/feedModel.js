@@ -6,7 +6,7 @@ const feedSchema = new mongoose.Schema(
     verified_answer_id: { type: mongoose.Schema.Types.ObjectID, ref: 'FeedAnswer' },
     user_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
     category_id: { type: mongoose.Schema.Types.ObjectID, ref: 'Category' },
-    tags: [{ type: String }],
+    tags: [{ type: String, required: true }],
   },
   {
     timestamps: true,
