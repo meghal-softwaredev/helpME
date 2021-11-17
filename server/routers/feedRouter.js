@@ -40,14 +40,14 @@ feedRouter.get(
 );
 
 feedRouter.post(
-  '/',
+  '/new',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const feed = new Feed({
       title: req.body.title,
       description: req.body.description,
       user_id: req.user._id,
-      category_id: req.body.category_id,
+      /* category_id: req.body.category_id, */
       tags: req.body.tags,
     });
     const createdFeed = await feed.save();
