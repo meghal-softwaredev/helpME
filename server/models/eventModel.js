@@ -5,7 +5,6 @@ const eventSchema = new mongoose.Schema(
     title: { type: String, required: true },
     description: { type: String, required: true },
     user_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
-    date: { type: String, required: true },
     start_time: { type: String, required: true },
     end_time: { type: String, required: true },
     event_url: { type: String, required: true },

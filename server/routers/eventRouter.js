@@ -46,7 +46,6 @@ eventRouter.post(
       title: req.body.title,
       description: req.body.description,
       user_id: req.user._id,
-      date: req.body.date,
       start_time: req.body.start_time,
       end_time: req.body.end_time,
       event_url: req.body.event_url,

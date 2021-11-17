@@ -38,7 +38,7 @@ const data = {
       password: bcrypt.hashSync('1234', 8)
     }
   ],
-  feedCategories: [
+  categories: [
     {
       name: 'Coding'
     },
@@ -98,6 +98,28 @@ const data = {
       answer: `You can’t go wrong with a classic. Whether it’s white or wheat, hard or soft, pita bread and hummus are always a perfect pairing.`,
       upvotes: 20
     }
+  ],
+  groups: [
+    {
+      title: `Agile`,
+      description: `Agile is a time boxed, iterative approach to software delivery that builds software incrementally from the start of the project, instead of trying to deliver it all at once near the end`,
+      user_id: "618dcf88205f076ec8f55d11",
+      group_url: "http://localhost:3000/assets/group/agile.png",
+      followers: [``]
+    },
+  ],
+  events: [
+    {
+      title: `Agile approach to cyber security`,
+      description: `Cybersecurity in an agile development environment means having a comprehensive approach to identifying any gaps or concerns. This includes investing in automation where possible for testing and scanning, along with simulated attacks to ensure security at every step of development`,
+      user_id: "618dcf88205f076ec8f55d11",
+      start_time: new Date(),
+      end_time: new Date(),
+      event_url: "http://localhost:3000/assets/group/agile.png",
+      group_id: "61944880bf8a7111c03a36f5",
+      tags: [`Agile`],
+      attendees: [``]
+    },
   ],
 };
 export default data;
