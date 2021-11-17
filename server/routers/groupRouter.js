@@ -39,4 +39,18 @@ groupRouter.get(
   })
 );
 
+groupRouter.post(
+  '/',
+  expressAsyncHandler(async (req, res) => {
+    const group = new Group({
+      title: req.body.title,
+      description: req.body.description,
+      user_id: req.user._id,
+      group_url: req.body.group_url
+    });
+    const createdGroup = await group.save();
+    res.send({ message: 'Group Created', group: createdGroup });
+  })
+);
+
 export default groupRouter;
