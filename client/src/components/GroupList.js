@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { listGroups } from '../actions/groupActions';
 
 function GroupList(props) {
   const GroupList = useSelector((state) => state.groupList);
