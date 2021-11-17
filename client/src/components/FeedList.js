@@ -9,6 +9,7 @@ import FeedListItem from './FeedListItem';
 import NewFeed from './NewFeed';
 
 function FeedList(props) {
+  const [openNewFeed, setOpenNewFeed] = React.useState(false);
 
   const feedList = useSelector((state) => state.feedList);
   const { loading, error, feeds } = feedList;
@@ -22,10 +23,9 @@ function FeedList(props) {
     );
   }, [
     dispatch,
-    props.history
+    props.history,
+    openNewFeed
   ]);
-
-  const [openNewFeed, setOpenNewFeed] = React.useState(false);
 
   const handleOpenNewFeed = () => {
     setOpenNewFeed(true);

@@ -9,7 +9,7 @@ function FeedListItem(props) {
           <Link className="link" to={`/feeds/${props.feed._id}`}>{props.feed.title}</Link>
         </Box>
         {props.feed.tags.map(tag => (
-          <Chip sx={{ mr: 1 }} label={tag} color="primary" />
+          <Chip key={tag} sx={{ mr: 1 }} label={tag} color="primary" />
         ))}
       </Box>
     </div>
