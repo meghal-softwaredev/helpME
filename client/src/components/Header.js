@@ -31,10 +31,10 @@ function Header() {
             </Link>
             <ul className="dropdown-content">
               <li>
-                <Link to="/profile">User Profile</Link>
+                <Link className="link" to="/profile">User Profile</Link>
               </li>
               <li>
-                <Link to="#signout" onClick={signoutHandler}>
+                <Link className="link" to="#signout" onClick={signoutHandler}>
                   Sign Out
                 </Link>
               </li>
