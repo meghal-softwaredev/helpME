@@ -9,7 +9,7 @@ export const groupListReducer = (state = { loading: true, feeds: [] }, action) =
     case GROUP_LIST_REQUEST:
       return { loading: true };
     case GROUP_LIST_SUCCESS:
-      return { loading: false, groups: action.payload };
+      return { loading: false, groups: action.payload.groups };
     case GROUP_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:

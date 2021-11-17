@@ -12,7 +12,7 @@ function LeftSideBar() {
           <Link to="/feeds">Feeds</Link>
         </li>
         <li>
-          <Link to="/events">Events</Link>
+          <Link to="/groups">Events</Link>
         </li>
       </ul>
     </div>
