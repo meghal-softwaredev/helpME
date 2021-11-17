@@ -57,7 +57,7 @@ groupRouter.put(
   '/:id',
   expressAsyncHandler(async (req, res) => {
     const groupId = req.params.id;
-    const group = await Feed.findById(groupId);
+    const group = await Group.findById(groupId);
     if (group) {
       group.title = req.body.title;
       group.description = req.body.description;
@@ -65,6 +65,20 @@ groupRouter.put(
       res.send({ message: 'Group Updated', group: updatedGroup });
     } else {
       res.status(404).send({ message: 'Group  Not Found' });
+    }
+  })
+);
+
+groupRouter.delete(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const group = await Group.findById(req.params.id);
+    if (group) {
+      const deleteGroup = await group.remove();
+      res.send({ message: 'Group Deleted', group: deleteGroup });
+    } else {
+      res.status(404).send({ message: 'Group Not Found' });
     }
   })
 );
