@@ -6,13 +6,13 @@ function LeftSideBar() {
     <div className="left-sidebar-container">
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link className="link" to="/">Home</Link>
         </li>
         <li>
-          <Link to="/feeds">Feeds</Link>
+          <Link className="link" to="/feeds">Feeds</Link>
         </li>
         <li>
-          <Link to="/groups">Events</Link>
+          <Link className="link" to="/groups">Events</Link>
         </li>
       </ul>
     </div>
