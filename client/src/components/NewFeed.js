@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -17,24 +17,57 @@ import { styled } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import Paper from '@mui/material/Paper';
 
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  createFeed
+} from '../actions/feedActions';
+
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.1),
 }));
 
 export default function NewFeed(props) {
+  const [feedState, setFeedState] = React.useState({
+    title: "",
+    description: "",
+    category: "",
+    tag: "",
+    tags: []
+  });
 
-  const [tag, setTag] = React.useState("");
-  const [tags, setTags] = React.useState([]);
+  const dispatch = useDispatch();
+  /* useEffect((feedState) => {
+    dispatch(
+      createFeed()
+    );
+  }, [
+    dispatch,
+    props.history
+  ]); */
   
+  function handleTitleChange(e) {
+    setFeedState(prev => ({ ...prev, title: e.target.value }));
+  };
+  function handleDescriptionChange(e) {
+    setFeedState(prev => ({ ...prev, description: e.target.value }));
+  };
   function handleTagChange(e) {
-    setTag(e.target.value);
+    setFeedState(prev => ({...prev, tag: e.target.value}));
   };
   const handleAddTag = (event) => {
-    setTags([...tags, tag]);
-    setTag("");
+    setFeedState(prev => ({ ...prev, tags: [...prev.tags, feedState.tag], tag: ""}));
   };
   const handleDeleteTag = (tagToDelete) => () => {
-    setTags((tags) => tags.filter((tag) => tag !== tagToDelete));
+    setFeedState(prev => ({ ...prev, tags: (tags) => tags.filter((tag) => tag !== tagToDelete)}));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(
+      createFeed(feedState)
+    );
+    props.handleCloseNewFeed();
+    setFeedState(prev => ({ ...prev, tags: [] }));
   };
 
   return (
@@ -56,7 +89,7 @@ export default function NewFeed(props) {
             <Typography component="h1" variant="h5">
               Post A Question
             </Typography>
-            <Box component="form" noValidate sx={{ mt: 3 }}>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
@@ -66,6 +99,8 @@ export default function NewFeed(props) {
                     label="Title"
                     name="title"
                     autoComplete="title"
+                    value={feedState.title}
+                    onChange={handleTitleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -77,6 +112,8 @@ export default function NewFeed(props) {
                     placeholder="Description"
                     multiline
                     rows={4}
+                    value={feedState.description}
+                    onChange={handleDescriptionChange}
                   />
                 </Grid>
                 <Grid item xs={12} sm={9}>
@@ -86,7 +123,7 @@ export default function NewFeed(props) {
                     label="Add Tag"
                     name="tag"
                     autoComplete="tag"
-                    value={tag}
+                    value={feedState.tag}
                     onChange={handleTagChange}
                   />
                 </Grid>
@@ -112,7 +149,7 @@ export default function NewFeed(props) {
                     component="ul"
                   >
                     {
-                      tags.map((data) => {
+                      feedState.tags.map((data) => {
                         return (
                           <ListItem key={data}>
                             <Chip
