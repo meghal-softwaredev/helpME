@@ -27,4 +27,16 @@ groupRouter.get(
   })
 );
 
+groupRouter.get(
+  '/:id',
+  expressAsyncHandler(async (req, res) => {
+    const group = await Group.findById(req.params.id);
+    if (group) {
+      res.send(group);
+    } else {
+      res.status(404).send({ message: 'Group Not Found' });
+    }
+  })
+);
+
 export default groupRouter;
