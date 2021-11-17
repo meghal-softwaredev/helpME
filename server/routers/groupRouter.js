@@ -53,4 +53,20 @@ groupRouter.post(
   })
 );
 
+groupRouter.put(
+  '/:id',
+  expressAsyncHandler(async (req, res) => {
+    const groupId = req.params.id;
+    const group = await Feed.findById(groupId);
+    if (group) {
+      group.title = req.body.title;
+      group.description = req.body.description;
+      const updatedGroup = await group.save();
+      res.send({ message: 'Group Updated', group: updatedGroup });
+    } else {
+      res.status(404).send({ message: 'Group  Not Found' });
+    }
+  })
+);
+
 export default groupRouter;
