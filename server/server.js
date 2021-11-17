@@ -3,15 +3,18 @@ import dotenv from 'dotenv';
 import cors from 'cors'
 import mongoose from 'mongoose';
 import morgan from 'morgan';
+import helmet from 'helmet';
 import userRouter from './routers/userRouter.js';
 import feedRouter from './routers/feedRouter.js';
+import eventRouter from './routers/eventRouter.js';
 import feedCategoryRouter from './routers/categoryRouter.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
 
 const app = express();
-app.use(cors());
+app.use(cors({origin: 'http://localhost:3000'}));
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
@@ -24,6 +27,7 @@ mongoose.connect(process.env.MONGODB_URL, {
 app.use('/api/users', userRouter);
 app.use('/api/feeds', feedRouter);
 app.use('/api/categories', feedCategoryRouter);
+app.use('/api/events', eventRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
