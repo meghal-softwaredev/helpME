@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { listGroups } from '../actions/groupActions';
+import GroupListItem from './GroupListItem';
 
 function GroupList(props) {
-  const GroupList = useSelector((state) => state.groupList);
+  const groupList = useSelector((state) => state.groupList);
   const { loading, error, groups } = groupList;
 
   const dispatch = useDispatch();

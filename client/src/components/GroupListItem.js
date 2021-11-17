@@ -1,4 +1,4 @@
-function GroupListItem() {
+function GroupListItem(props) {
   return (
     <div>
       GroupListItem
