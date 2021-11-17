@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import userRouter from './routers/userRouter.js';
 import feedRouter from './routers/feedRouter.js';
 import eventRouter from './routers/eventRouter.js';
+import groupRouter from './routers/groupRouter.js';
 import feedCategoryRouter from './routers/categoryRouter.js';
 
 dotenv.config();
@@ -28,6 +29,7 @@ app.use('/api/users', userRouter);
 app.use('/api/feeds', feedRouter);
 app.use('/api/categories', feedCategoryRouter);
 app.use('/api/events', eventRouter);
+app.use('/api/groups', groupRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
