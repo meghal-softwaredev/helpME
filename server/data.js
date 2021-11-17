@@ -55,7 +55,7 @@ const data = {
       description: `Going along Facebook's read.js tutorial, I get this error:
         Uncaught TypeError: Property 'CommentList' of object [object Object] is not a function`,
       user_id: "618dcf88205f076ec8f55d11",
-      feed_category_id: "6190afe0ee6fb3c345e5c6f9",
+      category_id: "6190afe0ee6fb3c345e5c6f9",
       tags: [`React`]
     },
     {
@@ -66,7 +66,7 @@ const data = {
         Mechanic's Assistant: Are you fixing your Accord yourself? What have you tried so far?
         No I took it to a shop but it was for something different and I thought that would make it stop cutting off`,
       user_id: "618dd0f544fed0b263668d6c",
-      feed_category_id: "6190afe0ee6fb3c345e5c6fa",
+      category_id: "6190afe0ee6fb3c345e5c6fa",
       tags: [`2007`, `Honda`, `Accord`]
     },
     {
@@ -106,6 +106,14 @@ const data = {
       user_id: "618dcf88205f076ec8f55d11",
       category_id: "6190afe0ee6fb3c345e5c6fb",
       group_url: "http://localhost:3000/assets/group/agile.png",
+      followers: [``]
+    },
+    {
+      title: `Javascript`,
+      description: `JavaScript is a scripting or programming language that allows you to implement complex features on web pages`,
+      user_id: "618dcf88205f076ec8f55d11",
+      category_id: "6190afe0ee6fb3c345e5c6fb",
+      group_url: "http://localhost:3000/assets/group/javascript.png",
       followers: [``]
     },
   ],

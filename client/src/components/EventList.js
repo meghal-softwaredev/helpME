@@ -1,31 +1,31 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { listGroups } from '../actions/groupActions';
-import GroupListItem from './GroupListItem';
+import { listEvents } from '../actions/eventActions';
+import EventListItem from './EventListItem';
 import { Button } from '@mui/material';
 
-function GroupList(props) {
-  const groupList = useSelector((state) => state.groupList);
-  const { loading, error, groups } = groupList;
+function EventList(props) {
+  const eventList = useSelector((state) => state.eventList);
+  const { loading, error, events } = eventList;
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(listGroups());
+    dispatch(listEvents());
   }, [dispatch]);
   
   const navigate = useNavigate();
-  const handleEvent = () => {
-    navigate('/events');
+  const handleGroup = () => {
+    navigate('/groups');
   }
 
   return (
     <div>
       <div>
-        <Button size="large" variant="contained" onClick={handleEvent}>
+        <Button size="large" variant="contained">
           Event
         </Button>
-        <Button size="large" variant="contained">
+        <Button size="large" variant="contained" onClick={handleGroup}>
           Group
         </Button>
       </div>
@@ -35,8 +35,8 @@ function GroupList(props) {
         <span>Error: {error}</span>
       ) : (
         <>
-          {groups.map((group) => (
-            <GroupListItem key={group._id} group={group} />
+          {events.map((event) => (
+            <EventListItem key={event._id} event={event} />
           ))}
         </>
       )}
@@ -44,4 +44,4 @@ function GroupList(props) {
   );
 }
 
-export default GroupList;
+export default EventList;

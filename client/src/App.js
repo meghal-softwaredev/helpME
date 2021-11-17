@@ -11,6 +11,8 @@ import Home from './components/Home';
 import FeedList from './components/FeedList';
 import FeedListItem from './components/FeedListItem';
 import Category from './components/Category';
+import GroupList from './components/GroupList';
+import EventList from './components/EventList';
 
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
@@ -30,6 +32,8 @@ function App() {
               <Route path="/category" element={<Category />}></Route>
               <Route path="/feeds" element={<FeedList />}></Route>
               <Route path="/feeds/:id" element={<FeedListItem />}></Route>
+              <Route path="/groups" element={<GroupList />}></Route>
+              <Route path="/events" element={<EventList />}></Route>
               <Route path="/" element={<Home />} exact></Route>
             </Routes>
           </div>
