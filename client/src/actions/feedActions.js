@@ -32,6 +32,7 @@ export const createFeed = (newFeed) => async (dispatch, getState) => {
       '/api/feeds/new', {
         title: newFeed.title,
         description: newFeed.description,
+        category_id: newFeed.category_id,
         user_id: userInfo._id,
         tags: newFeed.tags
       },
