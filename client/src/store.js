@@ -11,6 +11,10 @@ import {
 import {
   groupListReducer
 } from './reducers/groupReducers';
+import {
+  eventListReducer
+} from './reducers/eventReducers';
+
 
 const initialState = {
   userSignin: {
@@ -25,7 +29,8 @@ const reducer = combineReducers({
   userSignin: userSigninReducer,
   feedList: feedListReducer,
   feedCreate: feedCreateReducer,
-  groupList: groupListReducer
+  groupList: groupListReducer,
+  eventList: eventListReducer
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
