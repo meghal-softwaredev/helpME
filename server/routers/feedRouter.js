@@ -54,6 +54,7 @@ feedRouter.post(
     res.send({ message: 'Feed Created', feed: createdFeed });
   })
 );
+
 feedRouter.put(
   '/:id',
   isAuth,
