@@ -4,7 +4,8 @@ import {
   GROUP_LIST_FAIL,
   GROUP_CREATE_REQUEST,
   GROUP_CREATE_SUCCESS,
-  GROUP_CREATE_FAIL
+  GROUP_CREATE_FAIL,
+  GROUP_CREATE_RESET
 } from '../constants/groupConstants';
 
 export const groupListReducer = (state = { loading: true, groups: [] }, action) => {

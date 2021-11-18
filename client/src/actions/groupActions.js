@@ -33,6 +33,7 @@ export const createGroup = (newGroup) => async (dispatch, getState) => {
         title: newGroup.title,
         description: newGroup.description,
         category_id: newGroup.category_id,
+        user_id: userInfo._id,
         group_url: newGroup.group_url,
       },
       {

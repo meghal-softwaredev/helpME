@@ -64,7 +64,7 @@ export default function NewGroup(props) {
       ...prev, title: "",
       description: "",
       category_id: "",
-      group_url }));
+      group_url: "" }));
   };
 
   return (

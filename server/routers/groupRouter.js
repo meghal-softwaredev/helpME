@@ -40,12 +40,13 @@ groupRouter.get(
 );
 
 groupRouter.post(
-  '/',
+  '/new',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const group = new Group({
       title: req.body.title,
       description: req.body.description,
-      user_id: req.user._id,
+      user_id: req.body.user_id,
       group_url: req.body.group_url,
       category_url: req.body.category_url
     });
