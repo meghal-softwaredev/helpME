@@ -8,7 +8,7 @@ import userRouter from './routers/userRouter.js';
 import feedRouter from './routers/feedRouter.js';
 import eventRouter from './routers/eventRouter.js';
 import groupRouter from './routers/groupRouter.js';
-import feedCategoryRouter from './routers/categoryRouter.js';
+import categoryRouter from './routers/categoryRouter.js';
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGODB_URL, {
 
 app.use('/api/users', userRouter);
 app.use('/api/feeds', feedRouter);
-app.use('/api/categories', feedCategoryRouter);
+app.use('/api/categories', categoryRouter);
 app.use('/api/events', eventRouter);
 app.use('/api/groups', groupRouter);
 

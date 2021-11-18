@@ -14,6 +14,9 @@ import {
 import {
   eventListReducer
 } from './reducers/eventReducers';
+import {
+  categoryListReducer,
+} from './reducers/categoryReducers';
 
 
 const initialState = {
@@ -30,7 +33,8 @@ const reducer = combineReducers({
   feedList: feedListReducer,
   feedCreate: feedCreateReducer,
   groupList: groupListReducer,
-  eventList: eventListReducer
+  eventList: eventListReducer,
+  categoryList: categoryListReducer
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

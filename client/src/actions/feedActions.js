@@ -22,15 +22,20 @@ export const listFeeds = () => async (dispatch) => {
   }
 };
 
-export const createFeed = () => async (dispatch, getState) => {
+export const createFeed = (newFeed) => async (dispatch, getState) => {
   dispatch({ type: FEED_CREATE_REQUEST });
   const {
     userSignin: { userInfo },
   } = getState();
   try {
     const { data } = await Axios.post(
-      '/api/feeds',
-      {},
+      '/api/feeds/new', {
+        title: newFeed.title,
+        description: newFeed.description,
+        category_id: newFeed.category_id,
+        user_id: userInfo._id,
+        tags: newFeed.tags
+      },
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       }

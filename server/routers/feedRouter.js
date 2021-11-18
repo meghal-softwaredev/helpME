@@ -40,13 +40,13 @@ feedRouter.get(
 );
 
 feedRouter.post(
-  '/',
+  '/new',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const feed = new Feed({
       title: req.body.title,
       description: req.body.description,
-      user_id: req.user._id,
+      user_id: req.body.user_id,
       category_id: req.body.category_id,
       tags: req.body.tags,
     });

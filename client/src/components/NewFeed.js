@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -16,25 +16,71 @@ import Container from '@mui/material/Container';
 import { styled } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import Paper from '@mui/material/Paper';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { createFeed } from '../actions/feedActions';
+import { listCategories } from '../actions/categoryActions';
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.1),
 }));
 
 export default function NewFeed(props) {
+  const [feedState, setFeedState] = React.useState({
+    title: "",
+    description: "",
+    category_id: "",
+    tag: "",
+    tags: []
+  });
 
-  const [tag, setTag] = React.useState("");
-  const [tags, setTags] = React.useState([]);
+  const categoryList = useSelector((state) => state.categoryList);
+  const {
+    loading,
+    error,
+    categories } = categoryList;
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listCategories());
+  }, [dispatch]);
   
+  function handleTitleChange(e) {
+    setFeedState(prev => ({ ...prev, title: e.target.value }));
+  };
+  function handleDescriptionChange(e) {
+    setFeedState(prev => ({ ...prev, description: e.target.value }));
+  };
   function handleTagChange(e) {
-    setTag(e.target.value);
+    setFeedState(prev => ({...prev, tag: e.target.value}));
+  };
+  function handleCategoryChange(e) {
+    setFeedState(prev => ({ ...prev, category_id: e.target.value }));
   };
   const handleAddTag = (event) => {
-    setTags([...tags, tag]);
-    setTag("");
+    setFeedState(prev => ({ ...prev, tags: [...prev.tags, feedState.tag], tag: ""}));
   };
   const handleDeleteTag = (tagToDelete) => () => {
-    setTags((tags) => tags.filter((tag) => tag !== tagToDelete));
+    setFeedState(prev => ({ ...prev, tags: (tags) => tags.filter((tag) => tag !== tagToDelete)}));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(
+      createFeed(feedState)
+    );
+    props.handleCloseNewFeed();
+    setFeedState(prev => ({
+      ...prev, title: "",
+      description: "",
+      category_id: "",
+      tag: "",
+      tags: [] }));
   };
 
   return (
@@ -56,7 +102,7 @@ export default function NewFeed(props) {
             <Typography component="h1" variant="h5">
               Post A Question
             </Typography>
-            <Box component="form" noValidate sx={{ mt: 3 }}>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
@@ -66,6 +112,8 @@ export default function NewFeed(props) {
                     label="Title"
                     name="title"
                     autoComplete="title"
+                    value={feedState.title}
+                    onChange={handleTitleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -77,7 +125,29 @@ export default function NewFeed(props) {
                     placeholder="Description"
                     multiline
                     rows={4}
+                    value={feedState.description}
+                    onChange={handleDescriptionChange}
                   />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl fullWidth>
+                    <InputLabel>Category</InputLabel>
+                    <Select
+                      id="category"
+                      value={feedState.category_id}
+                      label="Category"
+                      onChange={handleCategoryChange}
+                    >
+                      {categories && categories.map((category) => (
+                        <MenuItem
+                          key={category._id}
+                          value={category._id}
+                        >
+                          {category.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={9}>
                   <TextField
@@ -86,7 +156,7 @@ export default function NewFeed(props) {
                     label="Add Tag"
                     name="tag"
                     autoComplete="tag"
-                    value={tag}
+                    value={feedState.tag}
                     onChange={handleTagChange}
                   />
                 </Grid>
@@ -112,7 +182,7 @@ export default function NewFeed(props) {
                     component="ul"
                   >
                     {
-                      tags.map((data) => {
+                      feedState.tags.map((data) => {
                         return (
                           <ListItem key={data}>
                             <Chip
