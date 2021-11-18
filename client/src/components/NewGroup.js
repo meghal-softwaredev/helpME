@@ -2,20 +2,14 @@ import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Avatar from '@mui/material/Avatar';
-import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import PostAddIcon from '@mui/icons-material/PostAdd';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { styled } from '@mui/material/styles';
-import Chip from '@mui/material/Chip';
-import Paper from '@mui/material/Paper';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -56,6 +50,10 @@ export default function NewGroup(props) {
     setGroupState(prev => ({ ...prev, category_id: e.target.value }));
   };
 
+  function handleDgroupURLChange(e) {
+    setGroupState(prev => ({ ...prev, group_url: e.target.value }));
+  };
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(
@@ -134,6 +132,17 @@ export default function NewGroup(props) {
                       ))}
                     </Select>
                   </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="groupURL"
+                    label="Group Image URL"
+                    placeholder="Group Image URL"
+                    value={groupState.group_url}
+                    onChange={handleDgroupURLChange}
+                  />
                 </Grid>
               </Grid>
               <Button
