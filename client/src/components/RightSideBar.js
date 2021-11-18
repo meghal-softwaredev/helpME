@@ -32,10 +32,10 @@ function RightSideBar() {
         <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} />
         <br />
         <br />
-        {/* <Button size="small" variant="contained" onClick={handleOpenNewEvent}>
+        <Button size="small" variant="contained" onClick={handleOpenNewEvent}>
           Create Event
         </Button>
-        <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} /> */}
+        <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} />
       </div>
     </div>
   )
