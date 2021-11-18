@@ -15,7 +15,7 @@ function Header() {
   return (
     <header className="row">
       <div className="logo">
-        <Link className="brand link" to="/">
+        <Link className="brand link" to="/feeds">
           helpME
         </Link>
       </div>

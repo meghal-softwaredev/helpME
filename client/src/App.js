@@ -34,7 +34,6 @@ function App() {
               <Route path="/feeds/:id" element={<FeedListItem />}></Route>
               <Route path="/groups" element={<GroupList />}></Route>
               <Route path="/events" element={<EventList />}></Route>
-              <Route path="/" element={<Home />} exact></Route>
             </Routes>
           </div>
           <RightSideBar />

@@ -21,24 +21,10 @@ const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.1),
 }));
 
-export default function NewFeed(props) {
-
-  const [tag, setTag] = React.useState("");
-  const [tags, setTags] = React.useState([]);
-  
-  function handleTagChange(e) {
-    setTag(e.target.value);
-  };
-  const handleAddTag = (event) => {
-    setTags([...tags, tag]);
-    setTag("");
-  };
-  const handleDeleteTag = (tagToDelete) => () => {
-    setTags((tags) => tags.filter((tag) => tag !== tagToDelete));
-  };
+export default function NewGroup(props) {
 
   return (
-    <Dialog open={props.openNewFeed} onClose={props.handleCloseNewFeed}>
+    <Dialog open={props.openNewGroup} onClose={props.handleCloseNewGroup}>
         <DialogTitle>
         </DialogTitle>
         <DialogContent>
@@ -54,7 +40,7 @@ export default function NewFeed(props) {
               <PostAddIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Post A Question
+              Create Group
             </Typography>
             <Box component="form" noValidate sx={{ mt: 3 }}>
               <Grid container spacing={2}>
@@ -79,52 +65,6 @@ export default function NewFeed(props) {
                     rows={4}
                   />
                 </Grid>
-                <Grid item xs={12} sm={9}>
-                  <TextField
-                    fullWidth
-                    id="tag"
-                    label="Add Tag"
-                    name="tag"
-                    autoComplete="tag"
-                    value={tag}
-                    onChange={handleTagChange}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={3}>
-                  <Button
-                    variant="contained"
-                    sx={{ mt: 1}}
-                    onClick={handleAddTag}
-                  >
-                    Add
-                  </Button>
-                </Grid>
-                <Grid item xs={12}>
-                  <Paper
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      flexWrap: 'wrap',
-                      listStyle: 'none',
-                      p: 0.5,
-                      m: 0,
-                    }}
-                    component="ul"
-                  >
-                    {
-                      tags.map((data) => {
-                        return (
-                          <ListItem key={data}>
-                            <Chip
-                              label={data}
-                              onDelete={handleDeleteTag(data)}
-                            />
-                          </ListItem>
-                        );
-                      })
-                    } 
-                  </Paper>
-                </Grid>
               </Grid>
               <Button
                 type="submit"
@@ -132,7 +72,7 @@ export default function NewFeed(props) {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Post
+                Create Group
               </Button>
             </Box>
           </Box>
@@ -141,4 +81,3 @@ export default function NewFeed(props) {
       </Dialog>
   );
 }
-

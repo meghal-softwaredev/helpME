@@ -6,9 +6,6 @@ function LeftSideBar() {
     <div className="left-sidebar-container">
       <ul>
         <li>
-          <Link className="link" to="/">Home</Link>
-        </li>
-        <li>
           <Link className="link" to="/feeds">Feeds</Link>
         </li>
         <li>
