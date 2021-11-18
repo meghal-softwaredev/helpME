@@ -9,7 +9,8 @@ import {
   feedCreateReducer,
 } from './reducers/feedReducers';
 import {
-  groupListReducer
+  groupListReducer,
+  groupCreateReducer
 } from './reducers/groupReducers';
 import {
   eventListReducer
@@ -34,7 +35,8 @@ const reducer = combineReducers({
   feedCreate: feedCreateReducer,
   groupList: groupListReducer,
   eventList: eventListReducer,
-  categoryList: categoryListReducer
+  categoryList: categoryListReducer,
+  groupCreate: groupCreateReducer
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
