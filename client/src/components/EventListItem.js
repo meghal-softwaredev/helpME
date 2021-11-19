@@ -16,7 +16,7 @@ function EventListItem(props) {
           <Link className="link" to={`/groups/${_id}`}>{title}</Link>
         </Typography>
         <Typography component="h6" variant="h6">{description}</Typography>
-        <Button variant="contained">Join</Button>
+        <Button variant="contained">Attend</Button>
       </Grid>
     </Grid>
     </div>
