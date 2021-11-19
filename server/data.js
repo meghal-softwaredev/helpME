@@ -54,8 +54,8 @@ const data = {
       title: `Facebook's react.js-- object is not a function`,
       description: `Going along Facebook's read.js tutorial, I get this error:
         Uncaught TypeError: Property 'CommentList' of object [object Object] is not a function`,
-      user_id: "618dcf88205f076ec8f55d11",
-      category_id: "6190afe0ee6fb3c345e5c6f9",
+      user: "61918479bf9891d25a41d805",
+      category: "6190afe0ee6fb3c345e5c6f9",
       tags: [`React`],
       answers: [
         {
@@ -64,7 +64,7 @@ const data = {
         <CommentList />
         which jsx compiles to
         CommentList(null)`,
-          user_id: "6191a1242faea3ef49478687",
+          user: "61918479bf9891d25a41d804",
           upvotes: 10
         }
       ]
@@ -76,8 +76,8 @@ const data = {
         2007 Honda Accord
         Mechanic's Assistant: Are you fixing your Accord yourself? What have you tried so far?
         No I took it to a shop but it was for something different and I thought that would make it stop cutting off`,
-      user_id: "618dd0f544fed0b263668d6c",
-      category_id: "6190afe0ee6fb3c345e5c6fa",
+      user: "618dd0f544fed0b263668d6c",
+      category: "6190afe0ee6fb3c345e5c6fa",
       tags: [`2007`, `Honda`, `Accord`],
       answers: [
         {
@@ -86,7 +86,7 @@ const data = {
         They should also check for vacuum leaks too.
         This data can help a lot finding that stalling issue.
         Thanks again and all the best:)`,
-          user_id: "61919998bf9891d25a41d814",
+          user: "61919998bf9891d25a41d814",
           upvotes: 50
         }
       ]
@@ -94,13 +94,13 @@ const data = {
     {
       title: `What to Eat With Hummus?`,
       description: `You’d be hard-pressed to find a spread (or is it a dip?) more universally loved than . The delicious blend of mashed chickpeas, tahini, oils, and spices is a welcome sight on any table. But, after a while,  gets boring. How many different foods can you even eat hummus? `,
-      user_id: "618dee2b0b54ac2ca484ba21",
-      category_id: "6190afe0ee6fb3c345e5c6fb",
+      user: "618dee2b0b54ac2ca484ba21",
+      category: "6190afe0ee6fb3c345e5c6fb",
       tags: [`Hummus`],
       answers: [
         {
           answer: `You can’t go wrong with a classic. Whether it’s white or wheat, hard or soft, pita bread and hummus are always a perfect pairing.`,
-          user_id: "61919a3ebf9891d25a41d817",
+          user: "61919a3ebf9891d25a41d817",
           upvotes: 20
         }
       ]
