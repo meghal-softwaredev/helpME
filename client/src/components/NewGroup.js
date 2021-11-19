@@ -34,10 +34,6 @@ export default function NewGroup(props) {
   const { categories } = categoryList;
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(listCategories());
-  }, [dispatch]);
   
   function handleTitleChange(e) {
     setGroupState(prev => ({ ...prev, title: e.target.value }));
@@ -50,7 +46,7 @@ export default function NewGroup(props) {
     setGroupState(prev => ({ ...prev, category_id: e.target.value }));
   };
 
-  function handleDgroupURLChange(e) {
+  function handlegroupURLChange(e) {
     setGroupState(prev => ({ ...prev, group_url: e.target.value }));
   };
   
@@ -141,7 +137,7 @@ export default function NewGroup(props) {
                     label="Group Image URL"
                     placeholder="Group Image URL"
                     value={groupState.group_url}
-                    onChange={handleDgroupURLChange}
+                    onChange={handlegroupURLChange}
                   />
                 </Grid>
               </Grid>
