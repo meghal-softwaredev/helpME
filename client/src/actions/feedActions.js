@@ -1,11 +1,14 @@
 import Axios from 'axios';
 import {
-  FEED_LIST_FAIL,
   FEED_LIST_REQUEST,
   FEED_LIST_SUCCESS,
-  FEED_CREATE_FAIL,
+  FEED_LIST_FAIL,
   FEED_CREATE_REQUEST,
   FEED_CREATE_SUCCESS,
+  FEED_CREATE_FAIL,
+  INDIVIDUAL_FEED_DETAILS_REQUEST,
+  INDIVIDUAL_FEED_DETAILS_SUCCESS,
+  INDIVIDUAL_FEED_DETAILS_FAIL,
 } from '../constants/feedConstants';
 
 export const listFeeds = () => async (dispatch) => {
@@ -50,5 +53,21 @@ export const createFeed = (newFeed) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: FEED_CREATE_FAIL, payload: message });
+  }
+};
+
+export const getIndividualFeed = (feedId) => async (dispatch) => {
+  dispatch({ type: INDIVIDUAL_FEED_DETAILS_REQUEST, payload: feedId });
+  try {
+    const { data } = await Axios.get(`/api/feeds/${feedId}`);
+    dispatch({ type: INDIVIDUAL_FEED_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: INDIVIDUAL_FEED_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
 };
