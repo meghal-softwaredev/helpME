@@ -1,19 +1,6 @@
 import React, { useEffect } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { Button, TextField, Dialog, DialogContent, DialogTitle, Avatar, Grid, Box, Typography, Container, InputLabel, MenuItem, FormControl, Select} from '@mui/material';
 import { styled } from '@mui/material/styles';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
 import { createGroup } from '../actions/groupActions';
 import { listCategories } from '../actions/categoryActions';
@@ -30,11 +17,31 @@ export default function NewGroup(props) {
     group_url: ""
   });
 
+  const individualGroupDetails = useSelector((state) => state.individualGroupDetails);
+  const { group } = individualGroupDetails;
+
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
 
   const dispatch = useDispatch();
-  
+  useEffect(() => {
+    dispatch(listCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+   
+    if (!group) {
+      dispatch(createGroup(groupState));
+    } else {
+      setGroupState({
+        title: group.title,
+        description: group.description,
+        category_id: group.category_id,
+        group_url: group.group_url
+      })
+    }
+  }, []);
+
   function handleTitleChange(e) {
     setGroupState(prev => ({ ...prev, title: e.target.value }));
   };
@@ -52,9 +59,6 @@ export default function NewGroup(props) {
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(
-      createGroup(groupState)
-    );
     props.handleCloseNewGroup();
     setGroupState(prev => ({
       ...prev, title: "",
@@ -64,7 +68,7 @@ export default function NewGroup(props) {
   };
 
   return (
-    <Dialog open={props.openNewGroup} onClose={props.handleCloseNewGroup}>
+    <Dialog open={props.openNewGroup} onClose={props.handleCloseNewGroup} >
         <DialogTitle>
         </DialogTitle>
         <DialogContent>
@@ -79,9 +83,14 @@ export default function NewGroup(props) {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               {/* <PostAddIcon /> */}
             </Avatar>
-            <Typography component="h1" variant="h5">
-              Create Group
-            </Typography>
+            {(props.edit) ? (
+              <Typography component="h1" variant="h5">
+                Update Group
+              </Typography>) : (
+              <Typography component="h1" variant="h5">
+                Create Group
+              </Typography>
+             )}
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -141,7 +150,14 @@ export default function NewGroup(props) {
                   />
                 </Grid>
               </Grid>
-              <Button
+              {props.edit ? (<Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Update Group
+              </Button>) : (<Button
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -149,6 +165,7 @@ export default function NewGroup(props) {
               >
                 Create Group
               </Button>
+              )}
             </Box>
           </Box>
         </Container>
