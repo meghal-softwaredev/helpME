@@ -4,12 +4,12 @@ import { Link, useParams } from 'react-router-dom';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 
-function IndividualFeed() {
+function IndividualGroup() {
   let groupId = useParams().id;
   
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getIndividualFeed(groupId));
+    dispatch(getIndividualGroup(groupId));
   }, [dispatch, groupId]);
 
   return (

@@ -59,7 +59,7 @@ export const createGroup = (newGroup) => async (dispatch, getState) => {
 export const getIndividualGroup = (groupId) => async (dispatch) => {
   dispatch({ type: INDIVIDUAL_GROUP_DETAILS_REQUEST, payload: groupId });
   try {
-    const { data } = await Axios.get(`/api/feeds/${feedId}`);
+    const { data } = await Axios.get(`/api/groups/${groupId}`);
     dispatch({ type: INDIVIDUAL_GROUP_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
