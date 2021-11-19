@@ -2,6 +2,7 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import data from '../data.js';
 import Feed from '../models/feedModel.js';
+import User from '../models/userModel.js';
 import { isAuth } from '../helpers/utils.js';
 
 const feedRouter = express.Router();
@@ -30,11 +31,11 @@ feedRouter.get(
 feedRouter.get(
   '/:id',
   expressAsyncHandler(async (req, res) => {
-    const feed = await Feed.findById(req.params.id);
+    const feed = await Feed.findById(req.params.id).populate("user");
     if (feed) {
       res.send(feed);
     } else {
-      res.status(404).send({ message: 'Feed Not Found' });
+      res.status(404).send({ message: 'Feed Details Not Found' });
     }
   })
 );
