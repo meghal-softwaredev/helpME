@@ -71,3 +71,22 @@ export const getIndividualGroup = (groupId) => async (dispatch) => {
     });
   }
 };
+
+export const updateGroup = (group) => async (dispatch, getState) => {
+  dispatch({ type: GROUP_UPDATE_REQUEST, payload: group });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.put(`/api/groups/${group._id}`, group, {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type:GROUP_UPDATE_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: GROUP_UPDATE_FAIL, payload: message });
+  }
+};

@@ -19,20 +19,17 @@ export default function NewGroup(props) {
 
   const individualGroupDetails = useSelector((state) => state.individualGroupDetails);
   const { group } = individualGroupDetails;
-
+  
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
-
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listCategories());
   }, [dispatch]);
 
   useEffect(() => {
-   
-    if (!group) {
-      dispatch(createGroup(groupState));
-    } else {
+    if (group) {
       setGroupState({
         title: group.title,
         description: group.description,
@@ -59,6 +56,11 @@ export default function NewGroup(props) {
   
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!group) {
+      dispatch(createGroup(groupState));
+    } else {
+      dispatch(updateGroup(groupState));
+    }
     props.handleCloseNewGroup();
     setGroupState(prev => ({
       ...prev, title: "",
