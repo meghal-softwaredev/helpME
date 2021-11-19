@@ -37,7 +37,7 @@ function LeftSideBar() {
           <Button size="small" variant="contained" onClick={handleOpenNewGroup}>
             Create Group
           </Button>
-          <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} />
+          <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={false}/>
           <br />
           <br />
           <Button size="small" variant="contained" onClick={handleOpenNewEvent}>
