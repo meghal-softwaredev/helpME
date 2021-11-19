@@ -5,15 +5,12 @@ import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 
 function IndividualFeed() {
-  const dispatch = useDispatch();
   let groupId = useParams().id;
-
-  const userSignin = useSelector((state) => state.userSignin);
-  const { userInfo } = userSignin;
-
+  
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getIndividualFeed(feedId));
-  }, [dispatch, feedId]);
+    dispatch(getIndividualFeed(groupId));
+  }, [dispatch, groupId]);
 
   return (
     <div className="item-container">

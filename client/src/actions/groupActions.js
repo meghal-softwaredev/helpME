@@ -52,3 +52,19 @@ export const createGroup = (newGroup) => async (dispatch, getState) => {
     dispatch({ type: GROUP_CREATE_FAIL, payload: message });
   }
 };
+
+export const getIndividualGroup = (groupId) => async (dispatch) => {
+  dispatch({ type: INDIVIDUAL_GROUP_DETAILS_REQUEST, payload: groupId });
+  try {
+    const { data } = await Axios.get(`/api/feeds/${feedId}`);
+    dispatch({ type: INDIVIDUAL_GROUP_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: INDIVIDUAL_GROUP_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
