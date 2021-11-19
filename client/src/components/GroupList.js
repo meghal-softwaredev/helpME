@@ -22,7 +22,7 @@ function GroupList(props) {
   return (
     <div>
       <div>
-        <Button size="large" variant="contained" onClick={handleEvent}>
+        <Button size="large" variant="contained" onClick={handleEvent} sx={{mr: 2}}>
           Event
         </Button>
         <Button size="large" variant="contained">

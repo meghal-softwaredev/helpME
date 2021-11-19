@@ -6,7 +6,6 @@ import Footer from './components/Footer';
 import Register from './components/Register';
 import Signin from './components/Signin';
 import LeftSideBar from './components/LeftSideBar';
-import RightSideBar from './components/RightSideBar';
 import Home from './components/Home';
 import FeedList from './components/FeedList';
 import FeedListItem from './components/FeedListItem';
@@ -36,7 +35,6 @@ function App() {
               <Route path="/events" element={<EventList />}></Route>
             </Routes>
           </div>
-          <RightSideBar />
         </main>
         ):(
           <main className="base-container">

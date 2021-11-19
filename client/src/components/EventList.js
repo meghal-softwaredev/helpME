@@ -22,7 +22,7 @@ function EventList(props) {
   return (
     <div>
       <div>
-        <Button size="large" variant="contained">
+        <Button size="large" variant="contained" sx={{mr: 2}}>
           Event
         </Button>
         <Button size="large" variant="contained" onClick={handleGroup}>
