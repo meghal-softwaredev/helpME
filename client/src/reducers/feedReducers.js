@@ -6,6 +6,9 @@ const {
   FEED_CREATE_SUCCESS,
   FEED_CREATE_FAIL,
   FEED_CREATE_RESET,
+  INDIVIDUAL_FEED_DETAILS_REQUEST,
+  INDIVIDUAL_FEED_DETAILS_SUCCESS,
+  INDIVIDUAL_FEED_DETAILS_FAIL
 } = require('../constants/feedConstants');
 
 export const feedListReducer = (
@@ -37,6 +40,19 @@ export const feedCreateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case FEED_CREATE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const individualFeedDetailsReducer = (state = { loading: true }, action) => {
+  switch (action.type) {
+    case INDIVIDUAL_FEED_DETAILS_REQUEST:
+      return { loading: true };
+    case INDIVIDUAL_FEED_DETAILS_SUCCESS:
+      return { loading: false, feed: action.payload };
+    case INDIVIDUAL_FEED_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
