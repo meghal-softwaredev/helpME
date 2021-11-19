@@ -7,6 +7,11 @@ const feedSchema = new mongoose.Schema(
     user_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
     category_id: { type: mongoose.Schema.Types.ObjectID, ref: 'Category' },
     tags: [{ type: String, required: true }],
+    answers: [{
+      answer: { type: String, required: true },
+      user_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
+      upvotes: { type: String, required: true }
+    }]
   },
   {
     timestamps: true,
