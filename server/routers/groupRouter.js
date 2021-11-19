@@ -59,10 +59,14 @@ groupRouter.put(
   '/:id',
   expressAsyncHandler(async (req, res) => {
     const groupId = req.params.id;
+
     const group = await Group.findById(groupId);
     if (group) {
       group.title = req.body.title;
       group.description = req.body.description;
+      group.user_id = req.body.user_id;
+      group.group_url = req.body.group_url; 
+      group.category_id = req.body.category_id;
       const updatedGroup = await group.save();
       res.send({ message: 'Group Updated', group: updatedGroup });
     } else {

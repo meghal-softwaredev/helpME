@@ -60,7 +60,7 @@ export default function NewGroup(props) {
     if (!group) {
       dispatch(createGroup(groupState));
     } else {
-      dispatch(updateGroup(groupState));
+      dispatch(updateGroup(props.groupId, groupState));
     }
     props.handleCloseNewGroup();
     setGroupState(prev => ({

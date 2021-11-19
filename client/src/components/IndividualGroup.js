@@ -50,7 +50,7 @@ function IndividualGroup(props) {
                 <Button size="small" variant="contained" onClick={handleOpenNewGroup}>
                   Edit
                 </Button>
-                <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={true}/>
+                <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={true} groupId={id}/>
                 <Button size="small" variant="contained" >
                   Delete
                 </Button>

@@ -75,15 +75,24 @@ export const getIndividualGroup = (groupId) => async (dispatch) => {
   }
 };
 
-export const updateGroup = (group) => async (dispatch, getState) => {
+export const updateGroup = (groupId, group) => async (dispatch, getState) => {
+  console.log("group",groupId);
   dispatch({ type: GROUP_UPDATE_REQUEST, payload: group });
   const {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.put(`/api/groups/${group._id}`, group, {
+    const { data } = await Axios.put(`/api/groups/${groupId}`, { title: group.title,
+          description: group.description,
+          category_id: group.category_id,
+          user_id: userInfo._id,
+          group_url: group.group_url }, 
+    {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
+    // const { data } = await Axios.put(`/api/groups/${group._id}/edit`, { group, user_id: userInfo._id }, {
+    //   headers: { Authorization: `Bearer ${userInfo.token}` },
+    // });
     dispatch({ type:GROUP_UPDATE_SUCCESS, payload: data });
   } catch (error) {
     const message =
