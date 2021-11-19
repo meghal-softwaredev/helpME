@@ -11,5 +11,10 @@ header {
     display: flex;
     justify-content: space-between;
     gap: 20px;
+
+    ul {
+      display: flex;
+      gap: 20px;
+    }
   }
 }

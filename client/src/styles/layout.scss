@@ -1,3 +1,5 @@
+@import "./color.scss";
+
 /* Layout */
 .grid-container {
   display: grid;
@@ -11,8 +13,8 @@
 }
 header {
   grid-area: header;
-  background-color: #203040;
-  color: #ffffff;
+  background-color: $color-background-primary;
+  color: $color-white;
 }
 main {
   grid-area: main;
@@ -20,13 +22,13 @@ main {
 }
 footer {
   grid-area: footer;
-  background-color: #203040;
-  color: #ffffff;
+  background-color: $color-background-primary;
+  color: $color-white;
 }
 
 .base-container {
   display: flex;
-  background-color: #005f73;
+  background-color: $color-background-secondary;
 }
 
 .main-container {
