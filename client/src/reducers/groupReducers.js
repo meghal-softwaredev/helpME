@@ -8,7 +8,10 @@ import {
   GROUP_CREATE_RESET,
   INDIVIDUAL_GROUP_DETAILS_REQUEST,
   INDIVIDUAL_GROUP_DETAILS_SUCCESS,
-  INDIVIDUAL_GROUP_DETAILS_FAIL
+  INDIVIDUAL_GROUP_DETAILS_FAIL,
+  GROUP_UPDATE_REQUEST,
+  GROUP_UPDATE_SUCCESS,
+  GROUP_UPDATE_FAIL,
 } from '../constants/groupConstants';
 
 export const groupListReducer = (state = { loading: true, groups: [] }, action) => {
@@ -46,6 +49,19 @@ export const individualGroupDetailsReducer = (state = { loading: true }, action)
     case INDIVIDUAL_GROUP_DETAILS_SUCCESS:
       return { loading: false, group: action.payload };
     case INDIVIDUAL_GROUP_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const groupUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GROUP_UPDATE_REQUEST:
+      return { loading: true };
+    case GROUP_UPDATE_SUCCESS:
+      return { loading: false, success: true };
+    case GROUP_UPDATE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

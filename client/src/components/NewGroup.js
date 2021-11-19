@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { createGroup } from '../actions/groupActions';
 import { listCategories } from '../actions/categoryActions';
+import { updateGroup } from '../actions/groupActions';
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.1),
