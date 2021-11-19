@@ -9,10 +9,10 @@ import LeftSideBar from './components/LeftSideBar';
 import RightSideBar from './components/RightSideBar';
 import Home from './components/Home';
 import FeedList from './components/FeedList';
-import FeedListItem from './components/FeedListItem';
 import Category from './components/Category';
 import GroupList from './components/GroupList';
 import EventList from './components/EventList';
+import IndividualFeed from './components/IndividualFeed';
 
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
@@ -31,7 +31,7 @@ function App() {
               <Route path="/signin" element={<Signin />}></Route>
               <Route path="/category" element={<Category />}></Route>
               <Route path="/feeds" element={<FeedList />}></Route>
-              <Route path="/feeds/:id" element={<FeedListItem />}></Route>
+              <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
               <Route path="/groups" element={<GroupList />}></Route>
               <Route path="/events" element={<EventList />}></Route>
             </Routes>
