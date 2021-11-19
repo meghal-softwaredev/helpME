@@ -1,6 +1,6 @@
 import { Chip, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import "./FeedListItem.scss";
+import "../styles/components/FeedListItem.scss";
 function FeedListItem(props) {
   return (
     <div className="feed-item-container">

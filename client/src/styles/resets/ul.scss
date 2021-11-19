@@ -1,0 +1,13 @@
+.reset-ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+
+  li {
+    text-decoration: none;
+
+    a {
+      color: #fff;
+    }
+  }
+}

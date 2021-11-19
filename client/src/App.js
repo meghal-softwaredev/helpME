@@ -1,4 +1,4 @@
-import './App.scss';
+import './styles/main.scss';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Header from './components/Header';

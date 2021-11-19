@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import "./Header.scss";
+import "../styles/components/Header.scss";
 import { useDispatch, useSelector } from 'react-redux';
 import { signout } from "../actions/userActions";
 
@@ -29,7 +29,7 @@ function Header() {
             <Link className="link" to="#"> Name
               {userInfo.name} <i className="fa fa-caret-down"></i>{' '}
             </Link>
-            <ul className="dropdown-content">
+            <ul className="dropdown-content reset-ul">
               <li>
                 <Link className="link" to="/profile">User Profile</Link>
               </li>
@@ -43,7 +43,7 @@ function Header() {
         </nav>
           ) : ( 
         <nav>
-          <ul>
+            <ul className="reset-ul">
             <li>
               <Link to="/register">Register</Link>
             </li>

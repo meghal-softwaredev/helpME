@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./LeftSideBar.scss";
+import "../styles/components/LeftSideBar.scss";
 import React, { useState} from 'react';
 import { Button } from '@mui/material';
 import NewGroup from './NewGroup';
@@ -26,7 +26,7 @@ function LeftSideBar() {
   };
   return (
     <div className="left-sidebar-container">
-      <ul>
+      <ul className="reset-ul">
         <li>
           <Link className="link" to="/feeds">Feeds</Link>
         </li>
