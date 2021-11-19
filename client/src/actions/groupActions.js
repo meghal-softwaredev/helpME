@@ -5,7 +5,10 @@ import {
   GROUP_LIST_FAIL,
   GROUP_CREATE_REQUEST,
   GROUP_CREATE_SUCCESS,
-  GROUP_CREATE_FAIL
+  GROUP_CREATE_FAIL,
+  INDIVIDUAL_GROUP_DETAILS_REQUEST,
+  INDIVIDUAL_GROUP_DETAILS_SUCCESS,
+  INDIVIDUAL_GROUP_DETAILS_FAIL
 } from '../constants/groupConstants';
 
 export const listGroups = () => async (dispatch) => {
