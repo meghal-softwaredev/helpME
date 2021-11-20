@@ -7,12 +7,13 @@ const feedSchema = new mongoose.Schema(
     user: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
     category: { type: mongoose.Schema.Types.ObjectID, ref: 'Category' },
     tags: [{ type: String, required: true }],
-    answers: [{
+    answers: [{ type: mongoose.Schema.Types.ObjectID, ref: 'FeedAnswer' }]
+    /* answers: [{
       answer: { type: String, required: true },
       user: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
       upvotes: { type: String, required: true },
       posted_at: { type: Date, default: Date.now, required: true }
-    }]
+    }] */
   },
   {
     timestamps: true,
