@@ -2,6 +2,7 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import data from '../data.js';
 import Feed from '../models/feedModel.js';
+import FeedAnswer from '../models/feedAnswerModel.js';
 import User from '../models/userModel.js';
 import { isAuth } from '../helpers/utils.js';
 
@@ -29,11 +30,23 @@ feedRouter.get(
 );
 
 feedRouter.get(
+  '/answers/seed',
+  expressAsyncHandler(async (req, res) => {
+    await FeedAnswer.remove({});
+    const createdFeedAnswers = await FeedAnswer.insertMany(data.feedAnswers);
+    res.send({ createdFeedAnswers });
+  })
+);
+
+feedRouter.get(
   '/:id',
   expressAsyncHandler(async (req, res) => {
     const feed = await Feed.findById(req.params.id).populate("user");
+    
+    const answers = await FeedAnswer.find({ feed: req.params.id }).populate("user");
+    const feedData = { feed, answers};
     if (feed) {
-      res.send(feed);
+      res.send(feedData);
     } else {
       res.status(404).send({ message: 'Feed Details Not Found' });
     }
@@ -47,8 +60,8 @@ feedRouter.post(
     const feed = new Feed({
       title: req.body.title,
       description: req.body.description,
-      user_id: req.body.user_id,
-      category_id: req.body.category_id,
+      user: req.body.user_id,
+      category: req.body.category_id,
       tags: req.body.tags,
     });
     const createdFeed = await feed.save();
@@ -84,6 +97,22 @@ feedRouter.delete(
     } else {
       res.status(404).send({ message: 'Feed Not Found' });
     }
+  })
+);
+
+feedRouter.post(
+  '/:id/answer/new',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+
+    const answer = new FeedAnswer({
+      feed: req.params.id,
+      answer: req.body.answer,
+      user: req.body.user_id,
+      upvotes: 0,
+    });
+    const createdAnswer = await answer.save();
+    res.send({ message: 'Answer Created', answer: createdAnswer });
   })
 );
 
