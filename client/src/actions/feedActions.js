@@ -6,12 +6,18 @@ import {
   FEED_CREATE_REQUEST,
   FEED_CREATE_SUCCESS,
   FEED_CREATE_FAIL,
+  FEED_UPDATE_REQUEST,
+  FEED_UPDATE_SUCCESS,
+  FEED_UPDATE_FAIL,
   ANSWER_CREATE_REQUEST,
   ANSWER_CREATE_SUCCESS,
   ANSWER_CREATE_FAIL,
   INDIVIDUAL_FEED_DETAILS_REQUEST,
   INDIVIDUAL_FEED_DETAILS_SUCCESS,
   INDIVIDUAL_FEED_DETAILS_FAIL,
+  FEED_ANSWERS_REQUEST,
+  FEED_ANSWERS_SUCCESS,
+  FEED_ANSWERS_FAIL
 } from '../constants/feedConstants';
 
 export const listFeeds = () => async (dispatch) => {
@@ -59,6 +65,37 @@ export const createFeed = (newFeed) => async (dispatch, getState) => {
   }
 };
 
+export const updateFeed = (updatedFeed) => async (dispatch, getState) => {
+  dispatch({ type: FEED_UPDATE_REQUEST });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.put(
+      `/api/feeds/${updatedFeed.feedId}`, {
+        title: updatedFeed.title,
+        description: updatedFeed.description,
+        category_id: updatedFeed.category_id,
+        user_id: userInfo._id,
+        tags: updatedFeed.tags
+    },
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
+    );
+    dispatch({
+      type: FEED_UPDATE_SUCCESS,
+      payload: data.feed,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: FEED_UPDATE_FAIL, payload: message });
+  }
+};
+
 export const getIndividualFeed = (feedId) => async (dispatch) => {
   dispatch({ type: INDIVIDUAL_FEED_DETAILS_REQUEST, payload: feedId });
   try {
@@ -75,9 +112,25 @@ export const getIndividualFeed = (feedId) => async (dispatch) => {
   }
 };
 
+export const getFeedAnswers = (feedId) => async (dispatch) => {
+  dispatch({ type: FEED_ANSWERS_REQUEST, payload: feedId });
+  try {
+    const { data } = await Axios.get(`/api/feeds/${feedId}/answers`);
+    dispatch({ type: FEED_ANSWERS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: FEED_ANSWERS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 
 export const saveAnswer = (newAnswerDetails) => async (dispatch, getState) => {
-  dispatch({ type: FEED_CREATE_REQUEST });
+  dispatch({ type: ANSWER_CREATE_REQUEST });
   const {
     userSignin: { userInfo },
   } = getState();
