@@ -14,6 +14,8 @@ import {
   groupListReducer,
   groupCreateReducer,
   individualGroupDetailsReducer,
+  groupUpdateReducer,
+  groupDeleteReducer
 } from './reducers/groupReducers';
 import {
   eventListReducer
@@ -43,6 +45,8 @@ const reducer = combineReducers({
   categoryList: categoryListReducer,
   groupCreate: groupCreateReducer,
   individualGroupDetails: individualGroupDetailsReducer,
+  groupUpdate : groupUpdateReducer,
+  groupDelete: groupDeleteReducer,
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

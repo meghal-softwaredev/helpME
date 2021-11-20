@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
 import { Button, TextField, Dialog, DialogContent, DialogTitle, Avatar, Grid, Box, Typography, Container, InputLabel, MenuItem, FormControl, Select} from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { createGroup } from '../actions/groupActions';
 import { listCategories } from '../actions/categoryActions';
 import { updateGroup } from '../actions/groupActions';
-
-const ListItem = styled('li')(({ theme }) => ({
-  margin: theme.spacing(0.1),
-}));
 
 export default function NewGroup(props) {
   const [groupState, setGroupState] = React.useState({
@@ -38,7 +33,7 @@ export default function NewGroup(props) {
         group_url: group.group_url
       })
     }
-  }, []);
+  }, [group]);
 
   function handleTitleChange(e) {
     setGroupState(prev => ({ ...prev, title: e.target.value }));
@@ -157,6 +152,7 @@ export default function NewGroup(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
+                onClick={() => window.location.reload(false)}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Update Group
@@ -164,6 +160,7 @@ export default function NewGroup(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
+                onClick={() => window.location.reload(false)}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Create Group
