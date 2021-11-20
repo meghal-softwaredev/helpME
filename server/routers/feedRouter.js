@@ -42,13 +42,24 @@ feedRouter.get(
   '/:id',
   expressAsyncHandler(async (req, res) => {
     const feed = await Feed.findById(req.params.id).populate("user");
-    
-    const answers = await FeedAnswer.find({ feed: req.params.id }).populate("user");
-    const feedData = { feed, answers};
+
     if (feed) {
-      res.send(feedData);
+      res.send(feed);
     } else {
       res.status(404).send({ message: 'Feed Details Not Found' });
+    }
+  })
+);
+
+feedRouter.get(
+  '/:id/answers',
+  expressAsyncHandler(async (req, res) => {
+
+    const answers = await FeedAnswer.find({ feed: req.params.id }).populate("user");
+    if (answers) {
+      res.send(answers);
+    } else {
+      res.status(404).send({ message: 'Feed Answers Not Found' });
     }
   })
 );
@@ -78,6 +89,9 @@ feedRouter.put(
     if (feed) {
       feed.title = req.body.title;
       feed.description = req.body.description;
+      feed.user = req.body.user_id;
+      feed.category = req.body.category_id;
+      feed.tags = req.body.tags;
       const updatedFeed = await feed.save();
       res.send({ message: 'Feed Updated', feed: updatedFeed });
     } else {
