@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 import { Grid, Button, Typography } from '@mui/material';
 import { getIndividualGroup } from '../actions/groupActions';
 import NewGroup from './NewGroup';
+import ConfirmDialog from './ConfirmDialog';
+import { deleteGroup } from '../actions/groupActions';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function IndividualGroup(props) {
   const [openNewGroup, setOpenNewGroup] = useState(false);
+  const [openDeleteGroup, setOpenDeleteGroup] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const individualGroupDetails = useSelector((state) => state.individualGroupDetails);
   const { loading, error, group } = individualGroupDetails;
@@ -19,12 +24,25 @@ function IndividualGroup(props) {
     dispatch(getIndividualGroup(id));
   }, [dispatch, id]);
 
+  const deleteGroupHandler = () => {
+    dispatch(deleteGroup(id));
+    navigate("/groups");
+  }
+ 
   const handleOpenNewGroup = () => {
     setOpenNewGroup(true);
   };
 
   const handleCloseNewGroup = () => {
     setOpenNewGroup(false);
+  };
+
+  const handleOpenDeleteGroup = () => {
+    setOpenDeleteGroup(true);
+  };
+
+  const handleCloseDeleteGroup = () => {
+    setOpenDeleteGroup(false);
   };
 
   return (
@@ -46,14 +64,22 @@ function IndividualGroup(props) {
                   <Link className="link" to={`/groups/${id}`}>{group.title}</Link>
                 </Typography>
               </Grid>
-             <Grid item justifyContent="flex-end">
+             <Grid item >
                 <Button size="small" variant="contained" onClick={handleOpenNewGroup}>
                   Edit
                 </Button>
                 <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={true} groupId={id}/>
-                <Button size="small" variant="contained" >
+                <Button size="small" variant="contained" onClick={handleOpenDeleteGroup}>
                   Delete
                 </Button>
+                <ConfirmDialog
+                  title="Delete Group?"
+                  openDeleteGroup={openDeleteGroup}
+                  handleCloseDeleteGroup={handleCloseDeleteGroup}
+                  onConfirm={deleteGroupHandler}
+                >
+                  Are you sure you want to delete this group?
+                </ConfirmDialog>
               </Grid>
             </Grid>
             <Typography component="h6" variant="h6">{group.description}</Typography>

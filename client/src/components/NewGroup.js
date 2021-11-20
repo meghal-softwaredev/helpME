@@ -38,7 +38,7 @@ export default function NewGroup(props) {
         group_url: group.group_url
       })
     }
-  }, []);
+  }, [group]);
 
   function handleTitleChange(e) {
     setGroupState(prev => ({ ...prev, title: e.target.value }));
