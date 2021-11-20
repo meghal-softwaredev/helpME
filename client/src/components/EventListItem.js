@@ -9,7 +9,7 @@ function EventListItem(props) {
     <div className="item-container">
     <Grid container sx={{ border: 1, my: 2, p: 2 }}>
       <Grid item xs={3} > 
-        <img src={event_url} width="150px" height="150px"/>
+        <img src={event_url} width="150px" height="150px" alt="Event"/>
       </Grid>
       <Grid item xs={9} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
         <Typography component="h5" variant="h5">

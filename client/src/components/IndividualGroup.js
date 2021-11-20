@@ -8,7 +8,6 @@ import { getIndividualGroup } from '../actions/groupActions';
 import NewGroup from './NewGroup';
 import ConfirmDialog from './ConfirmDialog';
 import { deleteGroup } from '../actions/groupActions';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 function IndividualGroup(props) {
   const [openNewGroup, setOpenNewGroup] = useState(false);
@@ -43,6 +42,7 @@ function IndividualGroup(props) {
 
   const handleCloseDeleteGroup = () => {
     setOpenDeleteGroup(false);
+    
   };
 
   return (
@@ -55,7 +55,7 @@ function IndividualGroup(props) {
       <div>
         <Grid container sx={{ border: 1,  p: 2 }}>
           <Grid item xs={3} > 
-          <img src={group.group_url} width="150px" height="150px"/>
+          <img src={group.group_url} width="150px" height="150px" alt="Group"/>
           </Grid>
           <Grid item xs={9} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
             <Grid container>

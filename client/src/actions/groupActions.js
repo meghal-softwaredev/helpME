@@ -79,7 +79,6 @@ export const getIndividualGroup = (groupId) => async (dispatch) => {
 };
 
 export const updateGroup = (groupId, group) => async (dispatch, getState) => {
-  console.log("group",groupId);
   dispatch({ type: GROUP_UPDATE_REQUEST, payload: group });
   const {
     userSignin: { userInfo },
@@ -104,7 +103,6 @@ export const updateGroup = (groupId, group) => async (dispatch, getState) => {
 };
 
 export const deleteGroup = (groupId) => async (dispatch, getState) => {
-  console.log("groupId", groupId);
   dispatch({ type: GROUP_DELETE_REQUEST, payload: groupId });
   const {
     userSignin: { userInfo },

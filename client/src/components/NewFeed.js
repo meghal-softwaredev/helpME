@@ -3,12 +3,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Avatar from '@mui/material/Avatar';
-import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import PostAddIcon from '@mui/icons-material/PostAdd';
@@ -42,10 +39,7 @@ export default function NewFeed(props) {
   });
 
   const categoryList = useSelector((state) => state.categoryList);
-  const {
-    loading,
-    error,
-    categories } = categoryList;
+  const {categories } = categoryList;
 
   const dispatch = useDispatch();
 
