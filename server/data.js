@@ -57,7 +57,7 @@ const data = {
       user: "61918479bf9891d25a41d805",
       category: "6190afe0ee6fb3c345e5c6f9",
       tags: [`React`],
-      answers: [
+      /* answers: [
         {
           answer: `There are two main issues going on here.
         First, when React.renderComponent is called, CommentList hasn't been assigned, and is therefore still undefined. This is causing an error because CommentBox's render function refers to
@@ -67,7 +67,7 @@ const data = {
           user: "61918479bf9891d25a41d804",
           upvotes: 10
         }
-      ]
+      ] */
     },
     {
       title: `Why do my car cut off when I slow down or come to a complete stop?`,
@@ -79,7 +79,7 @@ const data = {
       user: "618dd0f544fed0b263668d6c",
       category: "6190afe0ee6fb3c345e5c6fa",
       tags: [`2007`, `Honda`, `Accord`],
-      answers: [
+      /* answers: [
         {
           answer: `I’m very sorry that you’re having this issue and together, we will get this figured out. I will need your help too because I can’t see, touch, hear or smell anything that’s going on with your vehicle. We may also require some specialized testing tools in order to assist us in diagnosing the problems due to the complexity of today’s vehicles. JA will offer a phone call to you at an additional fee, it’s your choice. Please be patient with my replies, I reply back in question order received. If I send you an attachment, I will tell you, BUT, you will NOT get it on a phone; you must be on a tablet or PC. Please let me know when you are satisfied with my answers too so we can close out your question
         Okay, so the shop should scan the computer checking for current and pending codes as well as check your idle speed motor/throttle body.
@@ -89,7 +89,7 @@ const data = {
           user: "61919998bf9891d25a41d814",
           upvotes: 50
         }
-      ]
+      ] */
     },
     {
       title: `What to Eat With Hummus?`,
@@ -97,13 +97,25 @@ const data = {
       user: "618dee2b0b54ac2ca484ba21",
       category: "6190afe0ee6fb3c345e5c6fb",
       tags: [`Hummus`],
-      answers: [
+      /* answers: [
         {
           answer: `You can’t go wrong with a classic. Whether it’s white or wheat, hard or soft, pita bread and hummus are always a perfect pairing.`,
           user: "61919a3ebf9891d25a41d817",
           upvotes: 20
         }
-      ]
+      ] */
+    }
+  ],
+  feedAnswers: [
+    {
+      feed: "619846a5d83ac4ee24d0bfdd",
+      answer: `There are two main issues going on here.
+        First, when React.renderComponent is called, CommentList hasn't been assigned, and is therefore still undefined. This is causing an error because CommentBox's render function refers to
+        <CommentList />
+        which jsx compiles to
+        CommentList(null)`,
+      user: "61918479bf9891d25a41d806",
+      upvotes: 0
     }
   ],
   groups: [
