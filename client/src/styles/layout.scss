@@ -4,18 +4,18 @@
 .grid-container {
   display: grid;
   grid-template-areas:
-    'header'
-    'main'
-    'footer';
+    "header"
+    "main"
+    "footer";
   grid-template-columns: 1fr;
   grid-template-rows: 5rem 1fr 5rem;
   height: 100vh;
 }
-header {
-  grid-area: header;
-  background-color: $color-background-primary;
-  color: $color-white;
-}
+// header {
+//   grid-area: header;
+//   background-color: $color-background-primary;
+//   color: $color-white;
+// }
 main {
   grid-area: main;
   padding: 2rem;
