@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { register } from '../actions/userActions';
-import LoadingBox from './LoadingBox';
-import MessageBox from './MessageBox';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "../actions/userActions";
+import LoadingBox from "./LoadingBox";
+import MessageBox from "./MessageBox";
 
 export default function Register(props) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
 
   const userRegister = useSelector((state) => state.userRegister);
   const { userInfo, loading, error } = userRegister;
-  const redirect = userInfo? '/category' :'/';
+  const redirect = userInfo ? "/category" : "/";
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert('Password and confirm password are not match');
+      alert("Password and confirm password are not match");
     } else {
       dispatch(register(name, email, password));
     }
@@ -29,15 +29,15 @@ export default function Register(props) {
 
   useEffect(() => {
     if (userInfo) {
-      navigate('/category');
+      navigate("/category");
     }
   }, [navigate, redirect, userInfo]);
-  
+
   return (
     <div>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Create Account</h1>
+          <h1>Register</h1>
         </div>
         {loading && <LoadingBox></LoadingBox>}
         {error && <MessageBox variant="danger">{error}</MessageBox>}
@@ -90,7 +90,7 @@ export default function Register(props) {
         <div>
           <label />
           <div>
-            Already have an account?{' '}
+            Already have an account?{" "}
             <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
           </div>
         </div>
