@@ -6,6 +6,9 @@ import {
   FEED_CREATE_REQUEST,
   FEED_CREATE_SUCCESS,
   FEED_CREATE_FAIL,
+  ANSWER_CREATE_REQUEST,
+  ANSWER_CREATE_SUCCESS,
+  ANSWER_CREATE_FAIL,
   INDIVIDUAL_FEED_DETAILS_REQUEST,
   INDIVIDUAL_FEED_DETAILS_SUCCESS,
   INDIVIDUAL_FEED_DETAILS_FAIL,
@@ -69,5 +72,34 @@ export const getIndividualFeed = (feedId) => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
+  }
+};
+
+
+export const saveAnswer = (newAnswerDetails) => async (dispatch, getState) => {
+  dispatch({ type: FEED_CREATE_REQUEST });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.post(
+      `/api/feeds/${newAnswerDetails.feedId}/answer/new`, {
+        user_id: userInfo._id,
+        answer: newAnswerDetails.newAnswer
+    },
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
+    );
+    dispatch({
+      type: ANSWER_CREATE_SUCCESS,
+      payload: data.answer,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: ANSWER_CREATE_FAIL, payload: message });
   }
 };
