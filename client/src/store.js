@@ -7,7 +7,9 @@ import {
 import {
   feedListReducer,
   feedCreateReducer,
+  feedUpdateReducer,
   individualFeedDetailsReducer,
+  feedAnswersReducer,
   answerCreateReducer,
 } from './reducers/feedReducers';
 import {
@@ -38,7 +40,9 @@ const reducer = combineReducers({
   userSignin: userSigninReducer,
   feedList: feedListReducer,
   feedCreate: feedCreateReducer,
+  feedUpdate: feedUpdateReducer,
   individualFeedDetails: individualFeedDetailsReducer,
+  feedAnswers: feedAnswersReducer,
   answerCreate: answerCreateReducer,
   groupList: groupListReducer,
   eventList: eventListReducer,

@@ -6,9 +6,15 @@ const {
   FEED_CREATE_SUCCESS,
   FEED_CREATE_FAIL,
   FEED_CREATE_RESET,
+  FEED_UPDATE_REQUEST,
+  FEED_UPDATE_SUCCESS,
+  FEED_UPDATE_FAIL,
   INDIVIDUAL_FEED_DETAILS_REQUEST,
   INDIVIDUAL_FEED_DETAILS_SUCCESS,
   INDIVIDUAL_FEED_DETAILS_FAIL,
+  FEED_ANSWERS_REQUEST,
+  FEED_ANSWERS_SUCCESS,
+  FEED_ANSWERS_FAIL,
   ANSWER_CREATE_REQUEST,
   ANSWER_CREATE_SUCCESS,
   ANSWER_CREATE_FAIL,
@@ -48,6 +54,19 @@ export const feedCreateReducer = (state = {}, action) => {
   }
 };
 
+export const feedUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FEED_UPDATE_REQUEST:
+      return { loading: true };
+    case FEED_UPDATE_SUCCESS:
+      return { loading: false, success: true, updatedFeed: action.payload };
+    case FEED_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 export const answerCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case ANSWER_CREATE_REQUEST:
@@ -64,11 +83,24 @@ export const answerCreateReducer = (state = {}, action) => {
 export const individualFeedDetailsReducer = (state = { loading: true }, action) => {
   switch (action.type) {
     case INDIVIDUAL_FEED_DETAILS_REQUEST:
-      return { loading: true };
+      return { loadingFeedDetails: true };
     case INDIVIDUAL_FEED_DETAILS_SUCCESS:
-      return { loading: false, feedDetails: action.payload };
+      return { loadingFeedDetails: false, feed: action.payload };
     case INDIVIDUAL_FEED_DETAILS_FAIL:
-      return { loading: false, error: action.payload };
+      return { loadingFeedDetails: false, errorFeedDetails: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const feedAnswersReducer = (state = { loading: true }, action) => {
+  switch (action.type) {
+    case FEED_ANSWERS_REQUEST:
+      return { loadingAnswers: true };
+    case FEED_ANSWERS_SUCCESS:
+      return { loadingAnswers: false, answers: action.payload };
+    case FEED_ANSWERS_FAIL:
+      return { loadingAnswers: false, errorAnswers: action.payload };
     default:
       return state;
   }
