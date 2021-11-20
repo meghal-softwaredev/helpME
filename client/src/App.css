@@ -18,7 +18,7 @@
 }
 
 .feeds {
-  /* background-image: url("/images/img-2.jpg"); */
+  background-image: url("http://3000/images/img-2.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

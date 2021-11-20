@@ -1,7 +1,6 @@
 import "./styles/main.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
-
 import Footer from "./components/Footer";
 import Register from "./components/Register";
 import Signin from "./components/Signin";
