@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { Chip, Box, Divider, Container, Typography, Grid, TextField, Button } from '@mui/material';
-
+import { Chip, Box, Divider, Container, Typography, Grid, TextField, Button, Card, CardContent, CardActions } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { darkTheme } from "../mui/themes";
 import { getIndividualFeed, saveAnswer } from '../actions/feedActions';
 import LoadingBox from './LoadingBox';
@@ -61,9 +62,26 @@ function IndividualFeed() {
               <Chip label="ANSWERS"/>
             </Divider>
                 {feedDetails.answers && feedDetails.answers.map(ans => (
-              <div key={ans._id}>
-                <p>{ans.answer}</p>
-              </div>
+                  <Box key={ans._id} sx={{ minWidth: 275 }}>
+                    <Card sx={{backgroundColor: "transparent", mt: "10px"}}>
+                      <CardContent>
+                        <Typography variant="body2">
+                          {ans.answer}
+                        </Typography>
+                        <Typography sx={{ my: 1.5 }} color="text.secondary">
+                          Posted by: {ans.user.name}
+                        </Typography>
+                        
+                      </CardContent>
+                      {userInfo._id === ans.user._id && (
+                        <CardActions>
+                          <EditIcon fontSize="small" />
+                          <DeleteIcon fontSize="small" />
+                        </CardActions>
+                      )}
+                      
+                    </Card>
+                  </Box>
             ))}
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                   <Grid container spacing={2}>
