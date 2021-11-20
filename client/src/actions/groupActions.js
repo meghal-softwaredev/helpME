@@ -12,6 +12,9 @@ import {
   GROUP_UPDATE_REQUEST,
   GROUP_UPDATE_SUCCESS,
   GROUP_UPDATE_FAIL,
+  GROUP_DELETE_REQUEST,
+  GROUP_DELETE_SUCCESS,
+  GROUP_DELETE_FAIL,
 } from '../constants/groupConstants';
 
 export const listGroups = () => async (dispatch) => {
@@ -90,9 +93,6 @@ export const updateGroup = (groupId, group) => async (dispatch, getState) => {
     {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
-    // const { data } = await Axios.put(`/api/groups/${group._id}/edit`, { group, user_id: userInfo._id }, {
-    //   headers: { Authorization: `Bearer ${userInfo.token}` },
-    // });
     dispatch({ type:GROUP_UPDATE_SUCCESS, payload: data });
   } catch (error) {
     const message =
@@ -100,5 +100,25 @@ export const updateGroup = (groupId, group) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: GROUP_UPDATE_FAIL, payload: message });
+  }
+};
+
+export const deleteGroup = (groupId) => async (dispatch, getState) => {
+  console.log("groupId", groupId);
+  dispatch({ type: GROUP_DELETE_REQUEST, payload: groupId });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.delete(`/api/groups/${groupId}`, {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type: GROUP_DELETE_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: GROUP_DELETE_FAIL, payload: message });
   }
 };
