@@ -6,7 +6,7 @@ import { Chip, Box, Divider, Container, Typography, Grid, TextField, Button, Car
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { darkTheme } from "../mui/themes";
-import { getIndividualFeed, getFeedAnswers, saveAnswer, deleteFeed } from '../actions/feedActions';
+import { getIndividualFeed, getFeedAnswers, saveAnswer, deleteFeed, deleteFeedAnswer } from '../actions/feedActions';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 import { borderColor } from '@mui/system';
@@ -16,6 +16,7 @@ import DeleteConfirmDialog from './DeleteConfirmDialog';
 function IndividualFeed() {
 
   const [newAnswer, setNewAnswer] = useState("");
+  const [alterAnswerId, setAlterAnswerId] = useState("");
 
   const [openDialog, setOpenDialog] = React.useState(false);
   const [currentDialog, setcurrentDialog] = React.useState("");
@@ -44,8 +45,9 @@ function IndividualFeed() {
     setNewAnswer(e.target.value);
   };
 
-  const handleOpenDialog = (currentTask) => {
-    setcurrentDialog(currentTask);
+  const handleOpenDialog = (data) => {
+    data.ans_id && setAlterAnswerId(data.ans_id);
+    setcurrentDialog(data.msg);
     setOpenDialog(true);
   };
 
@@ -54,11 +56,14 @@ function IndividualFeed() {
   };
 
   const handleConfirmDelete = (currentTask) => {
-    dispatch(
-      currentTask === "DeleteFeed" && deleteFeed(feedId)
-    );
+    console.log(alterAnswerId);
+    if (currentTask === "DeleteFeed") {
+      dispatch(deleteFeed(feedId));
+      navigate('/feeds');
+    } else if (currentTask === "DeleteFeedAnswer") {
+      dispatch(deleteFeedAnswer(alterAnswerId));
+    }
     setOpenDialog(false);
-    navigate('/feeds');
   };
 
   const handleSubmit = (event) => {
@@ -90,10 +95,10 @@ function IndividualFeed() {
                 <p>Posted on: {feed.createdAt}</p>
                 {userInfo && feed.user && feed.user._id === userInfo._id && (
                   <CardActions>
-                    <IconButton color="warning" aria-label="edit feed" component="span" onClick={() => handleOpenDialog("EditFeed")}>
+                    <IconButton color="warning" aria-label="edit feed" component="span" onClick={() => handleOpenDialog({msg: "EditFeed"})}>
                       <EditIcon />
                     </IconButton>
-                    <IconButton sx={{ color: "#df7373" }} aria-label="delete feed" component="span" onClick={() => handleOpenDialog("DeleteFeed")}>
+                    <IconButton sx={{ color: "#df7373" }} aria-label="delete feed" component="span" onClick={() => handleOpenDialog({msg:"DeleteFeed"})}>
                       <DeleteIcon />
                     </IconButton>
                   </CardActions>
@@ -136,12 +141,21 @@ function IndividualFeed() {
                           <IconButton color="warning" aria-label="edit answer" component="span">
                             <EditIcon />
                           </IconButton>
-                          <IconButton sx={{ color: "#df7373" }} aria-label="delete answer" component="span">
+                          <IconButton sx={{ color: "#df7373" }} aria-label="delete answer" component="span" onClick={() => handleOpenDialog({ msg: "DeleteFeedAnswer", ans_id: ans._id})}>
                             <DeleteIcon />
                           </IconButton>
                         </CardActions>
                       )}
-                      
+                      {currentDialog === "DeleteFeedAnswer" && (
+                        <DeleteConfirmDialog
+                          activity="DeleteFeedAnswer"
+                          title="Delete Feed Answer?"
+                          openDeleteDialog={openDialog}
+                          handleCloseDeleteDialog={handleCloseDialog}
+                          handleConfirmDelete={handleConfirmDelete} >
+                          Are you sure you want to delete this feed answer?
+                        </DeleteConfirmDialog>
+                      )}
                     </Card>
                   </Box>
             ))}
