@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import { darkTheme } from "../mui/themes";
+import { Button, Box, Divider } from '@mui/material';
 import { listFeeds } from '../actions/feedActions';
 import FeedListItem from './FeedListItem';
 import NewFeed from './NewFeed';
 
 function FeedList(props) {
-  const [openNewFeed, setOpenNewFeed] = React.useState(false);
-
   const navigate = useNavigate();
+  const location = useLocation();
 
   const feedList = useSelector((state) => state.feedList);
   const { loading, error, feeds } = feedList;
@@ -20,38 +21,28 @@ function FeedList(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch( listFeeds() );
-  }, [dispatch, openNewFeed, navigate, props.history ]);
+  }, [dispatch, location]);
 
-  const handleOpenNewFeed = () => {
-    setOpenNewFeed(true);
-  };
-
-  const handleCloseNewFeed = () => {
-    setOpenNewFeed(false);
-  };
 
   return (
-    <div>
-      {userInfo && (
-        <div>
-          <Button size="large" variant="contained" onClick={handleOpenNewFeed}>
-            Post Question
-          </Button>
-          <NewFeed activity="new" openNewFeed={openNewFeed} handleCloseNewFeed={handleCloseNewFeed} />
-        </div>
-      )}
-      {loading ? (
-        <span>Loading</span>
-      ) : error ? (
-        <span>Error: {error}</span>
-      ) : (
-        <>
-          {feeds.map((feed) => (
-            <FeedListItem key={feed._id} feed={feed} />
-          ))}
-        </>
-      )}
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <Box sx={{ border: '1px solid #0077b6', my: 2, px: 2 }}>
+        {loading ? (
+          <span>Loading</span>
+        ) : error ? (
+          <span>Error: {error}</span>
+        ) : (
+          <>
+            {feeds.map((feed) => (
+              <React.Fragment key= { feed._id }>
+                <FeedListItem feed={feed} />
+                <Divider />
+              </React.Fragment>
+            ))}
+          </>
+        )}
+      </Box>
+    </ThemeProvider>
   );
 }
 

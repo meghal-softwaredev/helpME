@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -19,7 +21,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { createFeed, updateFeed } from '../actions/feedActions';
 import { listCategories } from '../actions/categoryActions';
 
@@ -30,6 +31,7 @@ const ListItem = styled('li')(({ theme }) => ({
 }));
 
 export default function NewFeed(props) {
+  const navigate = useNavigate();
   const [feedState, setFeedState] = React.useState({
     title: props.feed ? props.feed.title : "",
     description: props.feed ? props.feed.description : "",
@@ -76,6 +78,9 @@ export default function NewFeed(props) {
       tag: "",
       tags: [] }));
     props.handleCloseNewFeed();
+    if (props.activity === "NewFeed") {
+      navigate('/feeds');
+    }
   };
 
   return (

@@ -1,8 +1,12 @@
-.left-sidebar-container {
+/* .left-sidebar-container {
   display: flex;
   align-items: top;
   ul {
     display: flex;
     flex-direction: column;
+    gap: 10px;
   }
+} */
+.left-sidebar-container {
+  height: 70vh;
 }

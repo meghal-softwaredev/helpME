@@ -61,11 +61,12 @@ function IndividualFeed() {
   const handleConfirmDelete = (currentTask) => {
     if (currentTask === "DeleteFeed") {
       dispatch(deleteFeed(feedId));
+      setOpenDialog(false);
       navigate('/feeds');
     } else if (currentTask === "DeleteFeedAnswer") {
+      setOpenDialog(false);
       dispatch(deleteFeedAnswer(alterAnswerId));
     }
-    setOpenDialog(false);
   };
 
   const handleEditFeedAnswer = (answer) => {
