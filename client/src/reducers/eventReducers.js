@@ -8,6 +8,9 @@ import {
   INDIVIDUAL_EVENT_DETAILS_REQUEST,
   INDIVIDUAL_EVENT_DETAILS_SUCCESS,
   INDIVIDUAL_EVENT_DETAILS_FAIL,
+  EVENT_UPDATE_REQUEST,
+  EVENT_UPDATE_SUCCESS,
+  EVENT_UPDATE_FAIL,
   EVENT_DELETE_REQUEST,
   EVENT_DELETE_SUCCESS,
   EVENT_DELETE_FAIL,
@@ -46,6 +49,19 @@ export const individualEventDetailsReducer = (state = { loading: true }, action)
     case INDIVIDUAL_EVENT_DETAILS_SUCCESS:
       return { loading: false, event: action.payload };
     case INDIVIDUAL_EVENT_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const eventUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EVENT_UPDATE_REQUEST:
+      return { loading: true };
+    case EVENT_UPDATE_SUCCESS:
+      return { loading: false, success: true };
+    case EVENT_UPDATE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
