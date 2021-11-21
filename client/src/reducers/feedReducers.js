@@ -9,6 +9,9 @@ const {
   FEED_UPDATE_REQUEST,
   FEED_UPDATE_SUCCESS,
   FEED_UPDATE_FAIL,
+  FEED_DELETE_REQUEST,
+  FEED_DELETE_SUCCESS,
+  FEED_DELETE_FAIL,
   INDIVIDUAL_FEED_DETAILS_REQUEST,
   INDIVIDUAL_FEED_DETAILS_SUCCESS,
   INDIVIDUAL_FEED_DETAILS_FAIL,
@@ -61,6 +64,19 @@ export const feedUpdateReducer = (state = {}, action) => {
     case FEED_UPDATE_SUCCESS:
       return { loading: false, success: true, updatedFeed: action.payload };
     case FEED_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const feedDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FEED_DELETE_REQUEST:
+      return { loading: true };
+    case FEED_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case FEED_DELETE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
