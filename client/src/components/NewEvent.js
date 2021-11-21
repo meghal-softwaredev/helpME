@@ -9,6 +9,8 @@ import DatePicker from '@mui/lab/DatePicker';
 import TimePicker from '@mui/lab/TimePicker';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
+import { updateEvent } from '../actions/eventActions';
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.1),
@@ -29,11 +31,32 @@ export default function NewEvent(props) {
     group_id: props.group_id
   });
 
+  const individualEventDetails = useSelector((state) => state.individualEventDetails);
+  let { event } = individualEventDetails;
+  const eventDetails = event;
+  const navigate = useNavigate();
   // const categoryList = useSelector((state) => state.categoryList);
   // const { categories } = categoryList;
 
   const dispatch = useDispatch();
-
+  useEffect(() => {
+    if (!event) {
+      dispatch(createEvent(eventState));
+    } else {
+      setEventState({
+        title: event.title,
+        description: event.description,
+        // date: new Date(),
+        // start_time: "",
+        date_time: event.date_time,
+        duration: event.duration,
+        event_image_url: event.event_image_url,
+        event_video_url: event.event_video_url,
+        group_id: event.group_id,
+        tags: event.tags
+      })
+    }
+  }, []);
   // useEffect(() => {
   //   dispatch(listCategories());
   // }, [dispatch]);
@@ -73,7 +96,7 @@ export default function NewEvent(props) {
     setEventState(prev => ({ ...prev, event_video_url: e.target.value }));
   };
 
-  const handleAddTag = (event) => {
+  const handleAddTag = () => {
     setEventState(prev => ({ ...prev, tags: [...prev.tags, eventState.tag], tag: ""}));
   };
 
@@ -85,11 +108,13 @@ export default function NewEvent(props) {
     setEventState(prev => ({...prev, tag: e.target.value}));
   };
   
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(
-      createEvent(eventState)
-    );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!eventDetails) {
+      dispatch(createEvent(eventState));
+    } else {
+      dispatch(updateEvent(props.eventId, eventState));
+    }
     props.handleCloseNewEvent();
     setEventState(prev => ({
       ...prev, title: "",
@@ -103,6 +128,7 @@ export default function NewEvent(props) {
       tags: [],
       group_id: ""
     }));
+    navigate('/events');
   };
 
   return (
@@ -121,9 +147,14 @@ export default function NewEvent(props) {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               {/* <PostAddIcon /> */}
             </Avatar>
-            <Typography component="h1" variant="h5">
-              Create Event
-            </Typography>
+            {(props.edit) ? (
+              <Typography component="h1" variant="h5">
+                Update Event
+              </Typography>) : (
+              <Typography component="h1" variant="h5">
+                Create Event
+              </Typography>
+             )}
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -202,7 +233,7 @@ export default function NewEvent(props) {
                     id="eventURL"
                     label="Event Image URL"
                     placeholder="Event Image URL"
-                    value={eventState.event_url}
+                    value={eventState.event_image_url}
                     onChange={handleEventImageURLChange}
                   />
                 </Grid>
@@ -264,7 +295,14 @@ export default function NewEvent(props) {
                     </Paper>
                   </Grid>
               </Grid>
-              <Button
+              {props.edit ? (<Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Update Event
+              </Button>) : (<Button
                 type="submit"
                 fullWidth
                 variant="contained"
@@ -272,6 +310,7 @@ export default function NewEvent(props) {
               >
                 Create Event
               </Button>
+              )}
             </Box>
           </Box>
         </Container>
