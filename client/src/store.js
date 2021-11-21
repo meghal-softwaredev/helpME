@@ -21,6 +21,7 @@ import {
   eventListReducer,
   eventCreateReducer,
   individualEventDetailsReducer,
+  eventUpdateReducer,
   eventDeleteReducer,
 } from './reducers/eventReducers';
 import {
@@ -51,6 +52,7 @@ const reducer = combineReducers({
   eventList: eventListReducer,
   eventCreate: eventCreateReducer,
   individualEventDetails: individualEventDetailsReducer,
+  eventUpdate : eventUpdateReducer,
   eventDelete: eventDeleteReducer,
 })
 
