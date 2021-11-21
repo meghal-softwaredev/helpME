@@ -6,17 +6,19 @@ import { Chip, Box, Divider, Container, Typography, Grid, TextField, Button, Car
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { darkTheme } from "../mui/themes";
-import { getIndividualFeed, getFeedAnswers, saveAnswer, deleteFeed, deleteFeedAnswer } from '../actions/feedActions';
+import { getIndividualFeed, getFeedAnswers, saveAnswer, deleteFeed, deleteFeedAnswer, updateFeedAnswer } from '../actions/feedActions';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 import { borderColor } from '@mui/system';
 import NewFeed from './NewFeed';
 import DeleteConfirmDialog from './DeleteConfirmDialog';
+import EditFeedAnswer from './EditFeedAnswer';
 
 function IndividualFeed() {
 
   const [newAnswer, setNewAnswer] = useState("");
   const [alterAnswerId, setAlterAnswerId] = useState("");
+  const [currentAnswer, setCurrentAnswer] = useState("");
 
   const [openDialog, setOpenDialog] = React.useState(false);
   const [currentDialog, setcurrentDialog] = React.useState("");
@@ -47,6 +49,7 @@ function IndividualFeed() {
 
   const handleOpenDialog = (data) => {
     data.ans_id && setAlterAnswerId(data.ans_id);
+    data.answer && setCurrentAnswer(data.answer);
     setcurrentDialog(data.msg);
     setOpenDialog(true);
   };
@@ -56,7 +59,6 @@ function IndividualFeed() {
   };
 
   const handleConfirmDelete = (currentTask) => {
-    console.log(alterAnswerId);
     if (currentTask === "DeleteFeed") {
       dispatch(deleteFeed(feedId));
       navigate('/feeds');
@@ -64,6 +66,12 @@ function IndividualFeed() {
       dispatch(deleteFeedAnswer(alterAnswerId));
     }
     setOpenDialog(false);
+  };
+
+  const handleEditFeedAnswer = (answer) => {
+    dispatch(updateFeedAnswer({ ans_id: alterAnswerId, answer}));
+    setOpenDialog(false);
+    dispatch(getFeedAnswers(feedId));
   };
 
   const handleSubmit = (event) => {
@@ -138,13 +146,20 @@ function IndividualFeed() {
                       </CardContent>
                       {userInfo && userInfo._id === ans.user._id && (
                         <CardActions>
-                          <IconButton color="warning" aria-label="edit answer" component="span">
+                          <IconButton color="warning" aria-label="edit answer" component="span" onClick={() => handleOpenDialog({ msg: "EditFeedAnswer", ans_id: ans._id, answer: ans.answer })}>
                             <EditIcon />
                           </IconButton>
                           <IconButton sx={{ color: "#df7373" }} aria-label="delete answer" component="span" onClick={() => handleOpenDialog({ msg: "DeleteFeedAnswer", ans_id: ans._id})}>
                             <DeleteIcon />
                           </IconButton>
                         </CardActions>
+                      )}
+                      {currentDialog === "EditFeedAnswer" && (
+                        <EditFeedAnswer
+                          answer={currentAnswer}
+                          openEditFeedAnswer={openDialog}
+                          handleEditFeedAnswer={handleEditFeedAnswer}
+                          handleCloseEditFeedAnswer={handleCloseDialog} />
                       )}
                       {currentDialog === "DeleteFeedAnswer" && (
                         <DeleteConfirmDialog
