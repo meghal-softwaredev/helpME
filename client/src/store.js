@@ -21,6 +21,7 @@ import {
   eventListReducer,
   eventCreateReducer,
   individualEventDetailsReducer,
+  eventDeleteReducer,
 } from './reducers/eventReducers';
 import {
   categoryListReducer,
@@ -50,6 +51,7 @@ const reducer = combineReducers({
   eventList: eventListReducer,
   eventCreate: eventCreateReducer,
   individualEventDetails: individualEventDetailsReducer,
+  eventDelete: eventDeleteReducer,
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

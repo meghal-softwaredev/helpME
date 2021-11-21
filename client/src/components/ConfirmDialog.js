@@ -2,25 +2,26 @@ import React from 'react';
 import { Button, Dialog, DialogContent, DialogTitle, DialogActions} from '@mui/material';
 
 const ConfirmDialog = (props) => {
-  const { title, children, openDeleteGroup, handleCloseDeleteGroup, onConfirm } = props;
+  const { title, children, openDelete, handleCloseDelete, onConfirm } = props;
+
   return (
     <Dialog
-      open={openDeleteGroup}
-      onClose={handleCloseDeleteGroup}
+      open={openDelete}
+      onClose={handleCloseDelete}
     >
       <DialogTitle >{title}</DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         <Button
           variant="contained"
-          onClick={() => handleCloseDeleteGroup()}
+          onClick={() => handleCloseDelete()}
         >
           No
         </Button>
         <Button
           variant="contained"
           onClick={() => {
-            handleCloseDeleteGroup();
+            handleCloseDelete();
             onConfirm();
           }}
         >
