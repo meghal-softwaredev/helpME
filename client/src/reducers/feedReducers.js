@@ -21,6 +21,9 @@ const {
   ANSWER_CREATE_REQUEST,
   ANSWER_CREATE_SUCCESS,
   ANSWER_CREATE_FAIL,
+  FEED_ANSWER_DELETE_REQUEST,
+  FEED_ANSWER_DELETE_SUCCESS,
+  FEED_ANSWER_DELETE_FAIL,
 } = require('../constants/feedConstants');
 
 export const feedListReducer = (
@@ -117,6 +120,19 @@ export const feedAnswersReducer = (state = { loading: true }, action) => {
       return { loadingAnswers: false, answers: action.payload };
     case FEED_ANSWERS_FAIL:
       return { loadingAnswers: false, errorAnswers: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const feedAnswerDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FEED_ANSWER_DELETE_REQUEST:
+      return { loading: true };
+    case FEED_ANSWER_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case FEED_ANSWER_DELETE_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
