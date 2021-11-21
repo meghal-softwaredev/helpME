@@ -68,7 +68,7 @@ export default function NewFeed(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(props.activity === "edit" ? updateFeed({ ...feedState, feedId: props.feed._id}) : createFeed(feedState));
+    dispatch(props.activity === "EditFeed" ? updateFeed({ ...feedState, feedId: props.feed._id}) : createFeed(feedState));
     setFeedState(prev => ({
       ...prev, title: "",
       description: "",
@@ -96,7 +96,7 @@ export default function NewFeed(props) {
                 <PostAddIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                {props.activity === "edit" ? "Update Question" : "Post Question"}
+                {props.activity === "EditFeed" ? "Update Question" : "Post Question"}
               </Typography>
               <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
@@ -198,7 +198,7 @@ export default function NewFeed(props) {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  {props.activity === "edit" ? "Update" : "Post"}
+                  {props.activity === "EditFeed" ? "Update" : "Post"}
                 </Button>
               </Box>
             </Box>
