@@ -33,7 +33,7 @@ function FeedList(props) {
         <Button size="large" variant="contained" onClick={handleOpenNewFeed}>
           Post Question
         </Button>
-        <NewFeed openNewFeed={openNewFeed} handleCloseNewFeed={handleCloseNewFeed} />
+        <NewFeed activity="new" openNewFeed={openNewFeed} handleCloseNewFeed={handleCloseNewFeed} />
       </div>
       {loading ? (
         <span>Loading</span>

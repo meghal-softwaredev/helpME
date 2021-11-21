@@ -20,7 +20,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { createFeed } from '../actions/feedActions';
+import { createFeed, updateFeed } from '../actions/feedActions';
 import { listCategories } from '../actions/categoryActions';
 
 import { darkTheme} from "../mui/themes";
@@ -31,11 +31,11 @@ const ListItem = styled('li')(({ theme }) => ({
 
 export default function NewFeed(props) {
   const [feedState, setFeedState] = React.useState({
-    title: "",
-    description: "",
-    category_id: "",
+    title: props.feed ? props.feed.title : "",
+    description: props.feed ? props.feed.description : "",
+    category_id: props.feed ? props.feed.category : "",
     tag: "",
-    tags: []
+    tags: props.feed ? props.feed.tags : []
   });
 
   const categoryList = useSelector((state) => state.categoryList);
@@ -62,22 +62,20 @@ export default function NewFeed(props) {
   const handleAddTag = (event) => {
     setFeedState(prev => ({ ...prev, tags: [...prev.tags, feedState.tag], tag: ""}));
   };
-  const handleDeleteTag = (tagToDelete) => () => {
-    setFeedState(prev => ({ ...prev, tags: (tags) => tags.filter((tag) => tag !== tagToDelete)}));
+  const handleDeleteTag = (tagIndexToDelete) => () => {
+    setFeedState(prev => ({ ...prev, tags: prev.tags.filter((tag, index) => index !== tagIndexToDelete)}));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(
-      createFeed(feedState)
-    );
-    props.handleCloseNewFeed();
+    dispatch(props.activity === "edit" ? updateFeed({ ...feedState, feedId: props.feed._id}) : createFeed(feedState));
     setFeedState(prev => ({
       ...prev, title: "",
       description: "",
       category_id: "",
       tag: "",
       tags: [] }));
+    props.handleCloseNewFeed();
   };
 
   return (
@@ -98,7 +96,7 @@ export default function NewFeed(props) {
                 <PostAddIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Post A Question
+                {props.activity === "edit" ? "Update Question" : "Post Question"}
               </Typography>
               <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
@@ -180,12 +178,12 @@ export default function NewFeed(props) {
                       component="ul"
                     >
                       {
-                        feedState.tags.map((data) => {
+                        Array.isArray(feedState.tags) && feedState.tags.map((data, index) => {
                           return (
-                            <ListItem key={data}>
+                            <ListItem key={index}>
                               <Chip
                                 label={data}
-                                onDelete={handleDeleteTag(data)}
+                                onDelete={handleDeleteTag(index)}
                               />
                             </ListItem>
                           );
@@ -200,7 +198,7 @@ export default function NewFeed(props) {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Post
+                  {props.activity === "edit" ? "Update" : "Post"}
                 </Button>
               </Box>
             </Box>
