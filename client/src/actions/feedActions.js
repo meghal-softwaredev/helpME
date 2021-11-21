@@ -9,6 +9,9 @@ import {
   FEED_UPDATE_REQUEST,
   FEED_UPDATE_SUCCESS,
   FEED_UPDATE_FAIL,
+  FEED_DELETE_REQUEST,
+  FEED_DELETE_SUCCESS,
+  FEED_DELETE_FAIL,
   ANSWER_CREATE_REQUEST,
   ANSWER_CREATE_SUCCESS,
   ANSWER_CREATE_FAIL,
@@ -154,5 +157,28 @@ export const saveAnswer = (newAnswerDetails) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: ANSWER_CREATE_FAIL, payload: message });
+  }
+};
+
+export const deleteFeed = (feedId) => async (dispatch, getState) => {
+  dispatch({ type: FEED_DELETE_REQUEST, payload: feedId });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.delete(
+      `/api/feeds/${feedId}`, {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
+    );
+    dispatch({ type: FEED_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: FEED_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
 };
