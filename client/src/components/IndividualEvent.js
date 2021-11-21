@@ -7,10 +7,11 @@ import { Grid, Button, Typography } from '@mui/material';
 import { getIndividualEvent } from '../actions/eventActions';
 import NewEvent from './NewEvent';
 import ConfirmDialog from './ConfirmDialog';
+import { deleteEvent } from '../actions/eventActions';
 
 function IndividualEvent(props) {
   const [openNewEvent, setOpenNewEvent] = useState(false);
-  // const [openDeleteEvent, setOpenDeleteEvent] = useState(false);
+  const [openDeleteEvent, setOpenDeleteEvent] = useState(false);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -23,10 +24,10 @@ function IndividualEvent(props) {
     dispatch(getIndividualEvent(id));
   }, [dispatch, id, getIndividualEvent]);
 
-  // const deleteEventHandler = () => {
-  //   dispatch(deleteEvent(id));
-  //   navigate("/events");
-  // }
+  const deleteEventHandler = () => {
+    dispatch(deleteEvent(id));
+    navigate("/events");
+  }
  
   const handleOpenNewEvent = () => {
     setOpenNewEvent(true);
@@ -36,14 +37,14 @@ function IndividualEvent(props) {
     setOpenNewEvent(false);
   };
 
-  // const handleOpenDeleteEvent = () => {
-  //   setOpenDeleteEvent(true);
-  // };
+  const handleOpenDeleteEvent = () => {
+    setOpenDeleteEvent(true);
+  };
 
-  // const handleCloseDeleteEvent = () => {
-  //   setOpenDeleteEvent(false);
+  const handleCloseDeleteEvent = () => {
+    setOpenDeleteEvent(false);
     
-  // };
+  };
 
   return (
     <div className="item-container">
@@ -69,17 +70,17 @@ function IndividualEvent(props) {
                   Edit
                 </Button>
                 <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} edit={true} eventId={id}/>
-                {/* <Button size="small" variant="contained" onClick={handleOpenDeleteEvent}>
+                <Button size="small" variant="contained" onClick={handleOpenDeleteEvent}>
                   Delete
                 </Button>
                 <ConfirmDialog
                   title="Delete Event?"
-                  openDeleteEvent={openDeleteEvent}
-                  handleCloseDeleteEvent={handleCloseDeleteEvent}
+                  openDelete={openDeleteEvent}
+                  handleCloseDelete={handleCloseDeleteEvent}
                   onConfirm={deleteEventHandler}
                 >
                   Are you sure you want to delete this event?
-                </ConfirmDialog> */}
+                </ConfirmDialog>
               </Grid>
             </Grid>
             <Typography component="h6" variant="h6">{event.description}          </Typography>

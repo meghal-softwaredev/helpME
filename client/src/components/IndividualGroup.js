@@ -92,8 +92,8 @@ function IndividualGroup(props) {
                 </Button>
                 <ConfirmDialog
                   title="Delete Group?"
-                  openDeleteGroup={openDeleteGroup}
-                  handleCloseDeleteGroup={handleCloseDeleteGroup}
+                  openDelete={openDeleteGroup}
+                  handleCloseDelete={handleCloseDeleteGroup}
                   onConfirm={deleteGroupHandler}
                 >
                   Are you sure you want to delete this group?
