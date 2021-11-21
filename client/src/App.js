@@ -13,6 +13,7 @@ import GroupList from './components/GroupList';
 import EventList from './components/EventList';
 import IndividualFeed from './components/IndividualFeed';
 import IndividualGroup from './components/IndividualGroup';
+import IndividualEvent from './components/IndividualEvent';
 
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
@@ -35,6 +36,7 @@ function App() {
               <Route path="/groups" element={<GroupList />}></Route>
               <Route path="/groups/:id" element={<IndividualGroup />}></Route>
               <Route path="/events" element={<EventList />}></Route>
+              <Route path="/events/:id" element={<IndividualEvent />}></Route>
             </Routes>
           </div>
         </main>

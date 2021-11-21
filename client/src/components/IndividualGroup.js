@@ -79,7 +79,7 @@ function IndividualGroup(props) {
             <Grid container>
               <Grid item>
                 <Typography component="h5" variant="h5">
-                  <Link className="link" to={`/groups/${id}`}>{group.title}</Link>
+                  {group.title}
                 </Typography>
               </Grid>
              <Grid item >
