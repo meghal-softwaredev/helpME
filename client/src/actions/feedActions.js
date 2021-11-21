@@ -24,6 +24,9 @@ import {
   FEED_ANSWER_DELETE_REQUEST,
   FEED_ANSWER_DELETE_SUCCESS,
   FEED_ANSWER_DELETE_FAIL,
+  FEED_ANSWER_UPDATE_REQUEST,
+  FEED_ANSWER_UPDATE_SUCCESS,
+  FEED_ANSWER_UPDATE_FAIL,
 } from '../constants/feedConstants';
 
 export const listFeeds = () => async (dispatch) => {
@@ -206,5 +209,32 @@ export const deleteFeedAnswer = (ans_id) => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message,
     });
+  }
+};
+
+export const updateFeedAnswer = (updatedFeedAnswerDetails) => async (dispatch, getState) => {
+  dispatch({ type: FEED_ANSWER_UPDATE_REQUEST });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.put(
+      `/api/answers/${updatedFeedAnswerDetails.ans_id}`, {
+        answer: updatedFeedAnswerDetails.answer,
+    },
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
+    );
+    dispatch({
+      type: FEED_ANSWER_UPDATE_SUCCESS,
+      payload: data.answer,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: FEED_ANSWER_UPDATE_FAIL, payload: message });
   }
 };
