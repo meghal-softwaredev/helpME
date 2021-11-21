@@ -9,6 +9,9 @@ import {
   INDIVIDUAL_EVENT_DETAILS_REQUEST,
   INDIVIDUAL_EVENT_DETAILS_SUCCESS,
   INDIVIDUAL_EVENT_DETAILS_FAIL,
+  EVENT_DELETE_REQUEST,
+  EVENT_DELETE_SUCCESS,
+  EVENT_DELETE_FAIL,
 } from '../constants/eventConstants';
 
 export const listEvents = () => async (dispatch) => {
@@ -75,5 +78,24 @@ export const getIndividualEvent = (eventId) => async (dispatch) => {
           ? error.response.data.message
           : error.message,
     });
+  }
+};
+
+export const deleteEvent = (eventId) => async (dispatch, getState) => {
+  dispatch({ type: EVENT_DELETE_REQUEST, payload: eventId });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.delete(`/api/events/${eventId}`, {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type: EVENT_DELETE_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: EVENT_DELETE_FAIL, payload: message });
   }
 };
