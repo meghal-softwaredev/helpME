@@ -107,7 +107,15 @@ feedRouter.delete(
     const feed = await Feed.findById(req.params.id);
     if (feed) {
       const deleteFeed = await feed.remove();
-      res.send({ message: 'Feed Deleted', feed: deleteFeed });
+      const deleteFeedAnswers = await FeedAnswer.deleteMany({ feed: req.params.id });
+      /* await FeedAnswer.deleteMany({ feed: req.params.id }, function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Answers related to this feed are suceessfully deleted!");
+        }
+      }); */
+      res.send({ message: 'Feed Deleted', feed: deleteFeed, answers: deleteFeedAnswers });
     } else {
       res.status(404).send({ message: 'Feed Not Found' });
     }
