@@ -8,6 +8,7 @@ import { getIndividualEvent } from '../actions/eventActions';
 import NewEvent from './NewEvent';
 import ConfirmDialog from './ConfirmDialog';
 import { deleteEvent } from '../actions/eventActions';
+import Axios from 'axios';
 
 function IndividualEvent(props) {
   const [openNewEvent, setOpenNewEvent] = useState(false);
@@ -18,6 +19,18 @@ function IndividualEvent(props) {
 
   const individualEventDetails = useSelector((state) => state.individualEventDetails);
   const { loading, error, event } = individualEventDetails;
+
+  const userInfo = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null;
+
+  const handleAttendEvent = (eventId) => {
+    Axios.put(`/api/events/${eventId}/attend`, { 
+      user_id: userInfo._id }, 
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+  }
   
   const dispatch = useDispatch();
   useEffect(() => {
@@ -84,7 +97,7 @@ function IndividualEvent(props) {
               </Grid>
             </Grid>
             <Typography component="h6" variant="h6">{event.description}          </Typography>
-            <Button variant="contained">Join</Button>
+            <Button variant="contained" onClick={() => handleAttendEvent(id)}>Join</Button>
           </Grid>
         </Grid>
        </div>
