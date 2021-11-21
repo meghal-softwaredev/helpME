@@ -12,7 +12,7 @@ function EventList(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listEvents());
-  }, [dispatch]);
+  }, [dispatch, listEvents]);
   
   const navigate = useNavigate();
   const handleGroup = () => {

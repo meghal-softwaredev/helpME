@@ -18,12 +18,12 @@ import {
   groupDeleteReducer
 } from './reducers/groupReducers';
 import {
-  eventListReducer
+  eventListReducer,
+  eventCreateReducer,
 } from './reducers/eventReducers';
 import {
   categoryListReducer,
 } from './reducers/categoryReducers';
-
 
 const initialState = {
   userSignin: {
@@ -36,17 +36,18 @@ const initialState = {
 const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userSignin: userSigninReducer,
+  categoryList: categoryListReducer,
   feedList: feedListReducer,
   feedCreate: feedCreateReducer,
   individualFeedDetails: individualFeedDetailsReducer,
   answerCreate: answerCreateReducer,
   groupList: groupListReducer,
-  eventList: eventListReducer,
-  categoryList: categoryListReducer,
   groupCreate: groupCreateReducer,
   individualGroupDetails: individualGroupDetailsReducer,
   groupUpdate : groupUpdateReducer,
   groupDelete: groupDeleteReducer,
+  eventList: eventListReducer,
+  eventCreate: eventCreateReducer,
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

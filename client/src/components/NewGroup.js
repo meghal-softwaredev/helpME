@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createGroup } from '../actions/groupActions';
 import { listCategories } from '../actions/categoryActions';
 import { updateGroup } from '../actions/groupActions';
+import { useNavigate } from 'react-router-dom';
 
 export default function NewGroup(props) {
   const [groupState, setGroupState] = React.useState({
@@ -19,6 +20,7 @@ export default function NewGroup(props) {
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
   
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listCategories());
@@ -62,7 +64,9 @@ export default function NewGroup(props) {
       ...prev, title: "",
       description: "",
       category_id: "",
-      group_url: "" }));
+      group_url: "" })
+    );
+    navigate('/groups');
   };
 
   return (
@@ -152,7 +156,7 @@ export default function NewGroup(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
-                onClick={() => window.location.reload(false)}
+                // onClick={() => window.location.reload(false)}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Update Group
@@ -160,7 +164,7 @@ export default function NewGroup(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
-                onClick={() => window.location.reload(false)}
+                // onClick={() => window.location.reload(false)}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Create Group
