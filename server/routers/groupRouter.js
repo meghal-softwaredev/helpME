@@ -57,6 +57,7 @@ groupRouter.post(
 
 groupRouter.put(
   '/:id',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const groupId = req.params.id;
 
