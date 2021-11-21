@@ -22,12 +22,13 @@ import {
   groupDeleteReducer
 } from './reducers/groupReducers';
 import {
-  eventListReducer
+  eventListReducer,
+  eventCreateReducer,
+  individualEventDetailsReducer,
 } from './reducers/eventReducers';
 import {
   categoryListReducer,
 } from './reducers/categoryReducers';
-
 
 const initialState = {
   userSignin: {
@@ -40,6 +41,7 @@ const initialState = {
 const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userSignin: userSigninReducer,
+  categoryList: categoryListReducer,
   feedList: feedListReducer,
   feedCreate: feedCreateReducer,
   feedUpdate: feedUpdateReducer,
@@ -49,12 +51,13 @@ const reducer = combineReducers({
   answerCreate: answerCreateReducer,
   feedAnswerDelete: feedAnswerDeleteReducer,
   groupList: groupListReducer,
-  eventList: eventListReducer,
-  categoryList: categoryListReducer,
   groupCreate: groupCreateReducer,
   individualGroupDetails: individualGroupDetailsReducer,
   groupUpdate : groupUpdateReducer,
   groupDelete: groupDeleteReducer,
+  eventList: eventListReducer,
+  eventCreate: eventCreateReducer,
+  individualEventDetails: individualEventDetailsReducer,
 })
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

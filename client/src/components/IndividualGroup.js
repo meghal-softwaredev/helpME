@@ -8,10 +8,13 @@ import { getIndividualGroup } from '../actions/groupActions';
 import NewGroup from './NewGroup';
 import ConfirmDialog from './ConfirmDialog';
 import { deleteGroup } from '../actions/groupActions';
+import NewEvent from './NewEvent';
 
 function IndividualGroup(props) {
   const [openNewGroup, setOpenNewGroup] = useState(false);
   const [openDeleteGroup, setOpenDeleteGroup] = useState(false);
+  const [openNewEvent, setOpenNewEvent] = useState(false);
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -45,6 +48,14 @@ function IndividualGroup(props) {
     
   };
 
+  const handleOpenNewEvent = () => {
+    setOpenNewEvent(true);
+  };
+
+  const handleCloseNewEvent = () => {
+    setOpenNewEvent(false);
+  };
+
   return (
     <div className="item-container">
     {loading ? (
@@ -52,6 +63,13 @@ function IndividualGroup(props) {
     ) : error ? (
       <MessageBox variant="danger">{error}</MessageBox>
     ) : (
+      <div>
+        <div>
+        <Button size="small" variant="contained" onClick={handleOpenNewEvent}>
+            Create Event
+          </Button>
+          <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} group_id ={group._id}/>
+        </div>
       <div>
         <Grid container sx={{ border: 1,  p: 2 }}>
           <Grid item xs={3} > 
@@ -61,7 +79,7 @@ function IndividualGroup(props) {
             <Grid container>
               <Grid item>
                 <Typography component="h5" variant="h5">
-                  <Link className="link" to={`/groups/${id}`}>{group.title}</Link>
+                  {group.title}
                 </Typography>
               </Grid>
              <Grid item >
@@ -86,6 +104,7 @@ function IndividualGroup(props) {
             <Button variant="contained">Join</Button>
           </Grid>
         </Grid>
+       </div>
        </div>
     )} 
     </div>
