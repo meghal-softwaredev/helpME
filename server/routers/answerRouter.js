@@ -21,4 +21,20 @@ answerRouter.delete(
   })
 );
 
+answerRouter.put(
+  '/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const feedAnswerId = req.params.id;
+    const feedAnswer = await FeedAnswer.findById(feedAnswerId);
+    if (feedAnswer) {
+      feedAnswer.answer = req.body.answer;
+      const updatedFeedAnswer = await feedAnswer.save();
+      res.send({ message: 'Feed Updated', feedAnswer: updatedFeedAnswer });
+    } else {
+      res.status(404).send({ message: 'Feed Not Found' });
+    }
+  })
+);
+
 export default answerRouter;
