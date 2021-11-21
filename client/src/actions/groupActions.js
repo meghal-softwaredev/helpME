@@ -12,6 +12,9 @@ import {
   GROUP_UPDATE_REQUEST,
   GROUP_UPDATE_SUCCESS,
   GROUP_UPDATE_FAIL,
+  GROUP_JOIN_REQUEST,
+  GROUP_JOIN_SUCCESS,
+  GROUP_JOIN_FAIL,
   GROUP_DELETE_REQUEST,
   GROUP_DELETE_SUCCESS,
   GROUP_DELETE_FAIL,
@@ -118,5 +121,26 @@ export const deleteGroup = (groupId) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: GROUP_DELETE_FAIL, payload: message });
+  }
+};
+
+export const joinGroup = (groupId) => async (dispatch, getState) => {
+  dispatch({ type: GROUP_JOIN_REQUEST, payload: groupId });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.put(`/api/groups/${groupId}/join`, { 
+          user_id: userInfo._id }, 
+    {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type:GROUP_JOIN_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: GROUP_JOIN_FAIL, payload: message });
   }
 };

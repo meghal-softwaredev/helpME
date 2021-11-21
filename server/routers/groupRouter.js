@@ -90,4 +90,20 @@ groupRouter.delete(
   })
 );
 
+groupRouter.put(
+  '/:id/join',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const groupId = req.params.id;
+    const group = await Group.findById(groupId);
+    if (group) {
+      group.followers.push(req.body.user_id);
+      const updatedGroup = await group.save();
+      res.send({ message: 'Group Updated', group: updatedGroup });
+    } else {
+      res.status(404).send({ message: 'Group  Not Found' });
+    }
+  })
+);
+
 export default groupRouter;

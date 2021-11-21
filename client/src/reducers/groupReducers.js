@@ -12,6 +12,10 @@ import {
   GROUP_UPDATE_REQUEST,
   GROUP_UPDATE_SUCCESS,
   GROUP_UPDATE_FAIL,
+  GROUP_UPDATE_RESET,
+  GROUP_JOIN_REQUEST,
+  GROUP_JOIN_SUCCESS,
+  GROUP_JOIN_FAIL,
   GROUP_DELETE_REQUEST,
   GROUP_DELETE_SUCCESS,
   GROUP_DELETE_FAIL,
@@ -66,6 +70,8 @@ export const groupUpdateReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case GROUP_UPDATE_FAIL:
       return { loading: false, error: action.payload };
+    case GROUP_UPDATE_RESET:
+      return {};
     default:
       return state;
   }
@@ -78,6 +84,19 @@ export const groupDeleteReducer = (state = {}, action) => {
     case GROUP_DELETE_SUCCESS:
       return { loading: false, success: true };
     case GROUP_DELETE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const groupJoinReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GROUP_JOIN_REQUEST:
+      return { loading: true };
+    case GROUP_JOIN_SUCCESS:
+      return { loading: false, success: true };
+    case GROUP_JOIN_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

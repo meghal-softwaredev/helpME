@@ -9,6 +9,7 @@ import NewGroup from './NewGroup';
 import ConfirmDialog from './ConfirmDialog';
 import { deleteGroup } from '../actions/groupActions';
 import NewEvent from './NewEvent';
+import { joinGroup } from '../actions/groupActions';
 
 function IndividualGroup(props) {
   const [openNewGroup, setOpenNewGroup] = useState(false);
@@ -25,6 +26,10 @@ function IndividualGroup(props) {
   useEffect(() => {
     dispatch(getIndividualGroup(id));
   }, [dispatch, id]);
+
+  const handleJoinGroup = (groupId) => {
+    dispatch(joinGroup(groupId));
+  }
 
   const deleteGroupHandler = () => {
     dispatch(deleteGroup(id));
@@ -101,7 +106,7 @@ function IndividualGroup(props) {
               </Grid>
             </Grid>
             <Typography component="h6" variant="h6">{group.description}</Typography>
-            <Button variant="contained">Join</Button>
+            <Button variant="contained" onClick={() => handleJoinGroup(id)}>Join</Button>
           </Grid>
         </Grid>
        </div>

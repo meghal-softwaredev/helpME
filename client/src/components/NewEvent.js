@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, TextField, Dialog, DialogContent, DialogTitle, Avatar, Grid, Box, Typography, Container, Paper, Chip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { createEvent } from '../actions/eventActions';
+import { createEvent, listEvents } from '../actions/eventActions';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateAdapter from '@mui/lab/AdapterMoment'
 import DatePicker from '@mui/lab/DatePicker';
@@ -61,6 +61,10 @@ export default function NewEvent(props) {
   //   dispatch(listCategories());
   // }, [dispatch]);
   
+  useEffect(() => {
+    dispatch(listEvents());
+  }, [dispatch]);
+
   function handleTitleChange(e) {
     setEventState(prev => ({ ...prev, title: e.target.value }));
   };
@@ -112,10 +116,10 @@ export default function NewEvent(props) {
     e.preventDefault();
     if (!eventDetails) {
       dispatch(createEvent(eventState));
+      dispatch(listEvents());
     } else {
       dispatch(updateEvent(props.eventId, eventState));
     }
-    props.handleCloseNewEvent();
     setEventState(prev => ({
       ...prev, title: "",
       description: "",
@@ -128,7 +132,7 @@ export default function NewEvent(props) {
       tags: [],
       group_id: ""
     }));
-    navigate('/events');
+    props.handleCloseNewEvent();
   };
 
   return (
@@ -299,6 +303,7 @@ export default function NewEvent(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
+                // onClick={() => window.location.reload(false)}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Update Event
@@ -306,6 +311,7 @@ export default function NewEvent(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
+                // onClick={() => window.location.reload(false)}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Create Event

@@ -9,12 +9,12 @@ function GroupList(props) {
   const groupList = useSelector((state) => state.groupList);
   const { loading, error, groups } = groupList;
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listGroups());
-  }, [dispatch, listGroups]);
+  }, [dispatch, listGroups, navigate]);
   
-  const navigate = useNavigate();
   const handleEvent = () => {
     navigate('/events');
   }
