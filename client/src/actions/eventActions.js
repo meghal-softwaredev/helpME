@@ -6,6 +6,9 @@ import {
   EVENT_CREATE_REQUEST,
   EVENT_CREATE_SUCCESS,
   EVENT_CREATE_FAIL,
+  INDIVIDUAL_EVENT_DETAILS_REQUEST,
+  INDIVIDUAL_EVENT_DETAILS_SUCCESS,
+  INDIVIDUAL_EVENT_DETAILS_FAIL,
 } from '../constants/eventConstants';
 
 export const listEvents = () => async (dispatch) => {
@@ -29,7 +32,7 @@ export const createEvent = (newEvent) => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = await Axios.post(
-      'http://localhost:5000/api/events/new', {
+      '/api/events/new', {
         title: newEvent.title,
         description: newEvent.description,
         user_id: userInfo._id,
@@ -56,5 +59,21 @@ export const createEvent = (newEvent) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: EVENT_CREATE_FAIL, payload: message });
+  }
+};
+
+export const getIndividualEvent = (eventId) => async (dispatch) => {
+  dispatch({ type: INDIVIDUAL_EVENT_DETAILS_REQUEST, payload: eventId });
+  try {
+    const { data } = await Axios.get(`/api/events/${eventId}`);
+    dispatch({ type: INDIVIDUAL_EVENT_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: INDIVIDUAL_EVENT_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
 };
