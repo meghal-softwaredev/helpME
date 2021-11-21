@@ -20,7 +20,10 @@ import {
   INDIVIDUAL_FEED_DETAILS_FAIL,
   FEED_ANSWERS_REQUEST,
   FEED_ANSWERS_SUCCESS,
-  FEED_ANSWERS_FAIL
+  FEED_ANSWERS_FAIL,
+  FEED_ANSWER_DELETE_REQUEST,
+  FEED_ANSWER_DELETE_SUCCESS,
+  FEED_ANSWER_DELETE_FAIL,
 } from '../constants/feedConstants';
 
 export const listFeeds = () => async (dispatch) => {
@@ -175,6 +178,29 @@ export const deleteFeed = (feedId) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: FEED_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteFeedAnswer = (ans_id) => async (dispatch, getState) => {
+  dispatch({ type: FEED_ANSWER_DELETE_REQUEST, payload: ans_id });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+    const { data } = await Axios.delete(
+      `/api/answers/${ans_id}`, {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    }
+    );
+    dispatch({ type: FEED_ANSWER_DELETE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: FEED_ANSWER_DELETE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
