@@ -13,6 +13,7 @@ import {
   feedAnswersReducer,
   answerCreateReducer,
   feedAnswerDeleteReducer,
+  feedAnswerUpdateReducer,
 } from './reducers/feedReducers';
 import {
   groupListReducer,
@@ -50,6 +51,7 @@ const reducer = combineReducers({
   feedAnswers: feedAnswersReducer,
   answerCreate: answerCreateReducer,
   feedAnswerDelete: feedAnswerDeleteReducer,
+  feedAnswerUpdate: feedAnswerUpdateReducer,
   groupList: groupListReducer,
   groupCreate: groupCreateReducer,
   individualGroupDetails: individualGroupDetailsReducer,
