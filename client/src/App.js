@@ -46,6 +46,9 @@ function App() {
               <Route path="/register" element={<Register />}></Route>
               <Route path="/signin" element={<Signin />}></Route>
               <Route path="/" element={<Home />} exact></Route>
+              <Route path="/feeds" element={<FeedList />}></Route>
+              <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
+              <Route path="/events" element={<EventList />}></Route>
             </Routes>
           </main>
         )}

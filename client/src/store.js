@@ -7,8 +7,13 @@ import {
 import {
   feedListReducer,
   feedCreateReducer,
+  feedUpdateReducer,
+  feedDeleteReducer,
   individualFeedDetailsReducer,
+  feedAnswersReducer,
   answerCreateReducer,
+  feedAnswerDeleteReducer,
+  feedAnswerUpdateReducer,
 } from './reducers/feedReducers';
 import {
   groupListReducer,
@@ -42,8 +47,13 @@ const reducer = combineReducers({
   categoryList: categoryListReducer,
   feedList: feedListReducer,
   feedCreate: feedCreateReducer,
+  feedUpdate: feedUpdateReducer,
+  feedDelete: feedDeleteReducer,
   individualFeedDetails: individualFeedDetailsReducer,
+  feedAnswers: feedAnswersReducer,
   answerCreate: answerCreateReducer,
+  feedAnswerDelete: feedAnswerDeleteReducer,
+  feedAnswerUpdate: feedAnswerUpdateReducer,
   groupList: groupListReducer,
   groupCreate: groupCreateReducer,
   individualGroupDetails: individualGroupDetailsReducer,
