@@ -9,6 +9,7 @@ import NewEvent from './NewEvent';
 import ConfirmDialog from './ConfirmDialog';
 import { deleteEvent } from '../actions/eventActions';
 import Axios from 'axios';
+import moment from 'moment';
 
 function IndividualEvent(props) {
   const [openNewEvent, setOpenNewEvent] = useState(false);
@@ -77,6 +78,12 @@ function IndividualEvent(props) {
                 <Typography component="h5" variant="h5">
                   {event.title}
                 </Typography>
+                <Typography component="h6" variant="h6">
+                  {moment(event.date_time).format('llll')}
+                </Typography>
+                <Typography component="h6" variant="h6">
+                  {(event.duration<60) ? event.duration +` mins` : event.duration + ` hr`}
+                </Typography>
               </Grid>
              <Grid item >
                 <Button size="small" variant="contained" onClick={handleOpenNewEvent}>
@@ -96,9 +103,9 @@ function IndividualEvent(props) {
                 </ConfirmDialog>
               </Grid>
             </Grid>
-            <Typography component="h6" variant="h6">{event.description}          </Typography>
             <Button variant="contained" onClick={() => handleAttendEvent(id)}>Join</Button>
           </Grid>
+          <Typography component="h6" variant="h6">{event.description}          </Typography>
         </Grid>
        </div>
     )} 

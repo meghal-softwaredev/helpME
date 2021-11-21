@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Axios from 'axios';
+import moment from 'moment';
 
 function EventListItem(props) {
-  const { _id, title, description, event_image_url } = props.event;
+  const { _id, title, description, date_time, event_image_url } = props.event;
 
   const userInfo = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
@@ -28,6 +29,9 @@ function EventListItem(props) {
       <Grid item xs={9} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
         <Typography component="h5" variant="h5">
           <Link className="link" to={`/events/${_id}`}>{title}</Link>
+        </Typography>
+        <Typography component="h6" variant="h6">
+          {moment(date_time).format('llll')}
         </Typography>
         <Typography component="h6" variant="h6">{description}</Typography>
         <Button variant="contained" onClick={() => handleAttendEvent(_id)}>Attend</Button>
