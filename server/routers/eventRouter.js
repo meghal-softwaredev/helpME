@@ -66,10 +66,19 @@ eventRouter.put(
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const eventId = req.params.id;
-    const event = await Feed.findById(eventId);
+    const event = await Event.findById(eventId);
     if (event) {
-      event.title = req.body.title;
-      event.description = req.body.description;
+      event.title = req.body.title,
+      event.description = req.body.description,
+      event.user_id = req.body.user_id,
+      // date: req.body.date,
+      // start_time: req.body.start_time,
+      event.date_time = req.body.date_time,
+      event.duration = req.body.duration,
+      event.event_image_url = req.body.event_image_url,
+      event.event_video_url = req.body.event_video_url,
+      event.group_id = req.body.group_id,
+      event.tags = req.body.tags
       const updatedEvent = await event.save();
       res.send({ message: 'Event Updated', event: updatedEvent });
     } else {
