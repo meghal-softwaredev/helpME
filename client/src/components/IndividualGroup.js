@@ -10,8 +10,6 @@ import ConfirmDialog from './ConfirmDialog';
 import { deleteGroup } from '../actions/groupActions';
 import NewEvent from './NewEvent';
 import { joinGroup } from '../actions/groupActions';
-import IosShareIcon from '@mui/icons-material/IosShare';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import Axios from 'axios';
@@ -44,14 +42,6 @@ function IndividualGroup(props) {
   const userInfo = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
-  
-  const handleShareGroup = (groupId) => {
-    Axios.put(`/api/groups/${groupId}/share`, { 
-      user_id: userInfo._id }, 
-      {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      });
-  }
 
   const handleLikeGroup = (groupId) => {
     Axios.put(`/api/groups/${groupId}/favourite`, { 
@@ -94,7 +84,7 @@ function IndividualGroup(props) {
       <MessageBox variant="danger">{error}</MessageBox>
     ) : (
       <div>
-        {userInfo && (
+        {userInfo && userInfo._id === group.user_id &&  (
           <div>
             <Button size="small" variant="outlined" sx={{color:"white"}} onClick={handleOpenNewEvent}>
                 Create Event
@@ -114,7 +104,7 @@ function IndividualGroup(props) {
              <Button variant="outlined" sx={{color:"white"}} onClick={() => handleJoinGroup(id)}>Join</Button>
             )}
           </Grid>
-          {userInfo && (
+          {userInfo && userInfo._id === group.user_id && (
           <Grid item xs={2} >
               <IconButton size="small" variant="outlined" onClick={handleOpenNewGroup}>
                 <ModeEditIcon />

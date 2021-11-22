@@ -1,4 +1,5 @@
-import { Button } from '@mui/material';
+import { useState } from 'react';
+import { Button, Popover } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Grid, Typography, Divider, IconButton} from '@mui/material';
 import Axios from 'axios';
@@ -7,6 +8,7 @@ import IosShareIcon from '@mui/icons-material/IosShare';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 function EventListItem(props) {
+  const [anchorEl, setAnchorEl] = useState(null);
   const { _id, title, description, date_time, event_image_url } = props.event;
 
   const userInfo = localStorage.getItem('userInfo')
@@ -21,8 +23,9 @@ function EventListItem(props) {
       });
   }
   
-  const handleShareEvent = (eventId) => {
-    const url = window.location.href + "/" + eventId;
+  const handleShareEvent = (e) => {
+    setAnchorEl(e.currentTarget);
+    const url = window.location.href + "/" + _id;
     navigator.clipboard.writeText(url);
   }
 
@@ -33,7 +36,7 @@ function EventListItem(props) {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
   }
-
+  const open = Boolean(anchorEl);
   return (
     <div className="item-container">
     <Grid container sx={{ my: 2, p: 2 }}>
@@ -54,9 +57,27 @@ function EventListItem(props) {
       </Grid>
       {userInfo && (
       <Grid item xs={1} >
-        <IconButton size="small" variant="outlined" onClick={() => handleShareEvent(_id)}>
+        <IconButton size="small" variant="outlined" onClick={(e) => handleShareEvent(e)}>
           <IosShareIcon color="white" />
         </IconButton>
+        <Popover
+        anchorEl={anchorEl}
+        open={open}
+        id={open ? "simple-popover" : undefined}
+        onClose={() => {
+          setAnchorEl(null);
+        }}
+        transformOrigin={{
+          horizontal: "center",
+          vertical: "top",
+        }}
+        anchorOrigin={{
+          horizontal: "center",
+          vertical: "bottom",
+        }}
+      >
+        Copied Link
+      </Popover>
         {/* <IconButton size="small" variant="outlined" onClick={() => handleLikeEvent(_id)}>
           <FavoriteBorderIcon color="white"/>
         </IconButton> */}

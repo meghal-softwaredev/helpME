@@ -9,12 +9,9 @@ import NewEvent from './NewEvent';
 import ConfirmDialog from './ConfirmDialog';
 import Axios from 'axios';
 import moment from 'moment';
-import IosShareIcon from '@mui/icons-material/IosShare';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-
-
+         
 function IndividualEvent(props) {
   const [openNewEvent, setOpenNewEvent] = useState(false);
   const [openDeleteEvent, setOpenDeleteEvent] = useState(false);
@@ -31,14 +28,6 @@ function IndividualEvent(props) {
 
   const handleAttendEvent = (eventId) => {
     Axios.put(`/api/events/${eventId}/attend`, { 
-      user_id: userInfo._id }, 
-      {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      });
-  }
-
-  const handleShareEvent = (eventId) => {
-    Axios.put(`/api/events/${eventId}/share`, { 
       user_id: userInfo._id }, 
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -87,7 +76,6 @@ function IndividualEvent(props) {
     ) : error ? (
       <MessageBox variant="danger">{error}</MessageBox>
     ) : (
-      // 
       <div>
         <Grid container sx={{ p: 2 }}>
           <Grid item xs={3} >
@@ -106,7 +94,7 @@ function IndividualEvent(props) {
                   {event.duration +` mins` }
                 </Typography>
               </Grid>
-              {userInfo && (
+              {userInfo && userInfo._id === event.user_id && (
               <Grid item >
                 <IconButton size="small" variant="outlined" onClick={handleOpenNewEvent}>
                   <ModeEditIcon />

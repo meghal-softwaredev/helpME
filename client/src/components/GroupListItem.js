@@ -1,4 +1,5 @@
-import { Button } from '@mui/material';
+import { useState } from 'react';
+import { Button, Popover } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Grid, Typography, Divider, IconButton} from '@mui/material';
 import { useDispatch } from 'react-redux';
@@ -9,8 +10,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Axios from 'axios';
 
 function GroupListItem(props) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  
   const { _id, title, description, group_url, favourites } = props.group;
-  console.log("favourites", favourites);
+  
   const dispatch = useDispatch();
   const handleJoinGroup = (groupId) => {
     dispatch(joinGroup(groupId));
@@ -20,8 +23,9 @@ function GroupListItem(props) {
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
   
-  const handleShareGroup = (groupId) => {
-    const url = window.location.href + "/" + groupId;
+  const handleShareGroup = (event) => {
+    setAnchorEl(event.currentTarget);
+    const url = window.location.href + "/" + _id;
     navigator.clipboard.writeText(url);
   }
 
@@ -32,6 +36,8 @@ function GroupListItem(props) {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
   }
+
+  const open = Boolean(anchorEl);
 
   return (
     <div className="item-container">
@@ -50,9 +56,27 @@ function GroupListItem(props) {
       </Grid>
       {userInfo && (
       <Grid item xs={1} >
-        <IconButton size="small" variant="outlined" onClick={() => handleShareGroup(_id)}>
+        <IconButton size="small" variant="outlined" onClick={(event) => handleShareGroup(event)}>
           <IosShareIcon color="white" />
         </IconButton>
+        <Popover
+        anchorEl={anchorEl}
+        open={open}
+        id={open ? "simple-popover" : undefined}
+        onClose={() => {
+          setAnchorEl(null);
+        }}
+        transformOrigin={{
+          horizontal: "center",
+          vertical: "top",
+        }}
+        anchorOrigin={{
+          horizontal: "center",
+          vertical: "bottom",
+        }}
+      >
+        Copied Link
+      </Popover>
         { favourites && favourites[userInfo._id] === true ? (
         <IconButton size="small" variant="outlined" onClick={() => handleLikeGroup(_id)}>
           <FavoriteIcon color="red"/>
