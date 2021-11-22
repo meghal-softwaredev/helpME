@@ -10,10 +10,20 @@ eventRouter.get(
   '/',
   expressAsyncHandler(async (req, res) => {
     const group = req.query.group || '';
+    const sortBy = req.query.sortBy || '';
+    const keyword = req.query.keyword || '';
+
     const groupFilter = group ? { group } : {};
+
+    const keywordFilter = keyword ? { $or: [{ title: { $regex: keyword, $options: 'i' } }, { tags: { $regex: keyword, $options: 'i' } }] } : {}
+
+    const sortOrder = sortBy === 'latest' ? { createdAt: -1 } : sortBy === 'oldest'
+          ? { createdAt: 1 } : { _id: -1 };
+
     const events = await Event.find({
-      ...groupFilter
-    });
+      ...groupFilter,
+      ...keywordFilter
+    }).sort(sortOrder);
     res.send({ events });
   })
 );
