@@ -1,4 +1,5 @@
-header {
+@import "../color.scss";
+/* header {
   display: flex;
   justify-content: space-between;
 
@@ -17,4 +18,10 @@ header {
       gap: 20px;
     }
   }
+} */
+
+.get-help-btn {
+  padding: 10px;
+  border: solid 1px $color-gray-dark;
+  border-radius: 10px;
 }
