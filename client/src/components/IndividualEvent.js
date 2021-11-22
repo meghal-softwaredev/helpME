@@ -11,6 +11,7 @@ import Axios from 'axios';
 import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import YoutubeEmbed from './YoutubeEmbed';
          
 function IndividualEvent(props) {
   const [openNewEvent, setOpenNewEvent] = useState(false);
@@ -79,7 +80,8 @@ function IndividualEvent(props) {
       <div>
         <Grid container sx={{ p: 2 }}>
           <Grid item xs={3} >
-          <img src={event.event_image_url} width="150px" height="150px" alt="Event" style={{borderRadius: 50}}/>
+          {/* <img src={event.event_image_url} width="150px" height="150px" alt="Event" style={{borderRadius: 50}}/> */}
+          <YoutubeEmbed embedId="FgnxcUQ5vho" />
           </Grid>
           <Grid item xs={9} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
             <Grid container>
