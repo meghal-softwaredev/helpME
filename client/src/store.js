@@ -20,7 +20,8 @@ import {
   groupCreateReducer,
   individualGroupDetailsReducer,
   groupUpdateReducer,
-  groupDeleteReducer
+  groupDeleteReducer,
+  groupJoinReducer
 } from './reducers/groupReducers';
 import {
   eventListReducer,
@@ -59,6 +60,7 @@ const reducer = combineReducers({
   individualGroupDetails: individualGroupDetailsReducer,
   groupUpdate : groupUpdateReducer,
   groupDelete: groupDeleteReducer,
+  groupJoin: groupJoinReducer,
   eventList: eventListReducer,
   eventCreate: eventCreateReducer,
   individualEventDetails: individualEventDetailsReducer,

@@ -49,6 +49,7 @@ function App() {
               <Route path="/feeds" element={<FeedList />}></Route>
               <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
               <Route path="/events" element={<EventList />}></Route>
+              <Route path="/events/:id" element={<IndividualEvent />}></Route>
             </Routes>
           </main>
         )}

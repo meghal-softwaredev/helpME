@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { Button, TextField, Dialog, DialogContent, DialogTitle, Avatar, Grid, Box, Typography, Container, InputLabel, MenuItem, FormControl, Select} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { createGroup } from '../actions/groupActions';
+import { createGroup, listGroups } from '../actions/groupActions';
 import { listCategories } from '../actions/categoryActions';
 import { updateGroup } from '../actions/groupActions';
 import { useNavigate } from 'react-router-dom';
+import { GROUP_UPDATE_RESET } from '../constants/groupConstants'
 
 export default function NewGroup(props) {
   const [groupState, setGroupState] = React.useState({
@@ -15,7 +16,7 @@ export default function NewGroup(props) {
   });
 
   const individualGroupDetails = useSelector((state) => state.individualGroupDetails);
-  const { group } = individualGroupDetails;
+  const { group, success } = individualGroupDetails;
   
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
@@ -27,6 +28,10 @@ export default function NewGroup(props) {
   }, [dispatch]);
 
   useEffect(() => {
+    if (success) {
+      dispatch({ type: GROUP_UPDATE_RESET });
+      navigate('/group');
+    }
     if (group) {
       setGroupState({
         title: group.title,
@@ -36,6 +41,10 @@ export default function NewGroup(props) {
       })
     }
   }, [group]);
+
+  useEffect(() => {
+    dispatch(listGroups());
+  }, [dispatch]);
 
   function handleTitleChange(e) {
     setGroupState(prev => ({ ...prev, title: e.target.value }));
@@ -59,14 +68,13 @@ export default function NewGroup(props) {
     } else {
       dispatch(updateGroup(props.groupId, groupState));
     }
-    props.handleCloseNewGroup();
     setGroupState(prev => ({
       ...prev, title: "",
       description: "",
       category_id: "",
       group_url: "" })
-    );
-    navigate('/groups');
+      );
+    props.handleCloseNewGroup();
   };
 
   return (
