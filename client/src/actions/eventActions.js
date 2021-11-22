@@ -17,13 +17,16 @@ import {
   EVENT_DELETE_FAIL,
 } from '../constants/eventConstants';
 
-export const listEvents = () => async (dispatch) => {
+export const listEvents = ({
+  keyword = '',
+  sortBy = ''
+}) => async (dispatch) => {
   dispatch({
     type: EVENT_LIST_REQUEST,
   });
   try {
     const { data } = await Axios.get(
-      `/api/events`
+      `/api/events?keyword=${keyword}&sortBy=${sortBy}`
     );
     dispatch({ type: EVENT_LIST_SUCCESS, payload: data });
   } catch (error) {
