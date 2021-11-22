@@ -20,7 +20,7 @@ function FeedListItem(props) {
           </Box>
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold' }}>10</Typography>
+          <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold' }}>{props.feed.answers.length}</Typography>
           <Typography>Answers</Typography>
         </Box>
       </Box>
