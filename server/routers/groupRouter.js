@@ -10,10 +10,21 @@ groupRouter.get(
   '/',
   expressAsyncHandler(async (req, res) => {
     const category = req.query.category || '';
+    const sortBy = req.query.sortBy || '';
+    const keyword = req.query.keyword || '';
+
     const categoryFilter = category ? { category } : {};
+
+    const keywordFilter = keyword ? { $or: [{ title: { $regex: keyword, $options: 'i' } }, { tags: { $regex: keyword, $options: 'i' } }] } : {}
+
+    const sortOrder = sortBy === 'latest' ? { createdAt: -1 } : sortBy === 'oldest'
+          ? { createdAt: 1 } : { _id: -1 };
+
     const groups = await Group.find({
-      ...categoryFilter
-    });
+      ...categoryFilter,
+      ...keywordFilter
+    }).sort(sortOrder);
+    
     res.send({ groups });
   })
 );
@@ -98,6 +109,24 @@ groupRouter.put(
     const group = await Group.findById(groupId);
     if (group) {
       group.followers.push(req.body.user_id);
+      const updatedGroup = await group.save();
+      res.send({ message: 'Group Updated', group: updatedGroup });
+    } else {
+      res.status(404).send({ message: 'Group  Not Found' });
+    }
+  })
+);
+
+groupRouter.put(
+  '/:id/favourite',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const groupId = req.params.id;
+    console.log("groupId", groupId);
+    const group = await Group.findById(groupId);
+    console.log("group",group);
+    if (group) {
+      group.favourites = {[req.body.user_id]: true};
       const updatedGroup = await group.save();
       res.send({ message: 'Group Updated', group: updatedGroup });
     } else {

@@ -20,13 +20,16 @@ import {
   GROUP_DELETE_FAIL,
 } from '../constants/groupConstants';
 
-export const listGroups = () => async (dispatch) => {
+export const listGroups = ({
+  keyword = '',
+  sortBy = ''
+}) => async (dispatch) => {
   dispatch({
     type: GROUP_LIST_REQUEST,
   });
   try {
     const { data } = await Axios.get(
-      `/api/groups`
+      `/api/groups?keyword=${keyword}&sortBy=${sortBy}`
     );
     dispatch({ type: GROUP_LIST_SUCCESS, payload: data });
   } catch (error) {
