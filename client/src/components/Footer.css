@@ -10,8 +10,8 @@
 .footer-subscription {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
   text-align: center;
 
   margin-bottom: 24px;
@@ -19,6 +19,9 @@
   color: #fff;
 }
 
+.fa-phone {
+  margin-right: auto;
+}
 .footer-subscription > p {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -160,4 +163,8 @@
 }
 
 @media screen and (max-width: 768px) {
+}
+
+.fa-phone {
+  align-items: left;
 }
