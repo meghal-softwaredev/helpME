@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, TextField, Dialog, DialogContent, DialogTitle, Avatar, Grid, Box, Typography, Container, InputLabel, MenuItem, FormControl, Select} from '@mui/material';
+import { Button, TextField, Dialog, DialogContent, DialogTitle, Avatar, Grid, Box, Typography, Container, InputLabel, MenuItem, FormControl, Select, Paper, Chip } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createGroup, listGroups } from '../actions/groupActions';
 import { listCategories } from '../actions/categoryActions';
@@ -7,13 +7,20 @@ import { updateGroup } from '../actions/groupActions';
 import { useNavigate } from 'react-router-dom';
 import { GROUP_UPDATE_RESET } from '../constants/groupConstants';
 import PeopleSharpIcon from '@mui/icons-material/PeopleSharp';
+import { styled } from '@mui/material/styles';
+
+const ListItem = styled('li')(({ theme }) => ({
+  margin: theme.spacing(0.1),
+}));
 
 export default function NewGroup(props) {
   const [groupState, setGroupState] = React.useState({
     title: "",
     description: "",
     category_id: "",
-    group_url: ""
+    group_url: "",
+    tag: "",
+    tags: [],
   });
 
   const individualGroupDetails = useSelector((state) => state.individualGroupDetails);
@@ -29,23 +36,22 @@ export default function NewGroup(props) {
   }, [dispatch]);
 
   useEffect(() => {
-    if (success) {
-      dispatch({ type: GROUP_UPDATE_RESET });
-      navigate('/group');
-    }
-    if (group) {
+    if (!group) {
+      dispatch(createGroup(groupState));
+    } else {
       setGroupState({
         title: group.title,
         description: group.description,
         category_id: group.category_id,
-        group_url: group.group_url
+        group_url: group.group_url,
+        tags: group.tags
       })
     }
-  }, [group]);
+  }, []);
 
-  useEffect(() => {
-    dispatch(listGroups());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(listGroups({}));
+  // }, [dispatch]);
 
   function handleTitleChange(e) {
     setGroupState(prev => ({ ...prev, title: e.target.value }));
@@ -61,6 +67,19 @@ export default function NewGroup(props) {
   function handlegroupURLChange(e) {
     setGroupState(prev => ({ ...prev, group_url: e.target.value }));
   };
+
+  const handleAddTag = () => {
+    setGroupState(prev => ({ ...prev, tags: [...prev.tags, groupState.tag], tag: ""}));
+  };
+
+  const handleDeleteTag = (tagToDelete) => () => {
+    setGroupState(prev => ({ ...prev, tags: (tags) => tags.filter((tag) => tag !== tagToDelete)}));
+  };
+
+  function handleTagChange(e) {
+    setGroupState(prev => ({...prev, tag: e.target.value}));
+  };
+
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -73,8 +92,11 @@ export default function NewGroup(props) {
       ...prev, title: "",
       description: "",
       category_id: "",
-      group_url: "" })
-      );
+      group_url: "",
+      tag: "",
+      tags: []
+     })
+    );
     props.handleCloseNewGroup();
   };
 
@@ -158,6 +180,52 @@ export default function NewGroup(props) {
                     onChange={handlegroupURLChange}
                   />
                 </Grid>
+                <Grid item xs={12} sm={9}>
+                    <TextField
+                      fullWidth
+                      id="tag"
+                      label="Add Tag"
+                      name="tag"
+                      autoComplete="tag"
+                      value={groupState.tag}
+                      onChange={handleTagChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={3}>
+                    <Button
+                      variant="contained"
+                      sx={{ mt: 1 }}
+                      onClick={handleAddTag}
+                    >
+                      Add
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Paper
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexWrap: 'wrap',
+                        listStyle: 'none',
+                        p: 0.5,
+                        m: 0,
+                      }}
+                      component="ul"
+                    >
+                      {
+                          groupState.tags.map((data) => {
+                          return (
+                            <ListItem key={data}>
+                              <Chip
+                                label={data}
+                                onDelete={handleDeleteTag(data)}
+                              />
+                            </ListItem>
+                          );
+                        })
+                      }
+                    </Paper>
+                  </Grid>
               </Grid>
               {props.edit ? (<Button
                 type="submit"

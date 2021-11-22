@@ -14,6 +14,7 @@ import IosShareIcon from '@mui/icons-material/IosShare';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import Axios from 'axios';
 
 function IndividualGroup(props) {
   const [openNewGroup, setOpenNewGroup] = useState(false);
@@ -40,6 +41,26 @@ function IndividualGroup(props) {
     navigate("/groups");
   }
  
+  const userInfo = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null;
+  
+  const handleShareGroup = (groupId) => {
+    Axios.put(`/api/groups/${groupId}/share`, { 
+      user_id: userInfo._id }, 
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+  }
+
+  const handleLikeGroup = (groupId) => {
+    Axios.put(`/api/groups/${groupId}/favourite`, { 
+      user_id: userInfo._id }, 
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+  }
+
   const handleOpenNewGroup = () => {
     setOpenNewGroup(true);
   };
@@ -108,10 +129,6 @@ function IndividualGroup(props) {
             </div>
             <br />
             <br />
-            <div >
-              <IosShareIcon />
-              <FavoriteBorderIcon />
-            </div>
           </Grid>
         </Grid>
        </div>

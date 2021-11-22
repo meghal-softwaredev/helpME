@@ -50,6 +50,7 @@ export const createGroup = (newGroup) => async (dispatch, getState) => {
         category_id: newGroup.category_id,
         user_id: userInfo._id,
         group_url: newGroup.group_url,
+        tags: newGroup.tags,
       },
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -94,7 +95,8 @@ export const updateGroup = (groupId, group) => async (dispatch, getState) => {
           description: group.description,
           category_id: group.category_id,
           user_id: userInfo._id,
-          group_url: group.group_url }, 
+          group_url: group.group_url,
+          tags: group.tags }, 
     {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
