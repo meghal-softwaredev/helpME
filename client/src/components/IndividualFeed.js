@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import moment from 'moment';
 import { Chip, Box, Divider, Container, Typography, Grid, TextField, Button, Card, CardContent, CardActions, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { darkTheme } from "../mui/themes";
 import { getIndividualFeed, getFeedAnswers, saveAnswer, deleteFeed, deleteFeedAnswer, updateFeedAnswer } from '../actions/feedActions';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
-import { borderColor } from '@mui/system';
+import { borderColor, display } from '@mui/system';
 import NewFeed from './NewFeed';
 import DeleteConfirmDialog from './DeleteConfirmDialog';
 import EditFeedAnswer from './EditFeedAnswer';
@@ -92,116 +95,133 @@ function IndividualFeed() {
         ) : errorFeedDetails ? (
             <MessageBox variant="danger">{errorFeedDetails}</MessageBox>
         ) : feed && (
-              <Box sx={{ border: '1px solid #0077b6', my: 2, p: 2 }}>
-            <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
-                  {feed.title}
-            </Box>
-                {feed.tags.map(tag => (
-              <Chip key={tag} sx={{ mr: 1 }} label={tag} color="primary" />
-            ))}
-                <p>{feed.description}</p>
-                <p>Posted by: {feed.user && feed.user.name}</p>
-                <p>Posted on: {feed.createdAt}</p>
-                {userInfo && feed.user && feed.user._id === userInfo._id && (
-                  <CardActions>
-                    <IconButton color="warning" aria-label="edit feed" component="span" onClick={() => handleOpenDialog({msg: "EditFeed"})}>
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton sx={{ color: "#df7373" }} aria-label="delete feed" component="span" onClick={() => handleOpenDialog({msg:"DeleteFeed"})}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </CardActions>
-                )}
-                {currentDialog === "EditFeed" && (
-                  <NewFeed
-                    activity="EditFeed"
-                    feed={feed}
-                    openNewFeed={openDialog}
-                    handleCloseNewFeed={handleCloseDialog} />
-                )}
-                {currentDialog === "DeleteFeed" && (
-                  <DeleteConfirmDialog
-                    activity="DeleteFeed"
-                    title="Delete Feed?"
-                    openDeleteDialog={openDialog} 
-                    handleCloseDeleteDialog={handleCloseDialog}
-                    handleConfirmDelete={handleConfirmDelete} >
-                      Are you sure you want to delete this feed?
-                  </DeleteConfirmDialog>
-                )}
-            <br />
-            <Divider light={true}>
-              <Chip label="ANSWERS"/>
-            </Divider>
-                {answers && answers.map(ans => (
-                  <Box key={ans._id} sx={{ minWidth: 275 }}>
-                    <Card sx={{backgroundColor: "transparent", mt: "10px"}}>
-                      <CardContent>
-                        <Typography variant="body">
-                          {ans.answer}
-                        </Typography>
-                        <Typography sx={{ mt: 1 }} color="text.secondary">
-                          Posted by: {ans.user.name}
-                        </Typography>
-                        
-                      </CardContent>
-                      {userInfo && userInfo._id === ans.user._id && (
-                        <CardActions>
-                          <IconButton color="warning" aria-label="edit answer" component="span" onClick={() => handleOpenDialog({ msg: "EditFeedAnswer", ans_id: ans._id, answer: ans.answer })}>
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton sx={{ color: "#df7373" }} aria-label="delete answer" component="span" onClick={() => handleOpenDialog({ msg: "DeleteFeedAnswer", ans_id: ans._id})}>
-                            <DeleteIcon />
-                          </IconButton>
-                        </CardActions>
-                      )}
-                      {currentDialog === "EditFeedAnswer" && (
-                        <EditFeedAnswer
-                          answer={currentAnswer}
-                          openEditFeedAnswer={openDialog}
-                          handleEditFeedAnswer={handleEditFeedAnswer}
-                          handleCloseEditFeedAnswer={handleCloseDialog} />
-                      )}
-                      {currentDialog === "DeleteFeedAnswer" && (
-                        <DeleteConfirmDialog
-                          activity="DeleteFeedAnswer"
-                          title="Delete Feed Answer?"
-                          openDeleteDialog={openDialog}
-                          handleCloseDeleteDialog={handleCloseDialog}
-                          handleConfirmDelete={handleConfirmDelete} >
-                          Are you sure you want to delete this feed answer?
-                        </DeleteConfirmDialog>
-                      )}
-                    </Card>
-                  </Box>
-            ))}
-            {userInfo && (
-              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="answer"
-                      label="Answer"
-                      placeholder="Answer"
-                      multiline
-                      rows={4}
-                      value={newAnswer}
-                      onChange={handleNewAnswerChange}
-                    />
-                  </Grid>
-                </Grid>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Post Answer
-                </Button>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', border: '1px solid #0077b6', my: 2, p: 2 }}>
+              <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+                    {feed.title}
               </Box>
-            )}
-                
+              <Typography>{feed.description}</Typography>
+              <Box>
+                {feed.tags.map(tag => (
+                  <Chip key={tag} sx={{ mr: 1 }} label={tag} color="primary" variant="outlined" size="small" />
+                ))}
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ flex: '1' }}>
+                    <Typography>Posted by <b>{feed.user && feed.user.name}</b> on {moment(feed.createdAt).format("MMMM Do, YYYY")}</Typography>
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold', color: '#b5e48c' }}>{answers ? answers.length : 0}</Typography>
+                  <Typography>Answers</Typography>
+                </Box>
+              </Box>
+              {userInfo && feed.user && feed.user._id === userInfo._id && (
+                <CardActions>
+                  <IconButton color="warning" aria-label="edit feed" component="span" onClick={() => handleOpenDialog({msg: "EditFeed"})}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton sx={{ color: "#df7373" }} aria-label="delete feed" component="span" onClick={() => handleOpenDialog({msg:"DeleteFeed"})}>
+                    <DeleteIcon />
+                  </IconButton>
+                </CardActions>
+              )}
+              {currentDialog === "EditFeed" && (
+                <NewFeed
+                  activity="EditFeed"
+                  feed={feed}
+                  openNewFeed={openDialog}
+                  handleCloseNewFeed={handleCloseDialog} />
+              )}
+              {currentDialog === "DeleteFeed" && (
+                <DeleteConfirmDialog
+                  activity="DeleteFeed"
+                  title="Delete Feed?"
+                  openDeleteDialog={openDialog} 
+                  handleCloseDeleteDialog={handleCloseDialog}
+                  handleConfirmDelete={handleConfirmDelete} >
+                    Are you sure you want to delete this feed?
+                </DeleteConfirmDialog>
+              )}
+              <br />
+              <Divider light={true}>
+                <Chip label="ANSWERS"/>
+              </Divider>
+              {answers && answers.map(ans => (
+                <Box key={ans._id} sx={{ minWidth: 275, display: 'flex', gap: '10px', alignItems: 'center' }}>
+                  <Card sx={{flex: 1, backgroundColor: "transparent", mt: "10px"}}>
+                    <CardContent>
+                      <Typography variant="body">
+                        {ans.answer}
+                      </Typography>
+                      <Typography sx={{ mt: 1 }} color="text.secondary">
+                        Posted by: {ans.user.name}
+                      </Typography>
+                      
+                    </CardContent>
+                    {userInfo && userInfo._id === ans.user._id && (
+                      <CardActions>
+                        <IconButton color="warning" aria-label="edit answer" component="span" onClick={() => handleOpenDialog({ msg: "EditFeedAnswer", ans_id: ans._id, answer: ans.answer })}>
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton sx={{ color: "#df7373" }} aria-label="delete answer" component="span" onClick={() => handleOpenDialog({ msg: "DeleteFeedAnswer", ans_id: ans._id})}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </CardActions>
+                    )}
+                    {currentDialog === "EditFeedAnswer" && (
+                      <EditFeedAnswer
+                        answer={currentAnswer}
+                        openEditFeedAnswer={openDialog}
+                        handleEditFeedAnswer={handleEditFeedAnswer}
+                        handleCloseEditFeedAnswer={handleCloseDialog} />
+                    )}
+                    {currentDialog === "DeleteFeedAnswer" && (
+                      <DeleteConfirmDialog
+                        activity="DeleteFeedAnswer"
+                        title="Delete Feed Answer?"
+                        openDeleteDialog={openDialog}
+                        handleCloseDeleteDialog={handleCloseDialog}
+                        handleConfirmDelete={handleConfirmDelete} >
+                        Are you sure you want to delete this feed answer?
+                      </DeleteConfirmDialog>
+                    )}
+                  </Card>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <IconButton color="primary" aria-label="up vote" component="span">
+                      <KeyboardArrowUpIcon/>
+                    </IconButton>
+                    <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold' }}>{ans ? ans.upvotes : 0}</Typography>
+                    <IconButton color="primary" aria-label="down vote" component="span">
+                      <KeyboardArrowDownIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              ))}
+              {userInfo && (
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="answer"
+                        label="Answer"
+                        placeholder="Answer"
+                        multiline
+                        rows={4}
+                        value={newAnswer}
+                        onChange={handleNewAnswerChange}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    Post Answer
+                  </Button>
+                </Box>
+              )}  
           </Box>
         )}
       </div>
