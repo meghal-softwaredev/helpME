@@ -99,6 +99,7 @@ export const updateFeed = (updatedFeed) => async (dispatch, getState) => {
       type: FEED_UPDATE_SUCCESS,
       payload: data.feed,
     });
+    dispatch(getIndividualFeed(updatedFeed.feedId));
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -160,6 +161,7 @@ export const saveAnswer = (newAnswerDetails) => async (dispatch, getState) => {
       type: ANSWER_CREATE_SUCCESS,
       payload: data.answer,
     });
+    dispatch(getFeedAnswers(newAnswerDetails.feedId));
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -181,6 +183,7 @@ export const deleteFeed = (feedId) => async (dispatch, getState) => {
       }
     );
     dispatch({ type: FEED_DELETE_SUCCESS });
+    dispatch(listFeeds({}));
   } catch (error) {
     dispatch({
       type: FEED_DELETE_FAIL,
