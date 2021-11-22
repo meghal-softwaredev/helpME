@@ -1,17 +1,36 @@
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Grid, Typography, Divider} from '@mui/material';
+import { Grid, Typography, Divider, IconButton} from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { joinGroup } from '../actions/groupActions';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Axios from 'axios';
 
 function GroupListItem(props) {
-  const { _id, title, description, group_url } = props.group;
-
+  const { _id, title, description, group_url, favourites } = props.group;
+  console.log("favourites", favourites);
   const dispatch = useDispatch();
   const handleJoinGroup = (groupId) => {
     dispatch(joinGroup(groupId));
+  }
+
+  const userInfo = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null;
+  
+  const handleShareGroup = (groupId) => {
+    const url = window.location.href + "/" + groupId;
+    navigator.clipboard.writeText(url);
+  }
+
+  const handleLikeGroup = (groupId) => {
+    Axios.put(`/api/groups/${groupId}/favourite`, { 
+      user_id: userInfo._id }, 
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
   }
 
   return (
@@ -28,8 +47,18 @@ function GroupListItem(props) {
         <Button variant="outlined" sx={{color:"white"}} onClick={() => handleJoinGroup(_id)} >Join</Button>
       </Grid>
       <Grid item xs={1} >
-        <IosShareIcon color="white" />
-        <FavoriteBorderIcon color="white"/>
+        <IconButton size="small" variant="outlined" onClick={() => handleShareGroup(_id)}>
+          <IosShareIcon color="white" />
+        </IconButton>
+        { favourites && favourites[userInfo._id] === true ? (
+        <IconButton size="small" variant="outlined" onClick={() => handleLikeGroup(_id)}>
+          <FavoriteIcon color="red"/>
+        </IconButton>
+        ) : (
+        <IconButton size="small" variant="outlined" onClick={() => handleLikeGroup(_id)}>
+          <FavoriteBorderIcon color="white"/>
+        </IconButton>
+        )}
       </Grid>
     </Grid>
     <Divider />

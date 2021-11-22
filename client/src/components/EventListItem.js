@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Grid, Typography, Divider} from '@mui/material';
+import { Grid, Typography, Divider, IconButton} from '@mui/material';
 import Axios from 'axios';
 import moment from 'moment';
 import IosShareIcon from '@mui/icons-material/IosShare';
@@ -15,6 +15,19 @@ function EventListItem(props) {
 
   const handleAttendEvent = (eventId) => {
     Axios.put(`/api/events/${eventId}/attend`, { 
+      user_id: userInfo._id }, 
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+  }
+  
+  const handleShareEvent = (eventId) => {
+    const url = window.location.href + "/" + eventId;
+    navigator.clipboard.writeText(url);
+  }
+
+  const handleLikeEvent = (eventId) => {
+    Axios.put(`/api/events/${eventId}/favourite`, { 
       user_id: userInfo._id }, 
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -38,8 +51,12 @@ function EventListItem(props) {
         <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(_id)}>Attend</Button>
       </Grid>
       <Grid item xs={1} >
-          <IosShareIcon color="white" sx={{mr: 1}}/>
-          <FavoriteBorderIcon />
+        <IconButton size="small" variant="outlined" onClick={() => handleShareEvent(_id)}>
+          <IosShareIcon color="white" />
+        </IconButton>
+        {/* <IconButton size="small" variant="outlined" onClick={() => handleLikeEvent(_id)}>
+          <FavoriteBorderIcon color="white"/>
+        </IconButton> */}
       </Grid>
     </Grid>
     <Divider />
