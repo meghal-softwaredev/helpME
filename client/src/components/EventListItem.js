@@ -48,8 +48,11 @@ function EventListItem(props) {
           {moment(date_time).format('llll')}
         </Typography>
         <Typography component="h6" variant="h6">{description}</Typography>
+        {userInfo && (
         <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(_id)}>Attend</Button>
+        )}
       </Grid>
+      {userInfo && (
       <Grid item xs={1} >
         <IconButton size="small" variant="outlined" onClick={() => handleShareEvent(_id)}>
           <IosShareIcon color="white" />
@@ -58,6 +61,7 @@ function EventListItem(props) {
           <FavoriteBorderIcon color="white"/>
         </IconButton> */}
       </Grid>
+      )}
     </Grid>
     <Divider />
     </div>

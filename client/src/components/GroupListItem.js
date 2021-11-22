@@ -44,8 +44,11 @@ function GroupListItem(props) {
           <Link className="link" to={`/groups/${_id}`}>{title}</Link>
         </Typography>
         <Typography component="h6" variant="h6">{description}</Typography>
+        {userInfo && (
         <Button variant="outlined" sx={{color:"white"}} onClick={() => handleJoinGroup(_id)} >Join</Button>
+        )}
       </Grid>
+      {userInfo && (
       <Grid item xs={1} >
         <IconButton size="small" variant="outlined" onClick={() => handleShareGroup(_id)}>
           <IosShareIcon color="white" />
@@ -60,6 +63,7 @@ function GroupListItem(props) {
         </IconButton>
         )}
       </Grid>
+      )}
     </Grid>
     <Divider />
     </div>

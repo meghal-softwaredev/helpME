@@ -5,6 +5,7 @@ import { listEvents } from '../actions/eventActions';
 import EventListItem from './EventListItem';
 import { Button, Box, TextField, InputAdornment, FormControl, Select, MenuItem } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { ThemeProvider } from '@mui/material/styles';
 
 function EventList(props) {
   const eventList = useSelector((state) => state.eventList);
@@ -44,7 +45,8 @@ function EventList(props) {
   }
 
   return (
-    <div>
+    // <ThemeProvider theme={darkTheme}>
+      <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"center"}}>
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", border: '1px solid #0077b6', my: 2, px: 2 }}>
         <Box
           component="form"
@@ -107,7 +109,8 @@ function EventList(props) {
           ))}
         </>
       )}
-    </div>
+    </Box>
+    // </ThemeProvider>
   );
 }
 

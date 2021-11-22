@@ -5,6 +5,7 @@ import { listGroups } from '../actions/groupActions';
 import GroupListItem from './GroupListItem';
 import { Button, Box, TextField, InputAdornment, FormControl, Select, MenuItem } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { ThemeProvider } from '@mui/material/styles';
 
 function GroupList(props) {
   const groupList = useSelector((state) => state.groupList);
@@ -45,7 +46,8 @@ function GroupList(props) {
   }
 
   return (
-    <div>
+    // <ThemeProvider theme={darkTheme}>
+    <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"center"}}>
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", border: '1px solid #0077b6', my: 2, px: 2 }}>
         <Box
           component="form"
@@ -108,7 +110,8 @@ function GroupList(props) {
           ))}
         </>
       )}
-    </div>
+    </Box>
+    // </ThemeProvider>
   );
 }
 

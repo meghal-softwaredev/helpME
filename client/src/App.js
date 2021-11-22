@@ -48,6 +48,8 @@ function App() {
               <Route path="/" element={<Home />} exact></Route>
               <Route path="/feeds" element={<FeedList />}></Route>
               <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
+              <Route path="/groups" element={<GroupList />}></Route>
+              <Route path="/groups/:id" element={<IndividualGroup />}></Route>
               <Route path="/events" element={<EventList />}></Route>
               <Route path="/events/:id" element={<IndividualEvent />}></Route>
             </Routes>

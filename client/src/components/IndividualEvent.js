@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
-import { Grid, Button, Typography, IconButton } from '@mui/material';
+import { Grid, Button, Typography, IconButton, Box } from '@mui/material';
 import { getIndividualEvent, deleteEvent } from '../actions/eventActions';
 import NewEvent from './NewEvent';
 import ConfirmDialog from './ConfirmDialog';
@@ -81,12 +81,13 @@ function IndividualEvent(props) {
   };
 
   return (
-    <div className="item-container">
+    <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"start"}}>
     {loading ? (
       <LoadingBox></LoadingBox>
     ) : error ? (
       <MessageBox variant="danger">{error}</MessageBox>
     ) : (
+      // 
       <div>
         <Grid container sx={{ p: 2 }}>
           <Grid item xs={3} >
@@ -105,7 +106,8 @@ function IndividualEvent(props) {
                   {event.duration +` mins` }
                 </Typography>
               </Grid>
-             <Grid item >
+              {userInfo && (
+              <Grid item >
                 <IconButton size="small" variant="outlined" onClick={handleOpenNewEvent}>
                   <ModeEditIcon />
                 </IconButton>
@@ -122,15 +124,18 @@ function IndividualEvent(props) {
                   Are you sure you want to delete this event?
                 </ConfirmDialog>
               </Grid>
+              )}
             </Grid>
             <br/>
-            <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(id)}>Attend</Button>
+            {userInfo && (
+             <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(id)}>Attend</Button>
+            )}
           </Grid>
           <Typography component="h6" variant="h6">{event.description}          </Typography>
         </Grid>
-       </div>
+        </div>
     )} 
-    </div>
+    </Box>
   );
 }
 

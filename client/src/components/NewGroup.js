@@ -49,10 +49,6 @@ export default function NewGroup(props) {
     }
   }, []);
 
-  // useEffect(() => {
-  //   dispatch(listGroups({}));
-  // }, [dispatch]);
-
   function handleTitleChange(e) {
     setGroupState(prev => ({ ...prev, title: e.target.value }));
   };

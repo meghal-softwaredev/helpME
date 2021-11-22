@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
-import { Grid, Button, Typography, IconButton } from '@mui/material';
+import { Grid, Button, Typography, IconButton, Box } from '@mui/material';
 import { getIndividualGroup } from '../actions/groupActions';
 import NewGroup from './NewGroup';
 import ConfirmDialog from './ConfirmDialog';
@@ -87,19 +87,21 @@ function IndividualGroup(props) {
   };
 
   return (
-    <div className="item-container">
+    <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"start"}}>
     {loading ? (
       <LoadingBox></LoadingBox>
     ) : error ? (
       <MessageBox variant="danger">{error}</MessageBox>
     ) : (
       <div>
-        <div>
-          <Button size="small" variant="outlined" sx={{color:"white"}} onClick={handleOpenNewEvent}>
-              Create Event
-          </Button>
-          <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} group_id ={group._id}/>
-        </div>
+        {userInfo && (
+          <div>
+            <Button size="small" variant="outlined" sx={{color:"white"}} onClick={handleOpenNewEvent}>
+                Create Event
+            </Button>
+            <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} group_id ={group._id}/>
+          </div>
+        )}
         <div>
         <Grid container sx={{ p: 2 }}>
           <Grid item xs={3} > 
@@ -108,10 +110,12 @@ function IndividualGroup(props) {
           <Grid item xs={7} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
             <Typography component="h5" variant="h5">{group.title}</Typography>
             <Typography component="h6" variant="h6">{group.description}</Typography>
-            <Button variant="outlined" sx={{color:"white"}} onClick={() => handleJoinGroup(id)}>Join</Button>
+            {userInfo && (
+             <Button variant="outlined" sx={{color:"white"}} onClick={() => handleJoinGroup(id)}>Join</Button>
+            )}
           </Grid>
+          {userInfo && (
           <Grid item xs={2} >
-            <div style={{mr:1}}>
               <IconButton size="small" variant="outlined" onClick={handleOpenNewGroup}>
                 <ModeEditIcon />
               </IconButton>
@@ -126,15 +130,13 @@ function IndividualGroup(props) {
                 onConfirm={deleteGroupHandler}>
                 Are you sure you want to delete this group?
               </ConfirmDialog>
-            </div>
-            <br />
-            <br />
           </Grid>
+          )}
         </Grid>
        </div>
       </div>
     )} 
-  </div>
+  </Box>
   );
 }
 

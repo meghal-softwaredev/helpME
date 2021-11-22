@@ -61,10 +61,7 @@ export default function NewEvent(props) {
   // useEffect(() => {
   //   dispatch(listCategories());
   // }, [dispatch]);
-  
-  useEffect(() => {
-    dispatch(listEvents());
-  }, [dispatch]);
+
 
   function handleTitleChange(e) {
     setEventState(prev => ({ ...prev, title: e.target.value }));
