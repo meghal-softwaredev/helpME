@@ -101,4 +101,20 @@ eventRouter.delete(
   })
 );
 
+eventRouter.put(
+  '/:id/attend',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const eventId = req.params.id;
+    const event = await Event.findById(eventId);
+    if (event) {
+      event.attendees.push(req.body.user_id);
+      const updatedEvent = await event.save();
+      res.send({ message: 'Event Updated', event: updatedEvent });
+    } else {
+      res.status(404).send({ message: 'Event  Not Found' });
+    }
+  })
+);
+
 export default eventRouter;

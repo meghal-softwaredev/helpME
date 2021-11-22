@@ -11,6 +11,7 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import { updateEvent } from '../actions/eventActions';
+import EventSharpIcon from '@mui/icons-material/EventSharp';
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.1),
@@ -148,9 +149,7 @@ export default function NewEvent(props) {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              {/* <PostAddIcon /> */}
-            </Avatar>
+            <EventSharpIcon color="primary" fontSize="large"/>
             {(props.edit) ? (
               <Typography component="h1" variant="h5">
                 Update Event

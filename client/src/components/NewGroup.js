@@ -5,7 +5,8 @@ import { createGroup, listGroups } from '../actions/groupActions';
 import { listCategories } from '../actions/categoryActions';
 import { updateGroup } from '../actions/groupActions';
 import { useNavigate } from 'react-router-dom';
-import { GROUP_UPDATE_RESET } from '../constants/groupConstants'
+import { GROUP_UPDATE_RESET } from '../constants/groupConstants';
+import PeopleSharpIcon from '@mui/icons-material/PeopleSharp';
 
 export default function NewGroup(props) {
   const [groupState, setGroupState] = React.useState({
@@ -90,9 +91,7 @@ export default function NewGroup(props) {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              {/* <PostAddIcon /> */}
-            </Avatar>
+            <PeopleSharpIcon color="primary" fontSize="large"/>
             {(props.edit) ? (
               <Typography component="h1" variant="h5">
                 Update Group

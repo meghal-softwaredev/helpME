@@ -3,11 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
-import { Grid, Button, Typography } from '@mui/material';
+import { Grid, Button, Typography, IconButton } from '@mui/material';
 import { getIndividualEvent } from '../actions/eventActions';
 import NewEvent from './NewEvent';
 import ConfirmDialog from './ConfirmDialog';
 import { deleteEvent } from '../actions/eventActions';
+import Axios from 'axios';
+import moment from 'moment';
+import IosShareIcon from '@mui/icons-material/IosShare';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 
 function IndividualEvent(props) {
   const [openNewEvent, setOpenNewEvent] = useState(false);
@@ -18,6 +24,18 @@ function IndividualEvent(props) {
 
   const individualEventDetails = useSelector((state) => state.individualEventDetails);
   const { loading, error, event } = individualEventDetails;
+
+  const userInfo = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null;
+
+  const handleAttendEvent = (eventId) => {
+    Axios.put(`/api/events/${eventId}/attend`, { 
+      user_id: userInfo._id }, 
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+  }
   
   const dispatch = useDispatch();
   useEffect(() => {
@@ -54,25 +72,31 @@ function IndividualEvent(props) {
       <MessageBox variant="danger">{error}</MessageBox>
     ) : (
       <div>
-        <Grid container sx={{ border: 1,  p: 2 }}>
+        <Grid container sx={{ p: 2 }}>
           <Grid item xs={3} >
-          <img src={event.event_image_url} width="150px" height="150px" alt="Event"/>
+          <img src={event.event_image_url} width="150px" height="150px" alt="Event" style={{borderRadius: 50}}/>
           </Grid>
-          <Grid item xs={9} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+          <Grid item xs={8} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
             <Grid container>
               <Grid item>
                 <Typography component="h5" variant="h5">
                   {event.title}
                 </Typography>
+                <Typography component="h6" variant="h6">
+                  {moment(event.date_time).format('llll')}
+                </Typography>
+                <Typography component="h6" variant="h6">
+                  {event.duration +` mins` }
+                </Typography>
               </Grid>
              <Grid item >
-                <Button size="small" variant="contained" onClick={handleOpenNewEvent}>
-                  Edit
-                </Button>
+                <IconButton size="small" variant="outlined" onClick={handleOpenNewEvent}>
+                  <ModeEditIcon />
+                </IconButton>
                 <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} edit={true} eventId={id}/>
-                <Button size="small" variant="contained" onClick={handleOpenDeleteEvent}>
-                  Delete
-                </Button>
+                <IconButton size="small" variant="outlined" onClick={handleOpenDeleteEvent}>
+                  <DeleteIcon />
+                </IconButton>
                 <ConfirmDialog
                   title="Delete Event?"
                   openDelete={openDeleteEvent}
@@ -83,9 +107,14 @@ function IndividualEvent(props) {
                 </ConfirmDialog>
               </Grid>
             </Grid>
-            <Typography component="h6" variant="h6">{event.description}          </Typography>
-            <Button variant="contained">Join</Button>
+            <br/>
+            <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(id)}>Join</Button>
           </Grid>
+          <Grid item xs={1} >
+            <IosShareIcon color="white" sx={{mr: 1}}/>
+            <FavoriteBorderIcon />
+          </Grid>
+          <Typography component="h6" variant="h6">{event.description}          </Typography>
         </Grid>
        </div>
     )} 
