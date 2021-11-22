@@ -12,10 +12,22 @@ feedRouter.get(
   '/',
   expressAsyncHandler(async (req, res) => {
     const category = req.query.category || '';
+    const sortBy = req.query.sortBy || '';
+    const keyword = req.query.keyword || '';
+
     const categoryFilter = category ? { category } : {};
+    const keywordFilter = keyword ? { $or: [{ title: { $regex: keyword, $options: 'i' } }, { tags: { $regex: keyword, $options: 'i' } }] } : {}
+    const sortOrder =
+      sortBy === 'latest'
+        ? { createdAt: -1 }
+        : sortBy === 'oldest'
+          ? { createdAt: 1 }
+            : { _id: -1 };
+
     const feeds = await Feed.find({
-      ...categoryFilter
-    });
+      ...categoryFilter,
+      ...keywordFilter
+    }).sort(sortOrder);
     res.send({ feeds });
   })
 );

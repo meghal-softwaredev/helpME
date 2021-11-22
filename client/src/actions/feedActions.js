@@ -29,13 +29,16 @@ import {
   FEED_ANSWER_UPDATE_FAIL,
 } from '../constants/feedConstants';
 
-export const listFeeds = () => async (dispatch) => {
+export const listFeeds = ({
+  keyword = '',
+  sortBy = ''
+}) => async (dispatch) => {
   dispatch({
     type: FEED_LIST_REQUEST,
   });
   try {
     const { data } = await Axios.get(
-      `/api/feeds`
+      `/api/feeds?keyword=${keyword}&sortBy=${sortBy}`
     );
     dispatch({ type: FEED_LIST_SUCCESS, payload: data });
   } catch (error) {
