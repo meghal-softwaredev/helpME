@@ -4,5 +4,8 @@
   ul {
     display: flex;
     flex-direction: column;
+    li {
+      margin-bottom: 15px;
+    }
   }
 }

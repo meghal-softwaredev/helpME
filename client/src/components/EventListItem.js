@@ -1,9 +1,10 @@
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import { Grid, Typography, Divider} from '@mui/material';
 import Axios from 'axios';
 import moment from 'moment';
+import IosShareIcon from '@mui/icons-material/IosShare';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 function EventListItem(props) {
   const { _id, title, description, date_time, event_image_url } = props.event;
@@ -22,11 +23,11 @@ function EventListItem(props) {
 
   return (
     <div className="item-container">
-    <Grid container sx={{ border: 1, my: 2, p: 2 }}>
+    <Grid container sx={{ my: 2, p: 2 }}>
       <Grid item xs={3} > 
-        <img src={event_image_url} width="150px" height="150px" alt="Event"/>
+        <img src={event_image_url} width="130px" height="130px" alt="Event" style={{borderRadius: 50}}/>
       </Grid>
-      <Grid item xs={9} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+      <Grid item xs={8} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
         <Typography component="h5" variant="h5">
           <Link className="link" to={`/events/${_id}`}>{title}</Link>
         </Typography>
@@ -34,9 +35,14 @@ function EventListItem(props) {
           {moment(date_time).format('llll')}
         </Typography>
         <Typography component="h6" variant="h6">{description}</Typography>
-        <Button variant="contained" onClick={() => handleAttendEvent(_id)}>Attend</Button>
+        <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(_id)}>Attend</Button>
+      </Grid>
+      <Grid item xs={1} >
+          <IosShareIcon color="white" sx={{mr: 1}}/>
+          <FavoriteBorderIcon />
       </Grid>
     </Grid>
+    <Divider />
     </div>
   )
 }

@@ -16,7 +16,7 @@ function LeftSideBar() {
   };
 
   return (
-    <div className="left-sidebar-container">
+    <div className="left-sidebar-container" >
       <ul className="reset-ul">
         <li>
           <Link className="link" to="/feeds">Feeds</Link>
@@ -25,7 +25,7 @@ function LeftSideBar() {
           <Link className="link" to="/events">Events</Link>
         </li>
         <li>
-          <Button size="small" variant="contained" onClick={handleOpenNewGroup}>
+          <Button size="small" variant="outlined" sx={{color:"white"}} onClick={handleOpenNewGroup}>
             Create Group
           </Button>
           <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={false}/>      
