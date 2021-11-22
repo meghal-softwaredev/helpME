@@ -9,12 +9,12 @@ function GroupList(props) {
   const groupList = useSelector((state) => state.groupList);
   const { loading, error, groups } = groupList;
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listGroups());
-  }, [dispatch]);
+  }, [dispatch, listGroups, navigate]);
   
-  const navigate = useNavigate();
   const handleEvent = () => {
     navigate('/events');
   }
@@ -22,10 +22,10 @@ function GroupList(props) {
   return (
     <div>
       <div>
-        <Button size="large" variant="contained" onClick={handleEvent} sx={{mr: 2}}>
+        <Button size="large" variant="outlined" onClick={handleEvent} sx={{mr: 2, color:"white"}}>
           Event
         </Button>
-        <Button size="large" variant="contained">
+        <Button size="large" variant="outlined" sx={{color:"white"}}>
           Group
         </Button>
       </div>

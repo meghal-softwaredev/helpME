@@ -1,26 +1,12 @@
 import React, { useEffect } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { styled } from '@mui/material/styles';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { Button, TextField, Dialog, DialogContent, DialogTitle, Avatar, Grid, Box, Typography, Container, InputLabel, MenuItem, FormControl, Select} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { createGroup } from '../actions/groupActions';
+import { createGroup, listGroups } from '../actions/groupActions';
 import { listCategories } from '../actions/categoryActions';
-
-const ListItem = styled('li')(({ theme }) => ({
-  margin: theme.spacing(0.1),
-}));
+import { updateGroup } from '../actions/groupActions';
+import { useNavigate } from 'react-router-dom';
+import { GROUP_UPDATE_RESET } from '../constants/groupConstants';
+import PeopleSharpIcon from '@mui/icons-material/PeopleSharp';
 
 export default function NewGroup(props) {
   const [groupState, setGroupState] = React.useState({
@@ -30,15 +16,37 @@ export default function NewGroup(props) {
     group_url: ""
   });
 
+  const individualGroupDetails = useSelector((state) => state.individualGroupDetails);
+  const { group, success } = individualGroupDetails;
+  
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
-
+  
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(listCategories());
   }, [dispatch]);
-  
+
+  useEffect(() => {
+    if (success) {
+      dispatch({ type: GROUP_UPDATE_RESET });
+      navigate('/group');
+    }
+    if (group) {
+      setGroupState({
+        title: group.title,
+        description: group.description,
+        category_id: group.category_id,
+        group_url: group.group_url
+      })
+    }
+  }, [group]);
+
+  useEffect(() => {
+    dispatch(listGroups());
+  }, [dispatch]);
+
   function handleTitleChange(e) {
     setGroupState(prev => ({ ...prev, title: e.target.value }));
   };
@@ -50,25 +58,28 @@ export default function NewGroup(props) {
     setGroupState(prev => ({ ...prev, category_id: e.target.value }));
   };
 
-  function handleDgroupURLChange(e) {
+  function handlegroupURLChange(e) {
     setGroupState(prev => ({ ...prev, group_url: e.target.value }));
   };
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(
-      createGroup(groupState)
-    );
-    props.handleCloseNewGroup();
+    if (!group) {
+      dispatch(createGroup(groupState));
+    } else {
+      dispatch(updateGroup(props.groupId, groupState));
+    }
     setGroupState(prev => ({
       ...prev, title: "",
       description: "",
       category_id: "",
-      group_url: "" }));
+      group_url: "" })
+      );
+    props.handleCloseNewGroup();
   };
 
   return (
-    <Dialog open={props.openNewGroup} onClose={props.handleCloseNewGroup}>
+    <Dialog open={props.openNewGroup} onClose={props.handleCloseNewGroup} >
         <DialogTitle>
         </DialogTitle>
         <DialogContent>
@@ -80,12 +91,15 @@ export default function NewGroup(props) {
               alignItems: 'center',
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              {/* <PostAddIcon /> */}
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Create Group
-            </Typography>
+            <PeopleSharpIcon color="primary" fontSize="large"/>
+            {(props.edit) ? (
+              <Typography component="h1" variant="h5">
+                Update Group
+              </Typography>) : (
+              <Typography component="h1" variant="h5">
+                Create Group
+              </Typography>
+             )}
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -141,18 +155,28 @@ export default function NewGroup(props) {
                     label="Group Image URL"
                     placeholder="Group Image URL"
                     value={groupState.group_url}
-                    onChange={handleDgroupURLChange}
+                    onChange={handlegroupURLChange}
                   />
                 </Grid>
               </Grid>
-              <Button
+              {props.edit ? (<Button
                 type="submit"
                 fullWidth
                 variant="contained"
+                // onClick={() => window.location.reload(false)}
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Update Group
+              </Button>) : (<Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                // onClick={() => window.location.reload(false)}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Create Group
               </Button>
+              )}
             </Box>
           </Box>
         </Container>

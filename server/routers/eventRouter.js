@@ -40,31 +40,45 @@ eventRouter.get(
 );
 
 eventRouter.post(
-  '/',
+  '/new',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const event = new Event({
       title: req.body.title,
       description: req.body.description,
-      user_id: req.user._id,
-      start_time: req.body.start_time,
-      end_time: req.body.end_time,
-      event_url: req.body.event_url,
+      user_id: req.body.user_id,
+      // date: req.body.date,
+      // start_time: req.body.start_time,
+      date_time: req.body.date_time,
+      duration: req.body.duration,
+      event_image_url: req.body.event_image_url,
+      event_video_url: req.body.event_video_url,
       group_id: req.body.group_id,
       tags: req.body.tags
     });
-    const createdEvent = await Event.save();
+    const createdEvent = await event.save();
     res.send({ message: 'Event Created', event: createdEvent });
   })
 );
 
 eventRouter.put(
   '/:id',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const eventId = req.params.id;
-    const event = await Feed.findById(eventId);
+    const event = await Event.findById(eventId);
     if (event) {
-      event.title = req.body.title;
-      event.description = req.body.description;
+      event.title = req.body.title,
+      event.description = req.body.description,
+      event.user_id = req.body.user_id,
+      // date: req.body.date,
+      // start_time: req.body.start_time,
+      event.date_time = req.body.date_time,
+      event.duration = req.body.duration,
+      event.event_image_url = req.body.event_image_url,
+      event.event_video_url = req.body.event_video_url,
+      event.group_id = req.body.group_id,
+      event.tags = req.body.tags
       const updatedEvent = await event.save();
       res.send({ message: 'Event Updated', event: updatedEvent });
     } else {
@@ -83,6 +97,22 @@ eventRouter.delete(
       res.send({ message: 'Event Deleted', event: deleteEvent });
     } else {
       res.status(404).send({ message: 'Event Not Found' });
+    }
+  })
+);
+
+eventRouter.put(
+  '/:id/attend',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const eventId = req.params.id;
+    const event = await Event.findById(eventId);
+    if (event) {
+      event.attendees.push(req.body.user_id);
+      const updatedEvent = await event.save();
+      res.send({ message: 'Event Updated', event: updatedEvent });
+    } else {
+      res.status(404).send({ message: 'Event  Not Found' });
     }
   })
 );

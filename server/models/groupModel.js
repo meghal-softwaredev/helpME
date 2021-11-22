@@ -7,7 +7,7 @@ const groupSchema = new mongoose.Schema(
     user_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
     group_url: { type: String, required: true },
     category_id: { type: mongoose.Schema.Types.ObjectID, ref: 'Category' },
-    followers: [{ type: String }]
+    followers: [{ type: mongoose.Schema.Types.ObjectID, ref: 'User' }]
   },
   {
     timestamps: true,

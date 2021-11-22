@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import userRouter from './routers/userRouter.js';
 import feedRouter from './routers/feedRouter.js';
+import answerRouter from './routers/answerRouter.js';
 import eventRouter from './routers/eventRouter.js';
 import groupRouter from './routers/groupRouter.js';
 import categoryRouter from './routers/categoryRouter.js';
@@ -27,6 +28,7 @@ mongoose.connect(process.env.MONGODB_URL, {
 
 app.use('/api/users', userRouter);
 app.use('/api/feeds', feedRouter);
+app.use('/api/answers', answerRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/events', eventRouter);
 app.use('/api/groups', groupRouter);

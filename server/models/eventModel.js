@@ -5,13 +5,16 @@ const eventSchema = new mongoose.Schema(
     title: { type: String, required: true },
     description: { type: String, required: true },
     user_id: { type: mongoose.Schema.Types.ObjectID, ref: 'User' },
-    start_time: { type: String, required: true },
-    end_time: { type: String, required: true },
-    event_url: { type: String, required: true },
-    recorded_url: { type: String },
+    // date: { type: Date, required: true },
+    // start_time: { type: String, required: true },
+    date_time: { type: Date, required: true },
+    duration: { type: String, required: true },
+    event_image_url: { type: String, required: true },
+    event_video_url: { type: String, required: true },
     group_id: { type: mongoose.Schema.Types.ObjectID, ref: 'Group' },
     tags: [{ type: String, required: true }],
-    attendees: [{ type: String }]
+    recorded_url: { type: String },
+    attendees: [{ type: mongoose.Schema.Types.ObjectID, ref: 'User' }]
   },
   {
     timestamps: true,

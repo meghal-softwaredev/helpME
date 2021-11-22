@@ -8,13 +8,13 @@ import { Button } from '@mui/material';
 function EventList(props) {
   const eventList = useSelector((state) => state.eventList);
   const { loading, error, events } = eventList;
-
+  
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listEvents());
-  }, [dispatch]);
+  }, [dispatch, listEvents, navigate]);
   
-  const navigate = useNavigate();
   const handleGroup = () => {
     navigate('/groups');
   }
@@ -22,10 +22,10 @@ function EventList(props) {
   return (
     <div>
       <div>
-        <Button size="large" variant="contained" sx={{mr: 2}}>
+        <Button size="large" variant="outlined" sx={{mr: 2, color:"white"}}>
           Event
         </Button>
-        <Button size="large" variant="contained" onClick={handleGroup}>
+        <Button size="large" variant="outlined" sx={{color:"white"}} onClick={handleGroup}>
           Group
         </Button>
       </div>

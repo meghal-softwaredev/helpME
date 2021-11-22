@@ -48,7 +48,7 @@ groupRouter.post(
       description: req.body.description,
       user_id: req.body.user_id,
       group_url: req.body.group_url,
-      category_url: req.body.category_url
+      category_id: req.body.category_id
     });
     const createdGroup = await group.save();
     res.send({ message: 'Group Created', group: createdGroup });
@@ -57,12 +57,17 @@ groupRouter.post(
 
 groupRouter.put(
   '/:id',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const groupId = req.params.id;
+
     const group = await Group.findById(groupId);
     if (group) {
       group.title = req.body.title;
       group.description = req.body.description;
+      group.user_id = req.body.user_id;
+      group.group_url = req.body.group_url; 
+      group.category_id = req.body.category_id;
       const updatedGroup = await group.save();
       res.send({ message: 'Group Updated', group: updatedGroup });
     } else {
@@ -81,6 +86,22 @@ groupRouter.delete(
       res.send({ message: 'Group Deleted', group: deleteGroup });
     } else {
       res.status(404).send({ message: 'Group Not Found' });
+    }
+  })
+);
+
+groupRouter.put(
+  '/:id/join',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const groupId = req.params.id;
+    const group = await Group.findById(groupId);
+    if (group) {
+      group.followers.push(req.body.user_id);
+      const updatedGroup = await group.save();
+      res.send({ message: 'Group Updated', group: updatedGroup });
+    } else {
+      res.status(404).send({ message: 'Group  Not Found' });
     }
   })
 );

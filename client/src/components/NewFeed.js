@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Avatar from '@mui/material/Avatar';
-import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import PostAddIcon from '@mui/icons-material/PostAdd';
@@ -22,8 +21,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { createFeed } from '../actions/feedActions';
+import { createFeed, updateFeed } from '../actions/feedActions';
 import { listCategories } from '../actions/categoryActions';
 
 import { darkTheme} from "../mui/themes";
@@ -33,19 +31,17 @@ const ListItem = styled('li')(({ theme }) => ({
 }));
 
 export default function NewFeed(props) {
+  const navigate = useNavigate();
   const [feedState, setFeedState] = React.useState({
-    title: "",
-    description: "",
-    category_id: "",
+    title: props.feed ? props.feed.title : "",
+    description: props.feed ? props.feed.description : "",
+    category_id: props.feed ? props.feed.category : "",
     tag: "",
-    tags: []
+    tags: props.feed ? props.feed.tags : []
   });
 
   const categoryList = useSelector((state) => state.categoryList);
-  const {
-    loading,
-    error,
-    categories } = categoryList;
+  const {categories } = categoryList;
 
   const dispatch = useDispatch();
 
@@ -68,22 +64,23 @@ export default function NewFeed(props) {
   const handleAddTag = (event) => {
     setFeedState(prev => ({ ...prev, tags: [...prev.tags, feedState.tag], tag: ""}));
   };
-  const handleDeleteTag = (tagToDelete) => () => {
-    setFeedState(prev => ({ ...prev, tags: (tags) => tags.filter((tag) => tag !== tagToDelete)}));
+  const handleDeleteTag = (tagIndexToDelete) => () => {
+    setFeedState(prev => ({ ...prev, tags: prev.tags.filter((tag, index) => index !== tagIndexToDelete)}));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(
-      createFeed(feedState)
-    );
-    props.handleCloseNewFeed();
+    dispatch(props.activity === "EditFeed" ? updateFeed({ ...feedState, feedId: props.feed._id}) : createFeed(feedState));
     setFeedState(prev => ({
       ...prev, title: "",
       description: "",
       category_id: "",
       tag: "",
       tags: [] }));
+    props.handleCloseNewFeed();
+    if (props.activity === "NewFeed") {
+      navigate('/feeds');
+    }
   };
 
   return (
@@ -104,7 +101,7 @@ export default function NewFeed(props) {
                 <PostAddIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Post A Question
+                {props.activity === "EditFeed" ? "Update Question" : "Post Question"}
               </Typography>
               <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
@@ -186,12 +183,12 @@ export default function NewFeed(props) {
                       component="ul"
                     >
                       {
-                        feedState.tags.map((data) => {
+                        Array.isArray(feedState.tags) && feedState.tags.map((data, index) => {
                           return (
-                            <ListItem key={data}>
+                            <ListItem key={index}>
                               <Chip
                                 label={data}
-                                onDelete={handleDeleteTag(data)}
+                                onDelete={handleDeleteTag(index)}
                               />
                             </ListItem>
                           );
@@ -206,7 +203,7 @@ export default function NewFeed(props) {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Post
+                  {props.activity === "EditFeed" ? "Update" : "Post"}
                 </Button>
               </Box>
             </Box>

@@ -1,8 +1,18 @@
-.left-sidebar-container {
+/* .left-sidebar-container {
   display: flex;
   align-items: top;
   ul {
     display: flex;
     flex-direction: column;
+<<<<<<< HEAD
+    gap: 10px;
+=======
+    li {
+      margin-bottom: 15px;
+    }
+>>>>>>> 78cd2e468331a6e01d36df32e60e11e46013e48f
   }
+} */
+.left-sidebar-container {
+  height: 70vh;
 }

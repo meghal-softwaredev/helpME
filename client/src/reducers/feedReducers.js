@@ -6,9 +6,27 @@ const {
   FEED_CREATE_SUCCESS,
   FEED_CREATE_FAIL,
   FEED_CREATE_RESET,
+  FEED_UPDATE_REQUEST,
+  FEED_UPDATE_SUCCESS,
+  FEED_UPDATE_FAIL,
+  FEED_DELETE_REQUEST,
+  FEED_DELETE_SUCCESS,
+  FEED_DELETE_FAIL,
   INDIVIDUAL_FEED_DETAILS_REQUEST,
   INDIVIDUAL_FEED_DETAILS_SUCCESS,
-  INDIVIDUAL_FEED_DETAILS_FAIL
+  INDIVIDUAL_FEED_DETAILS_FAIL,
+  FEED_ANSWERS_REQUEST,
+  FEED_ANSWERS_SUCCESS,
+  FEED_ANSWERS_FAIL,
+  ANSWER_CREATE_REQUEST,
+  ANSWER_CREATE_SUCCESS,
+  ANSWER_CREATE_FAIL,
+  FEED_ANSWER_DELETE_REQUEST,
+  FEED_ANSWER_DELETE_SUCCESS,
+  FEED_ANSWER_DELETE_FAIL,
+  FEED_ANSWER_UPDATE_REQUEST,
+  FEED_ANSWER_UPDATE_SUCCESS,
+  FEED_ANSWER_UPDATE_FAIL,
 } = require('../constants/feedConstants');
 
 export const feedListReducer = (
@@ -45,13 +63,91 @@ export const feedCreateReducer = (state = {}, action) => {
   }
 };
 
+export const feedUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FEED_UPDATE_REQUEST:
+      return { loading: true };
+    case FEED_UPDATE_SUCCESS:
+      return { loading: false, success: true, updatedFeed: action.payload };
+    case FEED_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const feedDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FEED_DELETE_REQUEST:
+      return { loading: true };
+    case FEED_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case FEED_DELETE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const answerCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ANSWER_CREATE_REQUEST:
+      return { loading: true };
+    case ANSWER_CREATE_SUCCESS:
+      return { loading: false, success: true, answer: action.payload };
+    case ANSWER_CREATE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 export const individualFeedDetailsReducer = (state = { loading: true }, action) => {
   switch (action.type) {
     case INDIVIDUAL_FEED_DETAILS_REQUEST:
-      return { loading: true };
+      return { loadingFeedDetails: true };
     case INDIVIDUAL_FEED_DETAILS_SUCCESS:
-      return { loading: false, feed: action.payload };
+      return { loadingFeedDetails: false, feed: action.payload };
     case INDIVIDUAL_FEED_DETAILS_FAIL:
+      return { loadingFeedDetails: false, errorFeedDetails: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const feedAnswersReducer = (state = { loading: true }, action) => {
+  switch (action.type) {
+    case FEED_ANSWERS_REQUEST:
+      return { loadingAnswers: true };
+    case FEED_ANSWERS_SUCCESS:
+      return { loadingAnswers: false, answers: action.payload };
+    case FEED_ANSWERS_FAIL:
+      return { loadingAnswers: false, errorAnswers: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const feedAnswerDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FEED_ANSWER_DELETE_REQUEST:
+      return { loading: true };
+    case FEED_ANSWER_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case FEED_ANSWER_DELETE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const feedAnswerUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FEED_ANSWER_UPDATE_REQUEST:
+      return { loading: true };
+    case FEED_ANSWER_UPDATE_SUCCESS:
+      return { loading: false, success: true, updatedFeedAnswer: action.payload };
+    case FEED_ANSWER_UPDATE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
