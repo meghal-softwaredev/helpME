@@ -68,9 +68,10 @@ export default function NewGroup(props) {
     setGroupState(prev => ({ ...prev, tags: [...prev.tags, groupState.tag], tag: ""}));
   };
 
-  const handleDeleteTag = (tagToDelete) => () => {
-    setGroupState(prev => ({ ...prev, tags: (tags) => tags.filter((tag) => tag !== tagToDelete)}));
+  const handleDeleteTag = (tagIndexToDelete) => () => {
+    setGroupState(prev => ({ ...prev, tags: prev.tags.filter((tag, index) => index !== tagIndexToDelete)}));
   };
+
 
   function handleTagChange(e) {
     setGroupState(prev => ({...prev, tag: e.target.value}));
@@ -209,12 +210,12 @@ export default function NewGroup(props) {
                       component="ul"
                     >
                       {
-                          groupState.tags.map((data) => {
+                          Array.isArray(groupState.tags) && groupState.tags.map((data, index)  => {
                           return (
                             <ListItem key={data}>
                               <Chip
                                 label={data}
-                                onDelete={handleDeleteTag(data)}
+                                onDelete={handleDeleteTag(index)}
                               />
                             </ListItem>
                           );

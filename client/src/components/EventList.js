@@ -12,7 +12,7 @@ function EventList(props) {
   const { loading, error, events } = eventList;
   const [sortValue, setSortValue] = React.useState('');
   const [keywordValue, setkeywordValue] = React.useState('');
-  const [openFeedSort, setOpenFeedSort] = React.useState(false);
+  const [openEventSort, setOpenEventSort] = React.useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,7 +20,7 @@ function EventList(props) {
 
   useEffect(() => {
     dispatch(listEvents({}));
-  }, [dispatch, listEvents, navigate, location]);
+  }, [dispatch, navigate, location]);
 
   const handleSortValueChange = (e) => {
     setSortValue(e.target.value);
@@ -33,11 +33,11 @@ function EventList(props) {
   };
 
   const handleSortSelectClose = () => {
-    setOpenFeedSort(false);
+    setOpenEventSort(false);
   };
 
   const handleSortSelectOpen = () => {
-    setOpenFeedSort(true);
+    setOpenEventSort(true);
   };
   
   const handleGroup = () => {
@@ -75,7 +75,7 @@ function EventList(props) {
               size="small"
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
-              open={openFeedSort}
+              open={openEventSort}
               onClose={handleSortSelectClose}
               onOpen={handleSortSelectOpen}
               value={sortValue}

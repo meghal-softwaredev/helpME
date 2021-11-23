@@ -13,7 +13,7 @@ function GroupList(props) {
 
   const [sortValue, setSortValue] = React.useState('');
   const [keywordValue, setkeywordValue] = React.useState('');
-  const [openFeedSort, setOpenFeedSort] = React.useState(false);
+  const [openGroupSort, setOpenGroupSort] = React.useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,7 +21,7 @@ function GroupList(props) {
 
   useEffect(() => {
     dispatch(listGroups({}));
-  }, [dispatch, listGroups, navigate, location]);
+  }, [dispatch, navigate, location]);
   
   const handleSortValueChange = (e) => {
     setSortValue(e.target.value);
@@ -34,11 +34,11 @@ function GroupList(props) {
   };
 
   const handleSortSelectClose = () => {
-    setOpenFeedSort(false);
+    setOpenGroupSort(false);
   };
 
   const handleSortSelectOpen = () => {
-    setOpenFeedSort(true);
+    setOpenGroupSort(true);
   };
 
   const handleEvent = () => {
@@ -76,7 +76,7 @@ function GroupList(props) {
               size="small"
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
-              open={openFeedSort}
+              open={openGroupSort}
               onClose={handleSortSelectClose}
               onOpen={handleSortSelectOpen}
               value={sortValue}
