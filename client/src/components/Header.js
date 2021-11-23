@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link } from "react-router-dom"
 import "../styles/components/Header.scss";
+import "../styles/elements/link.scss"
 import { useDispatch, useSelector } from 'react-redux';
 import { signout } from "../actions/userActions";
 
@@ -48,9 +49,11 @@ function Header() {
       <CssBaseline />
       <AppBar className="header" position="sticky" sx={{justifyContent:"center"}}>
           <Toolbar>
-            <Typography variant="h4" component="div">
-              helpME
-            </Typography>
+            <Link className="link nav-link" to="/feeds">
+              <Typography variant="h4" component="div" >
+                helpME
+              </Typography>
+            </Link>
             <Box sx={{ ml:5, flexGrow: 1 }}>
             <Link className="link nav-link get-help-btn" to="#">Get Help</Link>
             </Box>

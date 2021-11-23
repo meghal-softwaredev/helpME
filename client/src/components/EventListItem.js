@@ -1,12 +1,14 @@
-import { Button } from '@mui/material';
+import { useState } from 'react';
+import { Button, Popover } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Grid, Typography, Divider} from '@mui/material';
+import { Grid, Typography, Divider, IconButton} from '@mui/material';
 import Axios from 'axios';
 import moment from 'moment';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 function EventListItem(props) {
+  const [anchorEl, setAnchorEl] = useState(null);
   const { _id, title, description, date_time, event_image_url } = props.event;
 
   const userInfo = localStorage.getItem('userInfo')
@@ -20,7 +22,21 @@ function EventListItem(props) {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
   }
+  
+  const handleShareEvent = (e) => {
+    setAnchorEl(e.currentTarget);
+    const url = window.location.href + "/" + _id;
+    navigator.clipboard.writeText(url);
+  }
 
+  const handleLikeEvent = (eventId) => {
+    Axios.put(`/api/events/${eventId}/favourite`, { 
+      user_id: userInfo._id }, 
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+  }
+  const open = Boolean(anchorEl);
   return (
     <div className="item-container">
     <Grid container sx={{ my: 2, p: 2 }}>
@@ -35,12 +51,38 @@ function EventListItem(props) {
           {moment(date_time).format('llll')}
         </Typography>
         <Typography component="h6" variant="h6">{description}</Typography>
+        {userInfo && (
         <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(_id)}>Attend</Button>
+        )}
       </Grid>
+      {userInfo && (
       <Grid item xs={1} >
-          <IosShareIcon color="white" sx={{mr: 1}}/>
-          <FavoriteBorderIcon />
+        <IconButton size="small" variant="outlined" onClick={(e) => handleShareEvent(e)}>
+          <IosShareIcon color="white" />
+        </IconButton>
+        <Popover
+        anchorEl={anchorEl}
+        open={open}
+        id={open ? "simple-popover" : undefined}
+        onClose={() => {
+          setAnchorEl(null);
+        }}
+        transformOrigin={{
+          horizontal: "center",
+          vertical: "top",
+        }}
+        anchorOrigin={{
+          horizontal: "center",
+          vertical: "bottom",
+        }}
+      >
+        Copied Link
+      </Popover>
+        {/* <IconButton size="small" variant="outlined" onClick={() => handleLikeEvent(_id)}>
+          <FavoriteBorderIcon color="white"/>
+        </IconButton> */}
       </Grid>
+      )}
     </Grid>
     <Divider />
     </div>

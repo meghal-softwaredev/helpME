@@ -143,9 +143,17 @@ feedRouter.post(
       feed: req.params.id,
       answer: req.body.answer,
       user: req.body.user_id,
-      upvotes: 0,
+      votes_count: 0,
     });
     const createdAnswer = await answer.save();
+    const feedId = req.params.id;
+    const feed = await Feed.findById(feedId);
+    if (feed) {
+      feed.answers.push(answer._id);
+      const updatedFeed = await feed.save();
+    } else {
+      res.status(404).send({ message: 'Feed Not Found' });
+    }
     res.send({ message: 'Answer Created', answer: createdAnswer });
   })
 );

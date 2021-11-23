@@ -189,7 +189,7 @@ function IndividualFeed() {
                     <IconButton color="primary" aria-label="up vote" component="span">
                       <KeyboardArrowUpIcon/>
                     </IconButton>
-                    <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold' }}>{ans ? ans.upvotes : 0}</Typography>
+                    <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold' }}>{ans.votes_count}</Typography>
                     <IconButton color="primary" aria-label="down vote" component="span">
                       <KeyboardArrowDownIcon />
                     </IconButton>
