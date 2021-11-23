@@ -1,5 +1,5 @@
 import "./styles/main.scss";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Footer from "./components/Footer";
 import Register from "./components/Register";
@@ -12,17 +12,29 @@ import GroupList from "./components/GroupList";
 import EventList from "./components/EventList";
 import IndividualFeed from "./components/IndividualFeed";
 import Navbar from "./components/Navbar";
+import IndividualGroup from "./components/IndividualGroup";
+import IndividualEvent from "./components/IndividualEvent";
 
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+  const location = window.location.pathname;
+  console.log(location);
+
+  let inputStyle =
+    location === "/"
+      ? {
+          display: "flex",
+          "flex-direction": "column",
+        }
+      : {};
 
   return (
     <BrowserRouter>
-      <div>
+      <div className={location !== "/" && "grid-container"}>
         <Navbar />
         {userInfo ? (
-          <main>
+          <main className="base-container">
             <LeftSideBar />
             <div className="main-container">
               <Routes>
@@ -37,7 +49,7 @@ function App() {
             </div>
           </main>
         ) : (
-          <main>
+          <main className="base-container" style={inputStyle}>
             <Routes>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/signin" element={<Signin />}></Route>

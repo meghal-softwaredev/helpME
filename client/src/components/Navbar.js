@@ -3,12 +3,31 @@ import { Button } from "./Button";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
+import { ThemeProvider } from "@mui/material/styles";
+
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions/userActions";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+//import Button from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import { CssBaseline } from "@mui/material";
+
+import { darkTheme } from "../mui/themes";
 
 function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -16,6 +35,14 @@ function Navbar() {
   const dispatch = useDispatch();
   const signoutHandler = () => {
     dispatch(signout());
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const handleClick = () => setClick(!click);
@@ -36,7 +63,7 @@ function Navbar() {
   window.addEventListener("resize", showButton);
 
   return (
-    <>
+    <ThemeProvider theme={darkTheme}>
       <nav className="navbar">
         <div className="navbar-container">
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
@@ -48,29 +75,34 @@ function Navbar() {
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             {userInfo ? (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-links" to="#">
-                    {" "}
-                    Name
-                    {userInfo.name} <i className="fa fa-caret-down"></i>{" "}
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-links" to="/profile">
-                    User Profile
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-links"
-                    to="#signout"
-                    onClick={signoutHandler}
-                  >
-                    Sign Out
-                  </Link>
-                </li>
-              </>
+              <div>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={signoutHandler}>Logout</MenuItem>
+                </Menu>
+              </div>
             ) : (
               <>
                 <li className="nav-item">
@@ -122,10 +154,12 @@ function Navbar() {
               </>
             )}
           </ul>
-          {button && <Button buttonStyle="btn--outline">Register</Button>}
+          {!userInfo && button && (
+            <Button buttonStyle="btn--outline">Register</Button>
+          )}
         </div>
       </nav>
-    </>
+    </ThemeProvider>
   );
 }
 
