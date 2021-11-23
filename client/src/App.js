@@ -50,8 +50,9 @@ const NotLoggedIn = () => {
   let inputStyle =
     location.pathname === "/"
       ? {
-          display: "flex",
+          "display": "flex",
           "flex-direction": "column",
+          "padding": 0
         }
       : {};
   console.log("inputStyle", inputStyle);
