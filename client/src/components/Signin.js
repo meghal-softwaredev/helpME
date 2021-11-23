@@ -4,6 +4,17 @@ import { signin } from '../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import { darkTheme } from "../mui/themes";
 
 export default function Signin(props) {
   const [email, setEmail] = useState('');
@@ -17,7 +28,7 @@ export default function Signin(props) {
 
   const dispatch = useDispatch();
 
-  const submitHandler = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(signin(email, password));
   };
@@ -29,49 +40,72 @@ export default function Signin(props) {
   }, [navigate, redirect, userInfo]);
 
   return (
-    <div>
-      <form className="form" onSubmit={submitHandler}>
-        <div>
-          <h1>Sign In</h1>
-        </div>
-        {loading && <LoadingBox></LoadingBox>}
-        {error && <MessageBox variant="danger">{error}</MessageBox>}
-        <div>
-          <label htmlFor="email">Email address</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter email"
+    // <ThemeProvider theme={{darkTheme}}>
+    <Container component="main" maxWidth="xs" sx={{color:"white"}}>
+      <CssBaseline />
+      {loading && <LoadingBox></LoadingBox>}
+      {error && <MessageBox variant="danger">{error}</MessageBox>}
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            margin="normal"
             required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
+            autoComplete="email"
+            autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
             type="password"
             id="password"
-            placeholder="Enter password"
-            required
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
-          ></input>
-        </div>
-        <div>
-          <label />
-          <button className="primary" type="submit">
+            autoComplete="current-password"
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
             Sign In
-          </button>
-        </div>
-        <div>
-          <label />
-          <div>
-            New customer?{' '}
-            <Link to={`/register?redirect=${redirect}`}>
-              Create your account
-            </Link>
-          </div>
-        </div>
-      </form>
-    </div>
+          </Button>
+          <Grid container justifyContent="flex-end">
+            {/* <Grid item xs>
+              <Link to="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid> */}
+            <Grid item>
+              <Link to='/register'>
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    </Container>
   );
 }

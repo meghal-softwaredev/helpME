@@ -61,10 +61,7 @@ export default function NewEvent(props) {
   // useEffect(() => {
   //   dispatch(listCategories());
   // }, [dispatch]);
-  
-  useEffect(() => {
-    dispatch(listEvents());
-  }, [dispatch]);
+
 
   function handleTitleChange(e) {
     setEventState(prev => ({ ...prev, title: e.target.value }));
@@ -105,8 +102,8 @@ export default function NewEvent(props) {
     setEventState(prev => ({ ...prev, tags: [...prev.tags, eventState.tag], tag: ""}));
   };
 
-  const handleDeleteTag = (tagToDelete) => () => {
-    setEventState(prev => ({ ...prev, tags: (tags) => tags.filter((tag) => tag !== tagToDelete)}));
+  const handleDeleteTag = (tagIndexToDelete) => () => {
+    setEventState(prev => ({ ...prev, tags: prev.tags.filter((tag, index) => index !== tagIndexToDelete)}));
   };
 
   function handleTagChange(e) {
@@ -284,12 +281,12 @@ export default function NewEvent(props) {
                       component="ul"
                     >
                       {
-                          eventState.tags.map((data) => {
+                          Array.isArray(eventState.tags) && eventState.tags.map((data, index)  => {
                           return (
                             <ListItem key={data}>
                               <Chip
                                 label={data}
-                                onDelete={handleDeleteTag(data)}
+                                onDelete={handleDeleteTag(index)}
                               />
                             </ListItem>
                           );
