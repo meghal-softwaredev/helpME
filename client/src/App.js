@@ -14,24 +14,13 @@ import IndividualFeed from "./components/IndividualFeed";
 import Navbar from "./components/Navbar";
 import IndividualGroup from "./components/IndividualGroup";
 import IndividualEvent from "./components/IndividualEvent";
-
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  const location = window.location.pathname;
-  console.log(location);
-
-  let inputStyle =
-    location === "/"
-      ? {
-          display: "flex",
-          "flex-direction": "column",
-        }
-      : {};
 
   return (
     <BrowserRouter>
-      <div className={location !== "/" && "grid-container"}>
+      <div className={"" !== "/" && "grid-container"}>
         <Navbar />
         {userInfo ? (
           <main className="base-container">
@@ -49,23 +38,38 @@ function App() {
             </div>
           </main>
         ) : (
-          <main className="base-container" style={inputStyle}>
-            <Routes>
-              <Route path="/register" element={<Register />}></Route>
-              <Route path="/signin" element={<Signin />}></Route>
-              <Route path="/" element={<Home />} exact></Route>
-              <Route path="/feeds" element={<FeedList />}></Route>
-              <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
-              <Route path="/groups" element={<GroupList />}></Route>
-              <Route path="/groups/:id" element={<IndividualGroup />}></Route>
-              <Route path="/events" element={<EventList />}></Route>
-              <Route path="/events/:id" element={<IndividualEvent />}></Route>
-            </Routes>
-          </main>
+          <NotLoggedIn />
         )}
       </div>
     </BrowserRouter>
   );
 }
+const NotLoggedIn = () => {
+  const location = useLocation();
+  console.log("location", location);
+  let inputStyle =
+    location.pathname === "/"
+      ? {
+          display: "flex",
+          "flex-direction": "column",
+        }
+      : {};
+  console.log("inputStyle", inputStyle);
 
+  return (
+    <main className="base-container" style={inputStyle}>
+      <Routes>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path="/signin" element={<Signin />}></Route>
+        <Route path="/" element={<Home />} exact></Route>
+        <Route path="/feeds" element={<FeedList />}></Route>
+        <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
+        <Route path="/groups" element={<GroupList />}></Route>
+        <Route path="/groups/:id" element={<IndividualGroup />}></Route>
+        <Route path="/events" element={<EventList />}></Route>
+        <Route path="/events/:id" element={<IndividualEvent />}></Route>
+      </Routes>
+    </main>
+  );
+};
 export default App;

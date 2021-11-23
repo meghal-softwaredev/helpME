@@ -162,5 +162,8 @@ function Navbar() {
     </ThemeProvider>
   );
 }
-
+// To correct two navbar issue do the following:
+// Have nav bar recieve a prop called usersignedin
+// In nav bar if user signed is true show links for signed in user if false show nor signed in links
+// In app.js replace the header with <navbar usersignedin={true}/>
 export default Navbar;
