@@ -143,7 +143,7 @@ feedRouter.post(
       feed: req.params.id,
       answer: req.body.answer,
       user: req.body.user_id,
-      upvotes: 0,
+      votes_count: 0,
     });
     const createdAnswer = await answer.save();
     const feedId = req.params.id;
