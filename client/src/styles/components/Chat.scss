@@ -1,0 +1,133 @@
+@use './base';
+
+.user-chats {
+  padding: 3vh 40px;
+  min-height: 94vh;
+  // background-color: base.$light-grey;
+  
+  h1 {
+    height: 6vh;
+  }
+}
+
+
+// Fonts sizes -sender and -time are repeated again below for margins
+.message-sender {
+  font-weight: bold;
+}
+.message-time {
+  font-size: 12px;
+  padding-top: 3px;
+}
+.chat-container {
+  height: 74vh;
+
+  .all-messages {
+    height: 100%;
+    // border: base.$border-grey;
+    // border-radius: base.$border-radius;
+    // background: base.$off-white;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+
+    .message-container {
+      display: flex;
+      flex-direction: column;
+      margin: 15px 20px;
+
+      p {
+        margin: 0;
+      }
+
+      .message-text.not-mine{
+        text-align: right;   
+        // line-height: 25px;     
+      }
+
+      .message-text.mine{
+        // line-height: 25px;     
+        text-align: left;        
+      }
+
+
+      .message-box {
+        padding: 15px;
+        align-self: flex-end;
+        width: fit-content;
+        // border: base.$blue-primary-dark solid 1px;
+        border-radius: 8px;
+        // margin-top: 10px;
+        // margin-bottom: 10px;
+
+        .sent-text-header {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin-bottom: 10px;
+
+          .message-sender {
+            margin-left: 20px;
+          }
+        }
+      }
+
+      .message-box.logged-in {
+        align-self: flex-start;
+        width: fit-content;
+        // background: base.$blue-dark;
+        color: black;
+
+        .sent-text-header {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          .message-sender {
+            margin-left: 0;
+            margin-right: 10px;
+          }
+        }
+      }
+
+    }
+    button {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      // background-image: url("../images/scrollToBottomIcon.png");
+
+      // &:hover {
+      //   // background-image: url("../images/scrollToBottomIconHover.png")
+      // }
+    }
+  }
+
+  .chat-input {
+    width: 100%;
+    // height: 60px;
+    text-align: start;
+    display: flex;
+    flex-direction: row;
+
+    .input {
+      width: 95%;
+      // height: 100%;
+      // background-color: base.$off-white;
+      border-radius: 5px 0px 0px 5px;
+    }
+    .send-button {
+      background: #4b9fea;
+      // color: base.$off-white;
+      width: 5%;
+      // height: 100%;
+
+      border: #bdbdbd 1px;
+      border-style: solid solid solid none;
+    }
+  }
+}
+
+.react-scroll-to-bottom--css-xlicd-1tj0vk3 {
+  height: 70px;
+  width: 70px;
+}
