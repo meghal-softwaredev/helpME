@@ -1,53 +1,85 @@
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
 const data = {
   users: [
     {
-      name: 'Meghal',
-      email: 'meghal@example.com',
-      password: bcrypt.hashSync('1234', 8)
+      name: "Meghal",
+      email: "meghal@example.com",
+      password: bcrypt.hashSync("1234", 8),
     },
     {
-      name: 'Umang',
-      email: 'umang@example.com',
-      password: bcrypt.hashSync('1234', 8)
+      name: "Umang",
+      email: "umang@example.com",
+      password: bcrypt.hashSync("1234", 8),
     },
     {
-      name: 'Jesson',
-      email: 'jesson@example.com',
-      password: bcrypt.hashSync('1234', 8)
+      name: "Jesson",
+      email: "jesson@example.com",
+      password: bcrypt.hashSync("1234", 8),
     },
     {
-      name: 'James',
-      email: 'james@example.com',
-      password: bcrypt.hashSync('1234', 8)
+      name: "James",
+      email: "james@example.com",
+      password: bcrypt.hashSync("1234", 8),
     },
     {
-      name: 'Sam',
-      email: 'sam@example.com',
-      password: bcrypt.hashSync('1234', 8)
+      name: "Sam",
+      email: "sam@example.com",
+      password: bcrypt.hashSync("1234", 8),
     },
     {
-      name: 'Albert',
-      email: 'albert@example.com',
-      password: bcrypt.hashSync('1234', 8)
+      name: "Albert",
+      email: "albert@example.com",
+      password: bcrypt.hashSync("1234", 8),
     },
     {
-      name: 'Walter',
-      email: 'walter@example.com',
-      password: bcrypt.hashSync('1234', 8)
-    }
+      name: "Walter",
+      email: "walter@example.com",
+      password: bcrypt.hashSync("1234", 8),
+    },
+  ],
+  profile: [
+    {
+      user: "61918479bf9891d25a41d804",
+      current_category: "619db5a302c67a6038e124eb",
+      preferred_categories: [
+        "619db5a302c67a6038e124eb",
+        "619db5a302c67a6038e124ec",
+      ],
+    },
   ],
   categories: [
     {
-      name: 'Coding'
+      name: "Coding",
+      description: "Find help with all programming problems!",
+      img_url:
+        "https://venturebeat.com/wp-content/uploads/2018/01/javascript.jpg?fit=1800%2C1116&strip=all",
     },
     {
-      name: 'Car'
+      name: "Music",
+      description: "Talk with someone about anything music related!",
+      img_url:
+        "http://cdn.cnn.com/cnnnext/dam/assets/211116081538-restricted-juliens-auctions-eric-clapton-guitar-11-15-2021.jpg",
     },
     {
-      name: 'Food'
-    }
+      name: "Cooking",
+      description: "Get that recipe just right!",
+      img_url:
+        "https://assets.bonappetit.com/photos/5e7a6c79edf206000862e452/16:9/w_2580,c_limit/Cooking-Home-Collection.jpg",
+    },
+    {
+      name: "Household Repair",
+      description:
+        "Need some help hanging that flatscreen tv? We've got you covered!",
+      img_url:
+        "https://en.sormat.com/wp-content/uploads/sites/2/2020/05/Flat-TV-concrete-wall.jpg",
+    },
+    {
+      name: "Travel",
+      description:
+        "Have a conversation about travel. Help me plan my next trip?",
+      img_url: "images/img-8.jpg",
+    },
   ],
   feeds: [
     {
@@ -104,7 +136,7 @@ const data = {
           upvotes: 20
         }
       ] */
-    }
+    },
   ],
   feedAnswers: [
     {
@@ -115,8 +147,8 @@ const data = {
         which jsx compiles to
         CommentList(null)`,
       user: "61918479bf9891d25a41d806",
-      upvotes: 0
-    }
+      upvotes: 0,
+    },
   ],
   groups: [
     {
@@ -125,7 +157,7 @@ const data = {
       user_id: "618dcf88205f076ec8f55d11",
       category_id: "6190afe0ee6fb3c345e5c6fb",
       group_url: "http://localhost:3000/assets/group/agile.png",
-      followers: [``]
+      followers: [``],
     },
     {
       title: `Javascript`,
@@ -133,7 +165,7 @@ const data = {
       user_id: "618dcf88205f076ec8f55d11",
       category_id: "6190afe0ee6fb3c345e5c6fb",
       group_url: "http://localhost:3000/assets/group/javascript.png",
-      followers: [``]
+      followers: [``],
     },
   ],
   events: [
@@ -146,7 +178,7 @@ const data = {
       event_url: "http://localhost:3000/assets/group/agile.png",
       group_id: "61944880bf8a7111c03a36f5",
       tags: [`Agile`],
-      attendees: [``]
+      attendees: [``],
     },
   ],
 };
