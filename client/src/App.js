@@ -43,20 +43,7 @@ function App() {
           </div>
         </main>
         ):(
-          <main className="base-container">
-            <LeftSideBar />
-            <div className="main-container">
-              <Routes>
-                <Route path="/register" element={<Register />}></Route>
-                <Route path="/signin" element={<Signin />}></Route>
-                <Route path="/category" element={<Category />}></Route>
-                <Route path="/feeds" element={<FeedList />}></Route>
-                <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
-                <Route path="/groups" element={<GroupList />}></Route>
-                <Route path="/events" element={<EventList />}></Route>
-              </Routes>
-            </div>
-          </main>
+          <NotLoggedIn />
         )}
       </div>
     </BrowserRouter>
