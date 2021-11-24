@@ -25,7 +25,7 @@ export default function Register(props) {
   const { userInfo, loading, error } = userRegister;
 
   const navigate = useNavigate();
-  const redirect = userInfo ? "/category" : "/";
+  const redirect = userInfo ? "/categories" : "/";
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
