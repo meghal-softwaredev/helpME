@@ -1,5 +1,10 @@
-import { createTheme } from '@mui/material/styles';
-import { COLOR_PRIMARY, COLOR_SECONDARY, COLOR_GRAY_LIGHT, COLOR_GRAY_DARK} from '../constants/colorConstants';
+import { createTheme } from "@mui/material/styles";
+import {
+  COLOR_PRIMARY,
+  COLOR_SECONDARY,
+  COLOR_GRAY_LIGHT,
+  COLOR_GRAY_DARK,
+} from "../constants/colorConstants";
 
 const darkTheme = createTheme({
   components: {
@@ -15,17 +20,20 @@ const darkTheme = createTheme({
     },
   },
   status: {
-    danger: '#e53e3e',
+    danger: "#e53e3e",
   },
   palette: {
-    mode: 'dark',
+    mode: "dark",
     primary: {
-      main: COLOR_GRAY_LIGHT
+      main: COLOR_GRAY_LIGHT,
     },
-    neutral: {
+    secondary: {
+      main: COLOR_SECONDARY,
+    },
+    /* neutral: {
       main: '#64748B',
       contrastText: '#fff',
-    },
+    }, */
   },
 });
 
