@@ -14,6 +14,7 @@ import EventList from './components/EventList';
 import IndividualFeed from './components/IndividualFeed';
 import IndividualGroup from './components/IndividualGroup';
 import IndividualEvent from './components/IndividualEvent';
+import Chat from './components/Chat';
 
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
@@ -37,6 +38,7 @@ function App() {
               <Route path="/groups/:id" element={<IndividualGroup />}></Route>
               <Route path="/events" element={<EventList />}></Route>
               <Route path="/events/:id" element={<IndividualEvent />}></Route>
+              <Route path="/chat" element={<Chat />}></Route>
             </Routes>
           </div>
         </main>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
-import { Grid, Button, Typography, IconButton, Box } from '@mui/material';
+import { Grid, Button, Typography, IconButton, Box, Popover } from '@mui/material';
 import { getIndividualGroup } from '../actions/groupActions';
 import NewGroup from './NewGroup';
 import ConfirmDialog from './ConfirmDialog';
@@ -13,8 +13,10 @@ import { joinGroup } from '../actions/groupActions';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import Axios from 'axios';
+import "../styles/elements/link.scss";
 
 function IndividualGroup(props) {
+  const [anchorEl, setAnchorEl] = useState(null);
   const [openNewGroup, setOpenNewGroup] = useState(false);
   const [openDeleteGroup, setOpenDeleteGroup] = useState(false);
   const [openNewEvent, setOpenNewEvent] = useState(false);
@@ -65,7 +67,6 @@ function IndividualGroup(props) {
 
   const handleCloseDeleteGroup = () => {
     setOpenDeleteGroup(false);
-    
   };
 
   const handleOpenNewEvent = () => {
@@ -76,6 +77,11 @@ function IndividualGroup(props) {
     setOpenNewEvent(false);
   };
 
+  const handleChat = (e) => {
+    setAnchorEl(e.currentTarget);
+  }
+
+  const open = Boolean(anchorEl);
   return (
     <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"start"}}>
     {loading ? (
@@ -124,6 +130,28 @@ function IndividualGroup(props) {
           )}
         </Grid>
        </div>
+      
+        <Button size="small" variant="outlined" onClick={(e) => handleChat(e)}>
+          <Link className="link nav-link" to="/chat">Chat</Link>
+        </Button>
+        <Popover
+        anchorEl={anchorEl}
+        open={open}
+        id={open ? "simple-popover" : undefined}
+        onClose={() => {
+          setAnchorEl(null);
+        }}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+      >
+        
+      </Popover>
       </div>
     )} 
   </Box>
