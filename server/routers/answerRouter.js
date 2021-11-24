@@ -21,6 +21,58 @@ answerRouter.delete(
   })
 );
 
+/* answerRouter.put(
+  '/:id/upvote',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const feedAnswerId = req.params.id;
+    const user_id = req.body.user_id;
+    const feedAnswer = await FeedAnswer.findById(feedAnswerId);
+    if (feedAnswer) {
+      if (feedAnswer.down_votes.includes(user_id)) {
+        const index = feedAnswer.down_votes.indexOf(user_id);
+        if (index > -1) {
+          feedAnswer.down_votes.splice(index, 1);
+        }
+      }
+      if (!feedAnswer.up_votes.includes(user_id)) {
+        feedAnswer.up_votes.push(user_id);
+      }
+
+      const updatedFeedAnswer = await feedAnswer.save();
+      res.send({ message: 'Feed Answer Updated', feedAnswer: updatedFeedAnswer });
+    } else {
+      res.status(404).send({ message: 'Feed Answer Not Found' });
+    }
+  })
+);
+
+answerRouter.put(
+  '/:id/downvote',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const feedAnswerId = req.params.id;
+    const user_id = req.body.user_id;
+    const feedAnswer = await FeedAnswer.findById(feedAnswerId);
+    if (feedAnswer) {
+      if (feedAnswer.up_votes.includes(user_id)) {
+        const index = feedAnswer.up_votes.indexOf(user_id);
+        if (index > -1) {
+          feedAnswer.up_votes.splice(index, 1);
+        }
+      }
+      if (!feedAnswer.down_votes.includes(user_id)) {
+        feedAnswer.down_votes.push(user_id);
+      }
+
+      const updatedFeedAnswer = await feedAnswer.save();
+      res.send({ message: 'Feed Answer Updated', feedAnswer: updatedFeedAnswer });
+    } else {
+      res.status(404).send({ message: 'Feed Answer Not Found' });
+    }
+  })
+); */
+
 answerRouter.put(
   '/:id',
   isAuth,
@@ -30,9 +82,9 @@ answerRouter.put(
     if (feedAnswer) {
       feedAnswer.answer = req.body.answer;
       const updatedFeedAnswer = await feedAnswer.save();
-      res.send({ message: 'Feed Updated', feedAnswer: updatedFeedAnswer });
+      res.send({ message: 'Feed Answer Updated', feedAnswer: updatedFeedAnswer });
     } else {
-      res.status(404).send({ message: 'Feed Not Found' });
+      res.status(404).send({ message: 'Feed Answer Not Found' });
     }
   })
 );
