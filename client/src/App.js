@@ -7,57 +7,63 @@ import Signin from "./components/Signin";
 import LeftSideBar from "./components/LeftSideBar";
 import Home from "./components/Home";
 import FeedList from "./components/FeedList";
-import Category from "./components/Category";
+import CategoryList from "./components/CategoryList";
 import GroupList from "./components/GroupList";
 import EventList from "./components/EventList";
 import IndividualFeed from "./components/IndividualFeed";
 import Navbar from "./components/Navbar";
 import IndividualGroup from "./components/IndividualGroup";
 import IndividualEvent from "./components/IndividualEvent";
-import Chat from "./components/Chat";
-
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
+  const location = window.location.pathname;
 
   return (
     <BrowserRouter>
       <div className={"" !== "/" && "grid-container"}>
         <Navbar />
         {userInfo ? (
-        <main className="base-container">
-          <LeftSideBar />
-          <div className="main-container">
-            <Routes>
-              <Route path="/register" element={<Register />}></Route>
-              <Route path="/signin" element={<Signin />}></Route>
-              <Route path="/category" element={<Category />}></Route>
-              <Route path="/feeds" element={<FeedList />}></Route>
-              <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
-              <Route path="/groups" element={<GroupList />}></Route>
-              <Route path="/groups/:id" element={<IndividualGroup />}></Route>
-              <Route path="/events" element={<EventList />}></Route>
-              <Route path="/events/:id" element={<IndividualEvent />}></Route>
-              <Route path="/chat" element={<Chat />}></Route>
-            </Routes>
-          </div>
-        </main>
-        ):(
+          <main className="base-container">
+            {/* location !== "/categories" && (<LeftSideBar />) */}
+            <ShowLeftSidebar />
+            <div className="main-container">
+              <Routes>
+                <Route path="/register" element={<Register />}></Route>
+                <Route path="/signin" element={<Signin />}></Route>
+                <Route path="/categories" element={<CategoryList />}></Route>
+                <Route path="/feeds" element={<FeedList />}></Route>
+                <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
+                <Route path="/groups" element={<GroupList />}></Route>
+                <Route path="/events" element={<EventList />}></Route>
+              </Routes>
+            </div>
+          </main>
+        ) : (
           <NotLoggedIn />
         )}
       </div>
     </BrowserRouter>
   );
 }
+
+const ShowLeftSidebar = () => {
+  const location = useLocation();
+  if (location.pathname !== "/categories") {
+    return <LeftSideBar />;
+  }
+  return "";
+};
+
 const NotLoggedIn = () => {
   const location = useLocation();
   console.log("location", location);
   let inputStyle =
     location.pathname === "/"
       ? {
-          "display": "flex",
+          display: "flex",
           "flex-direction": "column",
-          "padding": 0
+          padding: 0,
         }
       : {};
   console.log("inputStyle", inputStyle);
