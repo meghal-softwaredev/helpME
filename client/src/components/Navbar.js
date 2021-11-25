@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "./Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 import { ThemeProvider } from "@mui/material/styles";
@@ -25,6 +25,7 @@ import { CssBaseline } from "@mui/material";
 import { darkTheme } from "../mui/themes";
 
 function Navbar() {
+  const navigate = useNavigate();
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -61,6 +62,10 @@ function Navbar() {
   }, []);
 
   window.addEventListener("resize", showButton);
+
+  const handleOpenProfile = () => {
+    navigate("/profile");
+  };
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -99,7 +104,7 @@ function Navbar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={handleOpenProfile}>Profile</MenuItem>
                   <MenuItem onClick={signoutHandler}>Logout</MenuItem>
                 </Menu>
               </div>
