@@ -14,6 +14,7 @@ import IndividualFeed from "./components/IndividualFeed";
 import Navbar from "./components/Navbar";
 import IndividualGroup from "./components/IndividualGroup";
 import IndividualEvent from "./components/IndividualEvent";
+import ShowProfile from "./components/ShowProfile";
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
                 <Route path="/groups" element={<GroupList />}></Route>
                 <Route path="/events" element={<EventList />}></Route>
+                <Route path="/profile" element={<ShowProfile />}></Route>
               </Routes>
             </div>
           </main>
