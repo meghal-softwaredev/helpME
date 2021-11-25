@@ -2,6 +2,7 @@ import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import data from "../data.js";
 import Profile from "../models/profileModel.js";
+import User from "../models/userModel.js";
 
 const profileRouter = express.Router();
 
@@ -31,6 +32,18 @@ profileRouter.post(
       message: "Category Preferences Added",
       preferred_categories: addedCategoryPreferences,
     });
+  })
+);
+
+profileRouter.get(
+  '/:id',
+  expressAsyncHandler(async (req, res) => {
+    const profileDetails = await Profile.findOne({ user: req.params.id }).populate("user");
+    if (profileDetails) {
+      res.send(profileDetails);
+    } else {
+      res.status(404).send({ message: 'Profile Details Not Found' });
+    }
   })
 );
 
