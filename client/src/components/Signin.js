@@ -29,15 +29,16 @@ export default function Signin(props) {
   const navigate = useNavigate();
   const redirect = userInfo ? "/feeds" : "/";
 
-  const { signIn, loaded } = useGoogleLogin({
-    // onSuccess,
-    // clientId,
-    // isSignedIn,
-    // onFailure,
-  });
+  // const { signIn, loaded } = useGoogleLogin({
+  //   onSuccess,
+  //   clientId,
+  //   isSignedIn,
+  //   onFailure,
+  // });
 
   const responseGoogle = (response) => {
     console.log(response);
+    console.log(response.profileObj);
   };
 
   const dispatch = useDispatch();
@@ -110,12 +111,12 @@ export default function Signin(props) {
           <Grid container justifyContent="flex-end">
             <Grid item container xs={12} justifyContent="center">
               <GoogleLogin
-                clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
-                buttonText="Login"
+                clientId="541968906767-0v6pfapcciop5ifcqqo5gbu8dmfqkctf.apps.googleusercontent.com"
+                buttonText="Sign In With Google"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy={"single_host_origin"}
-                isSignedIn={true}
+                // isSignedIn={true}
               />
             </Grid>
             {/* <Grid item xs>
