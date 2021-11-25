@@ -18,6 +18,7 @@ import Container from "@mui/material/Container";
 import ReactDOM from "react-dom";
 import GoogleLogin from "react-google-login";
 import { useGoogleLogin } from "react-google-login";
+import { Paper } from "@mui/material";
 
 export default function Signin(props) {
   const [email, setEmail] = useState("");
@@ -56,13 +57,14 @@ export default function Signin(props) {
 
   return (
     // <ThemeProvider theme={{darkTheme}}>
-    <Container component="main" maxWidth="xs" sx={{ color: "white" }}>
+    <Container component="main" maxWidth="xs" sx={{ color: "Black" }}>
       <CssBaseline />
       {loading && <LoadingBox></LoadingBox>}
       {error && <MessageBox variant="danger">{error}</MessageBox>}
-      <Box
+      <Paper
         sx={{
           marginTop: 8,
+          bgcolor: "whitesmoke",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -129,7 +131,7 @@ export default function Signin(props) {
             </Grid>
           </Grid>
         </Box>
-      </Box>
+      </Paper>
     </Container>
   );
 }
