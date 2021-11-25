@@ -8,6 +8,11 @@ import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 import Avatar from '@mui/material/Avatar';
 import EditIcon from '@mui/icons-material/Edit';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import TwitterIcon from '@mui/icons-material/Twitter';
 
 import "../styles/components/Profile.scss";
 
@@ -76,11 +81,11 @@ function ShowProfile() {
         <Box className="section profile-picture-container" >
           <Avatar
             //alt={profileDetails && profileDetails.user && profileDetails.user.name}
-            src="images/avatar/profile-avatar.jpg"
+            src={`${process.env.PUBLIC_URL}/images/avatar/profile-avatar.jpeg`}
             sx={{ width: 200, height: 200 }} />
         </Box>
-        <div className="section basic-details-container">
-          <p>{profileDetails && profileDetails.user && profileDetails.user.name}</p>
+        <div className="section basic-info-container">
+          <p className="section-title">{profileDetails && profileDetails.user && profileDetails.user.name}</p>
           <Box>
             <IconButton color="primary" aria-label="edit profile" component="span" onClick={() => {handleEditBtn("basic_info")}}>
               <EditIcon />
@@ -90,7 +95,7 @@ function ShowProfile() {
         <Divider sx={{ mx: 2 }} />
         <div className="section bio-details-container">
           <div>
-            <p>Bio</p>
+            <p className="section-title">Bio</p>
             <p>{profileDetails && profileDetails.bio}</p>
           </div>
           <Box>
@@ -102,12 +107,12 @@ function ShowProfile() {
         <Divider sx={{ mx: 2 }} />
         <div className="section profile-links-container">
           <div>
-            <p>Profile Links</p>
-            <p>Github: {profileDetails && profileDetails.github_url}</p>
-            <p>LinkedIn: {profileDetails && profileDetails.linkedin_url}</p>
-            <p>Facebook: {profileDetails && profileDetails.facebook_url}</p>
-            <p>Instagram: {profileDetails && profileDetails.instagram_url}</p>
-            <p>twitter_url: {profileDetails && profileDetails.twitter_url}</p>
+            <p className="section-title">Profile Links</p>
+            <Box><GitHubIcon /> {profileDetails && profileDetails.github_url}</Box>
+            <Box><LinkedInIcon /> {profileDetails && profileDetails.linkedin_url}</Box>
+            <Box><FacebookIcon /> {profileDetails && profileDetails.facebook_url}</Box>
+            <Box><InstagramIcon /> {profileDetails && profileDetails.instagram_url}</Box>
+            <Box><TwitterIcon /> {profileDetails && profileDetails.twitter_url}</Box>
           </div>
           <Box>
             <IconButton color="primary" aria-label="edit profile" component="span" onClick={() => { handleEditBtn("profile_links") }}>
@@ -118,7 +123,7 @@ function ShowProfile() {
         <Divider sx={{ mx: 2 }} />
         <div className="section skills-container">
           <div>
-            <p>Skills</p>
+            <p className="section-title">Skills</p>
             <Box>
               {profileDetails && profileDetails.skills && profileDetails.skills.map((skill) => (
                 <Chip
