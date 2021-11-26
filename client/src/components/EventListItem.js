@@ -5,7 +5,6 @@ import { Grid, Typography, Divider, IconButton} from '@mui/material';
 import Axios from 'axios';
 import moment from 'moment';
 import IosShareIcon from '@mui/icons-material/IosShare';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 function EventListItem(props) {
   const [anchorEl, setAnchorEl] = useState(null);

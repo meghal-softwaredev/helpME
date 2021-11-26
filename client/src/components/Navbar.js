@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "./Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 import { ThemeProvider } from "@mui/material/styles";
@@ -25,6 +25,7 @@ import { CssBaseline } from "@mui/material";
 import { darkTheme } from "../mui/themes";
 
 function Navbar() {
+  const navigate = useNavigate();
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -62,6 +63,11 @@ function Navbar() {
 
   window.addEventListener("resize", showButton);
 
+  const handleOpenProfile = () => {
+    setAnchorEl(null);
+    navigate("/profile");
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <nav className="navbar">
@@ -75,34 +81,44 @@ function Navbar() {
           </div>
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             {userInfo ? (
-              <div>
-                <IconButton
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
+              <>
+                <Link
+                  to="get-help"
+                  className="nav-links"
+                  to="get-help"
                 >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={signoutHandler}>Logout</MenuItem>
-                </Menu>
-              </div>
+                  Get Help
+                </Link>
+                <li>
+                  <IconButton
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    
+                  >
+                    <AccountCircle sx={{ fontSize: "35px" }} />
+                  </IconButton>
+                  <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={handleOpenProfile}>Profile</MenuItem>
+                    <MenuItem onClick={signoutHandler}>Logout</MenuItem>
+                  </Menu>
+                </li>
+              </>
             ) : (
               <>
                 <li className="nav-item">

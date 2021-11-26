@@ -110,7 +110,7 @@ export default function Register(props) {
                 fullWidth
                 name="confirmPassword"
                 label="confirm Password"
-                type="confirmPassword"
+                type="password"
                 id="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
