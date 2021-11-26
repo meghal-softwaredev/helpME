@@ -55,7 +55,7 @@ function ShowProfile() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(showProfileDetails({}));
+    dispatch(showProfileDetails(userInfo._id));
   }, [dispatch]);
 
   /* const SmallAvatar = styled(Avatar)(({ theme }) => ({
