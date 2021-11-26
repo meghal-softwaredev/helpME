@@ -19,6 +19,7 @@ import "../styles/components/Profile.scss";
 import { darkTheme } from "../mui/themes";
 import {
   showProfileDetails,
+  updateProfile,
 } from "../actions/profileActions";
 import { flexbox } from "@mui/system";
 import EditProfileDrawer from "./EditProfileDrawer";
@@ -40,6 +41,9 @@ function ShowProfile() {
     },
     "skills": {
       title: "Skills"
+    },
+    "volunteer_status": {
+      title: "Volunteer Status"
     }
   };
 
@@ -70,7 +74,7 @@ function ShowProfile() {
 
   const handleUpdateProfile = (event, updatedProfileDetails) => {
     event.preventDefault();
-    /* dispatch(updateProfileDetails({ ...updatedProfileDetails, currentEditSection })); */
+    dispatch(updateProfile({ ...updatedProfileDetails, currentEditSection }));
     setDrawerOpen(false)
   };
 
@@ -108,11 +112,11 @@ function ShowProfile() {
         <div className="section profile-links-container">
           <div>
             <p className="section-title">Profile Links</p>
-            <Box><GitHubIcon /> {profileDetails && profileDetails.github_url}</Box>
-            <Box><LinkedInIcon /> {profileDetails && profileDetails.linkedin_url}</Box>
-            <Box><FacebookIcon /> {profileDetails && profileDetails.facebook_url}</Box>
-            <Box><InstagramIcon /> {profileDetails && profileDetails.instagram_url}</Box>
-            <Box><TwitterIcon /> {profileDetails && profileDetails.twitter_url}</Box>
+            <Box className="profile-link-row"><GitHubIcon /> {profileDetails && profileDetails.github_url}</Box>
+            <Box className="profile-link-row"><LinkedInIcon /> {profileDetails && profileDetails.linkedin_url}</Box>
+            <Box className="profile-link-row"><FacebookIcon /> {profileDetails && profileDetails.facebook_url}</Box>
+            <Box className="profile-link-row"><InstagramIcon /> {profileDetails && profileDetails.instagram_url}</Box>
+            <Box className="profile-link-row"><TwitterIcon /> {profileDetails && profileDetails.twitter_url}</Box>
           </div>
           <Box>
             <IconButton color="primary" aria-label="edit profile" component="span" onClick={() => { handleEditBtn("profile_links") }}>
@@ -144,10 +148,15 @@ function ShowProfile() {
           </Box>
         </div>
         <Divider sx={{ mx: 2 }} />
-        <div className="section skills-container">
+        <div className="section volunteer-container">
           <div>
             <p>Do tou want yo join our community as a volunteer?</p>
           </div>
+          <Box>
+            <IconButton color="primary" aria-label="edit profile" component="span" onClick={() => { handleEditBtn("volunteer_status") }}>
+              <EditIcon />
+            </IconButton>
+          </Box>
         </div>
         {drawerOpen && (
           <EditProfileDrawer 
