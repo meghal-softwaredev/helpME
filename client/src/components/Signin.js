@@ -40,6 +40,8 @@ export default function Signin(props) {
   const responseGoogle = (response) => {
     console.log(response);
     console.log(response.profileObj);
+    var id_token = response.getAuthResponse().id_token;
+    console.log(id_token);
   };
 
   const dispatch = useDispatch();

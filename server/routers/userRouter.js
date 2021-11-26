@@ -5,6 +5,7 @@ import User from "../models/userModel.js";
 import data from "../data.js";
 import Profile from "../models/profileModel.js";
 import { generateToken } from "../helpers/utils.js";
+const { OAuth2Client } = require("google-auth-library");
 
 const userRouter = express.Router();
 
@@ -64,6 +65,68 @@ userRouter.get(
     } else {
       res.status(404).send({ message: "User Not Found" });
     }
+  })
+);
+const CLIENT_ID = "541968906767-0v6pfapcciop5ifcqqo5gbu8dmfqkctf.apps.googleusercontent.com"
+
+async function tokenVerify(token, callback) {
+  const client = new OAuth2Client(CLIENT_ID);
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+    // Or, if multiple clients access the backend:
+    //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+
+});
+const payload = ticket.getPayload();
+const userid = payload['sub'];
+ if(!payload.email){
+   return callback(null, "invalid token")
+ }
+let user = await getUserByEmail(payload.email)
+ if (user){
+
+  callback({
+    user,
+    isNew:false
+  })
+}else{
+user = await registerUser({
+  email:payload.email,
+  name:payload.name,
+signInMethod:"googlesignin"
+})
+callback({
+  user,
+  isNew:true
+})
+}
+
+
+
+async function getUserByEmail(email){
+//return user object
+//find user with email
+//return a promise
+}
+async function registerUser(data){
+// create a new user record
+//return newly created user object
+// return  promise
+}
+
+
+
+userRouter.post(
+  "/googlesignin",
+  expressAsyncHandler(async (req, res) => {
+    tokenVerify(req.body.token,(result, error) =>{
+      if (error){
+        // send error response
+      } else{
+        // log user in with result.user object and return user to front end
+      }
+    } )
   })
 );
 
