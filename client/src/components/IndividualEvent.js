@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 import { Grid, Button, Typography, IconButton, Box } from '@mui/material';
@@ -23,14 +23,14 @@ function IndividualEvent(props) {
   const individualEventDetails = useSelector((state) => state.individualEventDetails);
   const { loading, error, event } = individualEventDetails;
 
-  const getVideoId = () => {
-    let videoId;
-    if (event) {
-      videoId = event.event_video_url.split('=')[1];
-      console.log(videoId);
-    }
-    return videoId;
-  }
+  // const getVideoId = () => {
+  //   let videoId;
+  //   if (event) {
+  //     videoId = event.event_video_url.split('=')[1];
+  //     console.log(videoId);
+  //   }
+  //   return videoId;
+  // }
 
   const userInfo = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
@@ -55,7 +55,7 @@ function IndividualEvent(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIndividualEvent(id));
-  }, [dispatch, id, getIndividualEvent]);
+  }, [dispatch, id]);
 
   const deleteEventHandler = () => {
     dispatch(deleteEvent(id));
