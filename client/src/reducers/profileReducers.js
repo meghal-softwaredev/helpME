@@ -2,6 +2,9 @@ const {
   PROFILE_DETAILS_REQUEST,
   PROFILE_DETAILS_SUCCESS,
   PROFILE_DETAILS_FAIL,
+  PROFILE_UPDATE_REQUEST,
+  PROFILE_UPDATE_SUCCESS,
+  PROFILE_UPDATE_FAIL,
 } = require("../constants/profileConstants");
 
 export const profileDetailsReducer = (
@@ -18,7 +21,26 @@ export const profileDetailsReducer = (
       };
     case PROFILE_DETAILS_FAIL:
       return { loading: false, error: action.payload };
+    case PROFILE_UPDATE_REQUEST:
+      return { loading: true };
+    case PROFILE_UPDATE_SUCCESS:
+      return { loading: false, success: true, profileDetails: action.payload };
+    case PROFILE_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
 };
+
+/* export const profileUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PROFILE_UPDATE_REQUEST:
+      return { loading: true };
+    case PROFILE_UPDATE_SUCCESS:
+      return { loading: false, success: true, profileDetails: action.payload };
+    case PROFILE_UPDATE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}; */
