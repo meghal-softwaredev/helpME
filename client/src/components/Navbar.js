@@ -64,6 +64,7 @@ function Navbar() {
   window.addEventListener("resize", showButton);
 
   const handleOpenProfile = () => {
+    setAnchorEl(null);
     navigate("/profile");
   };
 
