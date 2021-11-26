@@ -8,7 +8,7 @@ import {
   PROFILE_UPDATE_SUCCESS,
 } from "../constants/profileConstants";
 
-export const showProfileDetails = () => async (dispatch, getState) => {
+export const showProfileDetails = (user_id) => async (dispatch, getState) => {
   dispatch({
     type: PROFILE_DETAILS_REQUEST,
   });
@@ -16,7 +16,7 @@ export const showProfileDetails = () => async (dispatch, getState) => {
     userSignin: { userInfo },
   } = getState();
   try {
-    const { data } = await Axios.get(`/api/profiles/${userInfo._id}`);
+    const { data } = await Axios.get(`/api/profiles/${user_id}`);
     dispatch({ type: PROFILE_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: PROFILE_DETAILS_FAIL, payload: error.message });
