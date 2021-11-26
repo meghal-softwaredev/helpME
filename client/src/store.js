@@ -36,8 +36,10 @@ import {
 } from "./reducers/categoryReducers";
 import {
   profileDetailsReducer,
-  profileUpdateReducer,
 } from "./reducers/profileReducers";
+import {
+  volunteerListReducer,
+} from "./reducers/volunteerReducers";
 
 const initialState = {
   userSignin: {
@@ -51,7 +53,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userSignin: userSigninReducer,
   profileDetailsList: profileDetailsReducer,
-  //profileDetailsList: profileUpdateReducer,
+  volunteerList: volunteerListReducer,
   categoryList: categoryListReducer,
   preferredCategoriesList: preferredCategoriesSaveReducer,
   feedList: feedListReducer,
