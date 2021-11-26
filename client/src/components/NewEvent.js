@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Button, TextField, Dialog, DialogContent, DialogTitle, Avatar, Grid, Box, Typography, Container, Paper, Chip } from '@mui/material';
+import React, { useEffect } from 'react';
+import { Button, TextField, Dialog, DialogContent, DialogTitle, Grid, Box, Typography, Container, Paper, Chip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEvent, listEvents } from '../actions/eventActions';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateAdapter from '@mui/lab/AdapterMoment'
-import DatePicker from '@mui/lab/DatePicker';
-import TimePicker from '@mui/lab/TimePicker';
 import DateTimePicker from '@mui/lab/DateTimePicker';
-import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
 import { updateEvent } from '../actions/eventActions';
 import EventSharpIcon from '@mui/icons-material/EventSharp';
 
@@ -35,7 +31,7 @@ export default function NewEvent(props) {
   const individualEventDetails = useSelector((state) => state.individualEventDetails);
   let { event } = individualEventDetails;
   const eventDetails = event;
-  const navigate = useNavigate();
+
   // const categoryList = useSelector((state) => state.categoryList);
   // const { categories } = categoryList;
 
@@ -57,7 +53,7 @@ export default function NewEvent(props) {
         tags: event.tags
       })
     }
-  }, []);
+  }, [dispatch,event]);
   // useEffect(() => {
   //   dispatch(listCategories());
   // }, [dispatch]);
@@ -68,14 +64,6 @@ export default function NewEvent(props) {
   };
   function handleDescriptionChange(e) {
     setEventState(prev => ({ ...prev, description: e.target.value }));
-  };
-
-  function handleDateChange(date) {
-    setEventState(prev => ({ ...prev, date: date }));
-  };
-
-  function handleStartTimeChange(time) {
-    setEventState(prev => ({ ...prev, start_time: time }));
   };
 
   function handleDateTimeChange(date_time) {

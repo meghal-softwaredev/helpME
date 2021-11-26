@@ -14,6 +14,8 @@ import IndividualFeed from "./components/IndividualFeed";
 import Navbar from "./components/Navbar";
 import IndividualGroup from "./components/IndividualGroup";
 import IndividualEvent from "./components/IndividualEvent";
+import Chat from "./components/Chat";
+
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -35,13 +37,19 @@ function App() {
                 <Route path="/feeds" element={<FeedList />}></Route>
                 <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
                 <Route path="/groups" element={<GroupList />}></Route>
+                <Route path="/groups/:id" element={<IndividualGroup />}></Route>
                 <Route path="/events" element={<EventList />}></Route>
+                <Route path="/events/:id" element={<IndividualEvent />}></Route>
+                <Route path="/chat" element={<Chat />}></Route>
               </Routes>
             </div>
           </main>
         ) : (
           <NotLoggedIn />
         )}
+      </div>
+      <div>
+       <Footer />
       </div>
     </BrowserRouter>
   );

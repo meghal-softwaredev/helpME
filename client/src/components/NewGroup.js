@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
-import { Button, TextField, Dialog, DialogContent, DialogTitle, Avatar, Grid, Box, Typography, Container, InputLabel, MenuItem, FormControl, Select, Paper, Chip } from '@mui/material';
+import { Button, TextField, Dialog, DialogContent, DialogTitle, Grid, Box, Typography, Container, InputLabel, MenuItem, FormControl, Select, Paper, Chip } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { createGroup, listGroups } from '../actions/groupActions';
+import { createGroup } from '../actions/groupActions';
 import { listCategories } from '../actions/categoryActions';
 import { updateGroup } from '../actions/groupActions';
-import { useNavigate } from 'react-router-dom';
-import { GROUP_UPDATE_RESET } from '../constants/groupConstants';
 import PeopleSharpIcon from '@mui/icons-material/PeopleSharp';
 import { styled } from '@mui/material/styles';
 
@@ -24,12 +22,11 @@ export default function NewGroup(props) {
   });
 
   const individualGroupDetails = useSelector((state) => state.individualGroupDetails);
-  const { group, success } = individualGroupDetails;
+  const { group } = individualGroupDetails;
   
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
   
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listCategories());
@@ -47,7 +44,7 @@ export default function NewGroup(props) {
         tags: group.tags
       })
     }
-  }, []);
+  }, [dispatch, group]);
 
   function handleTitleChange(e) {
     setGroupState(prev => ({ ...prev, title: e.target.value }));
