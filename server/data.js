@@ -181,5 +181,59 @@ const data = {
       attendees: [``],
     },
   ],
+  resourceCategories: [
+    {
+      title: "React",
+      user_id: "61919a3ebf9891d25a41d817"
+    },
+    {
+      title: "Recipes",
+      user_id: "61919a3ebf9891d25a41d817"
+    },
+    {
+      title: "Trip",
+      user_id: "61919a3ebf9891d25a41d817",
+    },
+    {
+      title: "Testing",
+      user_id: "61919a3ebf9891d25a41d817",
+    },
+    {
+      title: "Javascript",
+      user_id: "61919a3ebf9891d25a41d817",
+    }
+  ],
+  resources : [
+    {
+      title: "Hooks",
+      resource_url: "https://reactjs.org/docs/hooks-intro.html",
+      resource_category_id: "61a15cf06b4945cee69487e9"
+    },
+    {
+      title: "Class Components",
+      resource_url: "https://reactjs.org/docs/hooks-intro.html",
+      resource_category_id: "61a15cf06b4945cee69487e9"
+    },
+    {
+      title: "React Routing",
+      resource_url: "https://reactjs.org/docs/hooks-intro.html",
+      resource_category_id: "61a15cf06b4945cee69487e9"
+    },
+    {
+      title: "Burrito Bowl",
+      resource_url: "https://reactjs.org/docs/hooks-intro.html",
+      resource_category_id: "61a15cf06b4945cee69487ea"
+    },
+    {
+      title: "Pizza",
+      resource_url: "https://reactjs.org/docs/hooks-intro.html",
+      resource_category_id: "61a15cf06b4945cee69487ea"
+    },
+    {
+      title: "Leh Ladakh",
+      resource_url: "https://reactjs.org/docs/hooks-intro.html",
+      resource_category_id: "61a15cf06b4945cee69487eb"
+    },
+  ]
 };
 export default data;
