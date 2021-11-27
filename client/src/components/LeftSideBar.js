@@ -46,6 +46,11 @@ function LeftSideBar() {
             </Link>
           </li>
           <li>
+            <Link className="link" to="/resources">
+              Resources
+            </Link>
+          </li>
+          <li>
             <Divider sx={{ my: 2 }} />
           </li>
           <li>

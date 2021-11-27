@@ -15,6 +15,7 @@ import Navbar from "./components/Navbar";
 import IndividualGroup from "./components/IndividualGroup";
 import IndividualEvent from "./components/IndividualEvent";
 import Chat from "./components/Chat";
+import ResourceBoard from "./components/ResourceBoard";
 
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/events" element={<EventList />}></Route>
                 <Route path="/events/:id" element={<IndividualEvent />}></Route>
                 <Route path="/chat" element={<Chat />}></Route>
+                <Route path="/resources" element={<ResourceBoard />}></Route>
               </Routes>
             </div>
           </main>
