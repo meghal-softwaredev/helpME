@@ -13,6 +13,8 @@ import groupRouter from "./routers/groupRouter.js";
 import categoryRouter from "./routers/categoryRouter.js";
 import profileRouter from "./routers/profileRouter.js";
 import messageRouter from './routers/messageRouter.js';
+import resourceRouter from './routers/resourceRouter.js';
+import resourceCategoryRouter from './routers/resourceCategoryRouter.js';
 import { Server } from 'socket.io';
 import Axios from 'axios'; 
 
@@ -39,6 +41,8 @@ app.use("/api/events", eventRouter);
 app.use("/api/groups", groupRouter);
 app.use("/api/profiles", profileRouter);
 app.use('/api/messages', messageRouter);
+app.use('/api/resources', resourceRouter);
+app.use('/api/resourceCategories', resourceCategoryRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
