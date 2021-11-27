@@ -34,6 +34,10 @@ import {
   categoryListReducer,
   preferredCategoriesSaveReducer,
 } from "./reducers/categoryReducers";
+import {
+  resourceCategoryListReducer,
+  resourceListReducer
+} from "./reducers/resourceReducers";
 
 const initialState = {
   userSignin: {
@@ -68,6 +72,8 @@ const reducer = combineReducers({
   individualEventDetails: individualEventDetailsReducer,
   eventUpdate: eventUpdateReducer,
   eventDelete: eventDeleteReducer,
+  resourceCategoryList: resourceCategoryListReducer,
+  resourceList: resourceListReducer
 });
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
