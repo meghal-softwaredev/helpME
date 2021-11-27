@@ -1,6 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import ReactHtmlParser from 'react-html-parser';
+import convert from 'htmr';
+
 import { ThemeProvider } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -25,6 +34,7 @@ import { createFeed, updateFeed } from '../actions/feedActions';
 import { listCategories } from '../actions/categoryActions';
 
 import { darkTheme} from "../mui/themes";
+import "../styles/components/NewFeed.scss";
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.1),
@@ -32,7 +42,17 @@ const ListItem = styled('li')(({ theme }) => ({
 
 export default function NewFeed(props) {
   const navigate = useNavigate();
-  const [feedState, setFeedState] = React.useState({
+
+  const html = props.feed ? props.feed.description : "";
+  const contentBlock = htmlToDraft(html);
+  const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+  const initialEditorState = EditorState.createWithContent(contentState);
+
+  const [editorState, setEditorState] = useState(initialEditorState ? initialEditorState :
+    () => EditorState.createEmpty(),
+  );
+
+  const [feedState, setFeedState] = useState({
     title: props.feed ? props.feed.title : "",
     description: props.feed ? props.feed.description : "",
     category_id: props.feed ? props.feed.category : "",
@@ -43,6 +63,7 @@ export default function NewFeed(props) {
   const categoryList = useSelector((state) => state.categoryList);
   const {categories } = categoryList;
 
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -52,9 +73,20 @@ export default function NewFeed(props) {
   function handleTitleChange(e) {
     setFeedState(prev => ({ ...prev, title: e.target.value }));
   };
-  function handleDescriptionChange(e) {
+
+  const handleEditorChange = (state) => {
+    setEditorState(state);
+    const htmlDescription = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    setFeedState(prev => ({ ...prev, description: htmlDescription }));
+  }
+  /* function handleDescriptionChange(e) {
     setFeedState(prev => ({ ...prev, description: e.target.value }));
-  };
+  }; */
+
+  /* function handleDescriptionChange(state) {
+    setFeedState(prev => ({ ...prev, description: state }));
+  }; */
+
   function handleTagChange(e) {
     setFeedState(prev => ({...prev, tag: e.target.value}));
   };
@@ -69,6 +101,10 @@ export default function NewFeed(props) {
   };
 
   const handleSubmit = (event) => {
+    /* const htmlDescription = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    console.log("htmlDescription", htmlDescription);
+    setFeedState(prev => ({ ...prev, description: htmlDescription })); */
+    console.log(feedState);
     event.preventDefault();
     dispatch(props.activity === "EditFeed" ? updateFeed({ ...feedState, feedId: props.feed._id}) : createFeed(feedState));
     setFeedState(prev => ({
@@ -85,11 +121,11 @@ export default function NewFeed(props) {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Dialog open={props.openNewFeed} onClose={props.handleCloseNewFeed}>
+      <Dialog fullWidth={true} maxWidth={'md'} open={props.openNewFeed} onClose={props.handleCloseNewFeed}>
         <DialogTitle>
         </DialogTitle>
         <DialogContent>
-          <Container component="main" maxWidth="xs">
+          <Container component="main" maxWidth="md">
             <Box
               sx={{
                 display: 'flex',
@@ -118,7 +154,7 @@ export default function NewFeed(props) {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField
+                    {/* <TextField
                       required
                       fullWidth
                       id="description"
@@ -128,6 +164,13 @@ export default function NewFeed(props) {
                       rows={4}
                       value={feedState.description}
                       onChange={handleDescriptionChange}
+                    /> */}
+                    <Editor
+                      editorState={editorState}
+                      wrapperClassName="wrapper-class"
+                      editorClassName="editor-class"
+                      onEditorStateChange={handleEditorChange}
+
                     />
                   </Grid>
                   <Grid item xs={12}>

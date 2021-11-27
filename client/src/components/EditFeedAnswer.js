@@ -1,4 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+
 import { ThemeProvider } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -19,9 +26,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { createFeed, updateFeed } from '../actions/feedActions';
 import { listCategories } from '../actions/categoryActions';
+
+import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import { darkTheme } from "../mui/themes";
 
@@ -32,9 +40,24 @@ const ListItem = styled('li')(({ theme }) => ({
 export default function EditFeedAnswer(props) {
   const [answerState, setAnswerState] = React.useState(props.answer);
 
-  function handleAnswerChange(e) {
+  const html = props.answer ? props.answer : "";
+  const contentBlock = htmlToDraft(html);
+  const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+  const initialEditorState = EditorState.createWithContent(contentState);
+
+  const [editorState, setEditorState] = useState(initialEditorState ? initialEditorState :
+    () => EditorState.createEmpty(),
+  );
+
+  /* function handleAnswerChange(e) {
     setAnswerState(e.target.value);
-  };
+  }; */
+
+  const handleEditorChange = (state) => {
+    setEditorState(state);
+    const htmlAnswer = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    setAnswerState(htmlAnswer);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -45,11 +68,11 @@ export default function EditFeedAnswer(props) {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Dialog open={props.openEditFeedAnswer} onClose={props.handleCloseDeleteDialog}>
+      <Dialog fullWidth={true} maxWidth={'md'} open={props.openEditFeedAnswer} onClose={props.handleCloseEditFeedAnswer}>
         <DialogTitle>
         </DialogTitle>
         <DialogContent>
-          <Container component="main" maxWidth="xs">
+          <Container component="main" maxWidth="md">
             <Box
               sx={{
                 display: 'flex',
@@ -66,7 +89,7 @@ export default function EditFeedAnswer(props) {
               <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <TextField
+                    {/* <TextField
                       required
                       fullWidth
                       id="answer"
@@ -76,6 +99,13 @@ export default function EditFeedAnswer(props) {
                       rows={4}
                       value={answerState}
                       onChange={handleAnswerChange}
+                    /> */}
+                    <Editor
+                      editorState={editorState}
+                      wrapperClassName="wrapper-class"
+                      editorClassName="editor-class"
+                      onEditorStateChange={handleEditorChange}
+
                     />
                   </Grid>
                 </Grid>
