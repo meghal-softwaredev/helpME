@@ -12,10 +12,10 @@ import eventRouter from "./routers/eventRouter.js";
 import groupRouter from "./routers/groupRouter.js";
 import categoryRouter from "./routers/categoryRouter.js";
 import profileRouter from "./routers/profileRouter.js";
-import messageRouter from './routers/messageRouter.js';
+import messageRouter from "./routers/messageRouter.js";
 import volunteerRouter from "./routers/volunteerRouter.js";
-import { Server } from 'socket.io';
-import Axios from 'axios'; 
+import { Server } from "socket.io";
+import Axios from "axios";
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -39,7 +39,7 @@ app.use("/api/categories", categoryRouter);
 app.use("/api/events", eventRouter);
 app.use("/api/groups", groupRouter);
 app.use("/api/profiles", profileRouter);
-app.use('/api/messages', messageRouter);
+app.use("/api/messages", messageRouter);
 app.use("/api/volunteers", volunteerRouter);
 
 app.use((err, req, res, next) => {
@@ -47,10 +47,11 @@ app.use((err, req, res, next) => {
 });
 
 const httpServer = http.Server(app);
-const io = new Server(httpServer, { cors: {
-  origin: "http://localhost:3000/",
-  methods: ["GET", "POST"]
-  } 
+const io = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost:3000/",
+    methods: ["GET", "POST"],
+  },
 });
 
 io.on("connection", (socket) => {
@@ -61,17 +62,15 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("message", newMessageObj);
     callback(); // Clears the field and sets history
 
-    Axios
-      .post(`http://localhost:5000/api/messages/new`, newMessageObj);
-      // .then((res) => console.log(res))
-      // .catch((error) => console.log(error));
+    Axios.post(`http://localhost:5000/api/messages/new`, newMessageObj);
+    // .then((res) => console.log(res))
+    // .catch((error) => console.log(error));
   });
 
   socket.on("disconnect", () => {
     console.log("Connection disconnected for: ", socket.id);
   });
 });
-
 
 httpServer.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signin } from "../actions/userActions";
+import { signin, signinWithGoogle } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
@@ -42,6 +42,7 @@ export default function Signin(props) {
     console.log(response.profileObj);
     var id_token = response.getAuthResponse().id_token;
     console.log(id_token);
+    dispatch(signinWithGoogle(id_token));
   };
 
   const dispatch = useDispatch();
