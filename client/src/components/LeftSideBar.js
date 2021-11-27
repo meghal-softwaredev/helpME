@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import { darkTheme } from "../mui/themes";
 import "../styles/components/LeftSideBar.scss";
-import { Button, Box, Divider, Container } from '@mui/material';
+import { Button, Box, Divider, Container, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
+
 import NewGroup from './NewGroup';
 
 import PostAddIcon from '@mui/icons-material/PostAdd';
@@ -11,9 +14,20 @@ import FeedIcon from '@mui/icons-material/Feed';
 import EventIcon from '@mui/icons-material/Event';
 import NewFeed from "./NewFeed";
 
+import { listCategories } from '../actions/categoryActions';
+
 function LeftSideBar() {
   const [openNewGroup, setOpenNewGroup] = useState(false);
   const [openNewFeed, setOpenNewFeed] = useState(false);
+
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categories } = categoryList;
+
+  function handleCategoryChange(e) {
+    setSelectedCategory(e.target.value);
+  };
 
   const handleOpenNewGroup = () => {
     setOpenNewGroup(true);
@@ -62,6 +76,29 @@ function LeftSideBar() {
               Create Group
             </Button>
             <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={false} />
+          </li>
+          <li>
+            <Divider sx={{ my: 2 }} />
+          </li>
+          <li>
+            <FormControl fullWidth>
+              <InputLabel>Category</InputLabel>
+              <Select
+                id="category"
+                value={selectedCategory}
+                label="Category"
+                onChange={handleCategoryChange}
+              >
+                {categories && categories.map((category) => (
+                  <MenuItem
+                    key={category._id}
+                    value={category._id}
+                  >
+                    {category.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </li>
         </ul>
       </Box>
