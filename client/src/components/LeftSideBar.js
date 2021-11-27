@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
@@ -15,18 +15,50 @@ import EventIcon from '@mui/icons-material/Event';
 import NewFeed from "./NewFeed";
 
 import { listCategories } from '../actions/categoryActions';
+import {
+  showProfileDetails,
+  changeCurrentCategory,
+} from "../actions/profileActions";
 
 function LeftSideBar() {
   const [openNewGroup, setOpenNewGroup] = useState(false);
   const [openNewFeed, setOpenNewFeed] = useState(false);
 
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
 
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+  const profileDetailsList = useSelector((state) => state.profileDetailsList);
+  const { loading, error, profileDetails } = profileDetailsList;
+
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    userInfo && dispatch(showProfileDetails(userInfo._id));
+  }, []);
+
+  useEffect(() => {
+    setSelectedCategory(profileDetails && profileDetails.current_category);
+  }, [profileDetails]);
+
+  //const [selectedCategory, setSelectedCategory] = useState(profileDetails ? profileDetails.current_category : "");
+  //const [selectedCategory, setSelectedCategory] = useState(profileDetails ? profileDetails.current_category : "");
+
+  /* if (profileDetails) {
+    if(profileDetails.current_category) {
+      setSelectedCategory(profileDetails.current_category);
+    }
+  } */
+
+  /* console.log("selectedCategory:", selectedCategory);
+  console.log("profileDetails:", profileDetails ? profileDetails.current_category : ""); */
+
   function handleCategoryChange(e) {
     setSelectedCategory(e.target.value);
+    dispatch(changeCurrentCategory({ user_id: userInfo._id, updated_current_category: e.target.value}));
   };
 
   const handleOpenNewGroup = () => {
