@@ -38,6 +38,12 @@ import {
   resourceCategoryListReducer,
   resourceListReducer
 } from "./reducers/resourceReducers";
+import {
+  profileDetailsReducer,
+} from "./reducers/profileReducers";
+import {
+  volunteerListReducer,
+} from "./reducers/volunteerReducers";
 
 const initialState = {
   userSignin: {
@@ -50,6 +56,8 @@ const initialState = {
 const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userSignin: userSigninReducer,
+  profileDetailsList: profileDetailsReducer,
+  volunteerList: volunteerListReducer,
   categoryList: categoryListReducer,
   preferredCategoriesList: preferredCategoriesSaveReducer,
   feedList: feedListReducer,

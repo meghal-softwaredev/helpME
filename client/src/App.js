@@ -14,8 +14,10 @@ import IndividualFeed from "./components/IndividualFeed";
 import Navbar from "./components/Navbar";
 import IndividualGroup from "./components/IndividualGroup";
 import IndividualEvent from "./components/IndividualEvent";
+import ShowProfile from "./components/ShowProfile";
 import Chat from "./components/Chat";
 import ResourceBoard from "./components/ResourceBoard";
+import GetHelp from "./components/GetHelp";
 
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
@@ -34,15 +36,18 @@ function App() {
               <Routes>
                 <Route path="/register" element={<Register />}></Route>
                 <Route path="/signin" element={<Signin />}></Route>
+                <Route path="/" element={<FeedList />} exact></Route>
                 <Route path="/categories" element={<CategoryList />}></Route>
                 <Route path="/feeds" element={<FeedList />}></Route>
                 <Route path="/feeds/:id" element={<IndividualFeed />}></Route>
                 <Route path="/groups" element={<GroupList />}></Route>
                 <Route path="/groups/:id" element={<IndividualGroup />}></Route>
                 <Route path="/events" element={<EventList />}></Route>
+                <Route path="/profile" element={<ShowProfile />}></Route>
                 <Route path="/events/:id" element={<IndividualEvent />}></Route>
                 <Route path="/chat" element={<Chat />}></Route>
                 <Route path="/resources" element={<ResourceBoard />}></Route>
+                <Route path="/get-help" element={<GetHelp />}></Route>
               </Routes>
             </div>
           </main>
@@ -50,9 +55,9 @@ function App() {
           <NotLoggedIn />
         )}
       </div>
-      <div>
+      {/* <div>
        <Footer />
-      </div>
+      </div> */}
     </BrowserRouter>
   );
 }

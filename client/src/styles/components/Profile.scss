@@ -1,0 +1,41 @@
+.profile-container {
+  flex:3;
+  position: relative;
+  border: solid 1px #0077b6;
+  margin-top: 15px;
+}
+
+.profile-container-header {
+  position:"absolute";
+  top:0;
+  left:0;
+  width:100%;
+  height: 150px;
+  background-color: #005f73;
+  background-image: url("https://www.transparenttextures.com/patterns/paven.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+.section {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 50px;
+}
+
+.profile-picture-container {
+  justify-content: center;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #56cfe1;
+}
+
+.profile-link-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 10px;
+}

@@ -15,6 +15,7 @@ import profileRouter from "./routers/profileRouter.js";
 import messageRouter from './routers/messageRouter.js';
 import resourceRouter from './routers/resourceRouter.js';
 import resourceCategoryRouter from './routers/resourceCategoryRouter.js';
+import volunteerRouter from "./routers/volunteerRouter.js";
 import { Server } from 'socket.io';
 import Axios from 'axios'; 
 
@@ -43,6 +44,7 @@ app.use("/api/profiles", profileRouter);
 app.use('/api/messages', messageRouter);
 app.use('/api/resources', resourceRouter);
 app.use('/api/resourceCategories', resourceCategoryRouter);
+app.use("/api/volunteers", volunteerRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
