@@ -17,7 +17,7 @@ import IndividualEvent from "./components/IndividualEvent";
 import ShowProfile from "./components/ShowProfile";
 import Chat from "./components/Chat";
 import GetHelp from "./components/GetHelp";
-
+import AboutUs from "./components/AboutUs";
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -93,6 +93,7 @@ const NotLoggedIn = () => {
         <Route path="/groups/:id" element={<IndividualGroup />}></Route>
         <Route path="/events" element={<EventList />}></Route>
         <Route path="/events/:id" element={<IndividualEvent />}></Route>
+        <Route path="/about-us" element={<AboutUs />}></Route>
       </Routes>
     </main>
   );
