@@ -15,16 +15,17 @@ function GroupListItem(props) {
   : null;
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const { _id, title, description, group_url, group_favourites } = props.group;
+  const { _id, title, description, group_url, group_favourites, followers } = props.group;
   const [groupFavourite, setGroupFavourite] = useState(group_favourites);
   
   const dispatch = useDispatch();
+
   const handleJoinGroup = (groupId) => {
     dispatch(joinGroup(groupId));
   }
 
-  const handleShareGroup = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleShareGroup = (group) => {
+    setAnchorEl(group.currentTarget);
     const url = window.location.href + "/" + _id;
     navigator.clipboard.writeText(url);
   }
@@ -57,54 +58,67 @@ function GroupListItem(props) {
   return (
     <div className="item-container">
     <Grid container sx={{ my: 2, p: 2 }}>
-      <Grid item xs={3} > 
+      <Grid item xs={2} > 
         <img src={group_url} width="130px" height="130px" alt="Group" style={{borderRadius: 50}}/>
       </Grid>
-      <Grid item xs={8} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+      <Grid item xs={10} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
         <Typography component="h5" variant="h5">
           <Link className="link" to={`/groups/${_id}`}>{title}</Link>
         </Typography>
         <Typography component="h6" variant="h6">{description}</Typography>
-        {userInfo && (
-        <Button variant="outlined" sx={{color:"white"}} onClick={() => handleJoinGroup(_id)} >Join</Button>
-        )}
+        <Grid container>
+          <Grid item xs={6}>
+          {userInfo && (
+          <Button variant="outlined" sx={{color:"white"}} onClick={() => handleJoinGroup(_id)}>Join</Button>
+          )}
+          </Grid>
+          <Grid item xs={2} justifyContent="flex-end">
+          <Typography component="h6" variant="h6">{followers && followers.length}followers</Typography>
+          </Grid>
+          <Grid item xs={1} justifyContent="flex-end">
+              {userInfo && (
+              <div>
+              <IconButton size="small" variant="outlined" onClick={(e) => handleShareGroup(e)}>
+                <IosShareIcon color="white" />
+              </IconButton>
+              <Popover
+              anchorEl={anchorEl}
+              open={open}
+              id={open ? "simple-popover" : undefined}
+              onClose={() => {
+                setAnchorEl(null);
+              }}
+              transformOrigin={{
+                horizontal: "center",
+                vertical: "top",
+              }}
+              anchorOrigin={{
+                horizontal: "center",
+                vertical: "bottom",
+              }}
+            >
+              Copied Link
+            </Popover>
+            </div>
+            )}
+            </Grid>
+            <Grid item xs={1} justifyContent="flex-end">
+              {userInfo && (
+              <div>
+              { (Array.isArray(groupFavourite) && groupFavourite.includes(userInfo._id)) ? (
+                <IconButton size="small" variant="outlined" onClick={() => handleUnLikeGroup(_id)}>
+                  <FavoriteIcon color="red"/>
+                </IconButton>
+              ):(
+                <IconButton size="small" variant="outlined" onClick={() => handleLikeGroup(_id)}>
+                  <FavoriteBorderIcon color="white"/>
+                </IconButton>
+                )} 
+                </div>
+              )}
+          </Grid>
+        </Grid>
       </Grid>
-      {userInfo && (
-      <Grid item xs={1} >
-        <IconButton size="small" variant="outlined" onClick={(event) => handleShareGroup(event)}>
-          <IosShareIcon color="white" />
-        </IconButton>
-        <Popover
-        anchorEl={anchorEl}
-        open={open}
-        id={open ? "simple-popover" : undefined}
-        onClose={() => {
-          setAnchorEl(null);
-        }}
-        transformOrigin={{
-          horizontal: "center",
-          vertical: "top",
-        }}
-        anchorOrigin={{
-          horizontal: "center",
-          vertical: "bottom",
-        }}
-      >
-        Copied Link
-      </Popover>
-      <div>
-      { (groupFavourite && groupFavourite.includes(userInfo._id)) ? (
-        <IconButton size="small" variant="outlined" onClick={() => handleUnLikeGroup(_id)}>
-          <FavoriteIcon color="red"/>
-        </IconButton>
-      ):(
-        <IconButton size="small" variant="outlined" onClick={() => handleLikeGroup(_id)}>
-         <FavoriteBorderIcon color="white"/>
-        </IconButton>
-        )} 
-        </div>
-      </Grid>
-      )}
     </Grid>
     <Divider />
     </div>
