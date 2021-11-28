@@ -14,7 +14,7 @@ function EventListItem(props) {
   : null;
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const { _id, title, description, date_time, event_image_url, event_favourites } = props.event;
+  const { _id, title, description, date_time, event_image_url, attendees,event_favourites } = props.event;
 
   const [eventFavourite, setEventFavourite] = useState(event_favourites);
   const handleAttendEvent = (eventId) => {
@@ -61,10 +61,10 @@ function EventListItem(props) {
   return (
     <div className="item-container">
     <Grid container sx={{ my: 2, p: 2 }}>
-      <Grid item xs={3} > 
+      <Grid item xs={2} > 
         <img src={event_image_url} width="130px" height="130px" alt="Event" style={{borderRadius: 50}}/>
       </Grid>
-      <Grid item xs={8} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+      <Grid item xs={10} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
         <Typography component="h5" variant="h5">
           <Link className="link" to={`/events/${_id}`}>{title}</Link>
         </Typography>
@@ -72,46 +72,59 @@ function EventListItem(props) {
           {moment(date_time).format('llll')}
         </Typography>
         <Typography component="h6" variant="h6">{description}</Typography>
-        {userInfo && (
-        <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(_id)}>Attend</Button>
-        )}
+        <Grid container>
+          <Grid item xs={6}>
+          {userInfo && (
+          <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(_id)}>Attend</Button>
+          )}
+          </Grid>
+          <Grid item xs={2} justifyContent="flex-end">
+          <Typography component="h6" variant="h6">{attendees && attendees.length}attendees</Typography>
+          </Grid>
+          <Grid item xs={1} justifyContent="flex-end">
+              {userInfo && (
+              <div>
+              <IconButton size="small" variant="outlined" onClick={(e) => handleShareEvent(e)}>
+                <IosShareIcon color="white" />
+              </IconButton>
+              <Popover
+              anchorEl={anchorEl}
+              open={open}
+              id={open ? "simple-popover" : undefined}
+              onClose={() => {
+                setAnchorEl(null);
+              }}
+              transformOrigin={{
+                horizontal: "center",
+                vertical: "top",
+              }}
+              anchorOrigin={{
+                horizontal: "center",
+                vertical: "bottom",
+              }}
+            >
+              Copied Link
+            </Popover>
+            </div>
+            )}
+            </Grid>
+            <Grid item xs={1} justifyContent="flex-end">
+              {userInfo && (
+              <div>
+              { (Array.isArray(eventFavourite) && eventFavourite.includes(userInfo._id)) ? (
+                <IconButton size="small" variant="outlined" onClick={() => handleUnLikeEvent(_id)}>
+                  <FavoriteIcon color="red"/>
+                </IconButton>
+              ):(
+                <IconButton size="small" variant="outlined" onClick={() => handleLikeEvent(_id)}>
+                  <FavoriteBorderIcon color="white"/>
+                </IconButton>
+                )} 
+                </div>
+              )}
+          </Grid>
+        </Grid>
       </Grid>
-      {userInfo && (
-      <Grid item xs={1} >
-        <IconButton size="small" variant="outlined" onClick={(e) => handleShareEvent(e)}>
-          <IosShareIcon color="white" />
-        </IconButton>
-        <Popover
-        anchorEl={anchorEl}
-        open={open}
-        id={open ? "simple-popover" : undefined}
-        onClose={() => {
-          setAnchorEl(null);
-        }}
-        transformOrigin={{
-          horizontal: "center",
-          vertical: "top",
-        }}
-        anchorOrigin={{
-          horizontal: "center",
-          vertical: "bottom",
-        }}
-      >
-        Copied Link
-      </Popover>
-      <div>
-      { (Array.isArray(eventFavourite) && eventFavourite.includes(userInfo._id)) ? (
-        <IconButton size="small" variant="outlined" onClick={() => handleUnLikeEvent(_id)}>
-          <FavoriteIcon color="red"/>
-        </IconButton>
-      ):(
-        <IconButton size="small" variant="outlined" onClick={() => handleLikeEvent(_id)}>
-         <FavoriteBorderIcon color="white"/>
-        </IconButton>
-        )} 
-        </div>
-      </Grid>
-      )}
     </Grid>
     <Divider />
     </div>
