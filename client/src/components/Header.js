@@ -1,26 +1,26 @@
-import * as React from 'react';
-import { Link } from "react-router-dom"
+import * as React from "react";
+import { Link } from "react-router-dom";
 import "../styles/components/Header.scss";
-import "../styles/elements/link.scss"
-import { useDispatch, useSelector } from 'react-redux';
+import "../styles/elements/link.scss";
+import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions/userActions";
 
-import { ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from "@mui/material/styles";
 
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import { CssBaseline } from '@mui/material';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import { CssBaseline } from "@mui/material";
 
 import { darkTheme } from "../mui/themes";
 
@@ -47,60 +47,78 @@ function Header() {
     <ThemeProvider theme={darkTheme}>
       {/* <Box className="header" sx={{ flexGrow: 1 }}> */}
       <CssBaseline />
-      <AppBar className="header" position="sticky" sx={{justifyContent:"center"}}>
-          <Toolbar>
-            <Link className="link nav-link" to="/feeds">
-              <Typography variant="h4" component="div" >
-                helpME
-              </Typography>
+      <AppBar
+        style={{ background: "#242424" }}
+        className="header"
+        position="fixed"
+        sx={{ justifyContent: "center", minHeight: "100px" }}
+      >
+        <Toolbar>
+          <Link className="link nav-link" to="/">
+            <Typography variant="h4" component="div">
+              helpME
+              <i className="fas fa-hands-helping"></i>
+            </Typography>
+          </Link>
+          <Box sx={{ ml: 5, flexGrow: 1 }}>
+            <Link className="link nav-link get-help-btn" to="#">
+              Get Help
             </Link>
-            <Box sx={{ ml:5, flexGrow: 1 }}>
-            <Link className="link nav-link get-help-btn" to="#">Get Help</Link>
-            </Box>
-            {userInfo ? (
-              <div>
-                <IconButton
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={signoutHandler}>Logout</MenuItem>
-                </Menu>
-              </div>
-            ) : (
-              <div>
-                <Link className="link nav-link" to="/events">Events</Link>
-                <Link className="link nav-link" to="/feeds">Feed</Link>
-                <Link className="link nav-link" to="#">About Us</Link>
-                <Link className="link nav-link" to="/register">Register</Link>
-                <Link className="link nav-link" to="/signin">Login</Link>
-              </div>
-            )}
-          </Toolbar>
-        </AppBar>
+          </Box>
+          {userInfo ? (
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={signoutHandler}>Logout</MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <div>
+              <Link className="link nav-link" to="/events">
+                Events
+              </Link>
+              <Link className="link nav-link" to="/feeds">
+                Feed
+              </Link>
+              <Link className="link nav-link" to="/about-us">
+                About Us
+              </Link>
+              <Link className="link nav-link" to="/register">
+                Register
+              </Link>
+              <Link className="link nav-link" to="/signin">
+                Login
+              </Link>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
       {/* </Box> */}
     </ThemeProvider>
-  )
+  );
 }
 
-export default Header
+export default Header;

@@ -17,7 +17,8 @@ import IndividualEvent from "./components/IndividualEvent";
 import ShowProfile from "./components/ShowProfile";
 import Chat from "./components/Chat";
 import GetHelp from "./components/GetHelp";
-
+import AboutUs from "./components/AboutUs";
+import Header from "./components/Header";
 function App() {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
@@ -26,7 +27,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className={"" !== "/" && "grid-container"}>
-        <Navbar />
+        {/* <Navbar /> */}
+        <Header />
         {userInfo ? (
           <main className="base-container">
             {/* location !== "/categories" && (<LeftSideBar />) */}
@@ -92,6 +94,7 @@ const NotLoggedIn = () => {
         <Route path="/groups/:id" element={<IndividualGroup />}></Route>
         <Route path="/events" element={<EventList />}></Route>
         <Route path="/events/:id" element={<IndividualEvent />}></Route>
+        <Route path="/about-us" element={<AboutUs />}></Route>
       </Routes>
     </main>
   );
