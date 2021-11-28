@@ -73,9 +73,13 @@ function IndividualFeed() {
 
   const handleEditorChange = (state) => {
     setEditorState(state);
-    const htmlAnswer = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    const htmlAnswer = draftToHtml(convertToRaw(state.getCurrentContent()));
     setNewAnswer(htmlAnswer);
   }
+  /* const handleEditorChange = (rawDraftContentState) => {
+    console.log("rawDraftContentState", rawDraftContentState);
+    setNewAnswer(rawDraftContentState);
+  } */
 
   /* function handleNewAnswerChange(e) {
     setNewAnswer(e.target.value);
@@ -100,6 +104,7 @@ function IndividualFeed() {
     } else if (currentTask === "DeleteFeedAnswer") {
       setOpenDialog(false);
       dispatch(deleteFeedAnswer(alterAnswerId));
+      dispatch(getFeedAnswers(feedId));
     }
   };
 
@@ -267,7 +272,10 @@ function IndividualFeed() {
                           wrapperClassName="wrapper-class"
                           editorClassName="editor-class"
                           onEditorStateChange={handleEditorChange}
-
+                          /* onEditorStateChange={editorState => {
+                            setEditorState(editorState);
+                            handleEditorChange(editorState);
+                          }} */
                         />
                     </Grid>
                   </Grid>

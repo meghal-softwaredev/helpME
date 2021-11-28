@@ -55,7 +55,8 @@ export default function EditFeedAnswer(props) {
 
   const handleEditorChange = (state) => {
     setEditorState(state);
-    const htmlAnswer = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    //const htmlAnswer = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    const htmlAnswer = draftToHtml(convertToRaw(state.getCurrentContent()));
     setAnswerState(htmlAnswer);
   }
 
