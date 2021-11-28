@@ -62,7 +62,6 @@ export const createEvent = (newEvent) => async (dispatch, getState) => {
       type: EVENT_CREATE_SUCCESS,
       payload: data.event,
     });
-    dispatch(listEvents({}));
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -110,6 +109,7 @@ export const updateEvent = (eventId, eventDetails) => async (dispatch, getState)
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type:EVENT_UPDATE_SUCCESS, payload: data });
+    dispatch(getIndividualEvent(eventId));
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -120,7 +120,6 @@ export const updateEvent = (eventId, eventDetails) => async (dispatch, getState)
 };
 
 export const deleteEvent = (eventId) => async (dispatch, getState) => {
-  console.log("eventId", eventId);
   dispatch({ type: EVENT_DELETE_REQUEST, payload: eventId });
   const {
     userSignin: { userInfo },
@@ -129,7 +128,6 @@ export const deleteEvent = (eventId) => async (dispatch, getState) => {
     const { data } = await Axios.delete(`/api/events/${eventId}`, {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
-    console.log("data", data);
     dispatch({ type: EVENT_DELETE_SUCCESS, payload: data });
   } catch (error) {
     const message =

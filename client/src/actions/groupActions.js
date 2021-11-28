@@ -102,6 +102,7 @@ export const updateGroup = (groupId, group) => async (dispatch, getState) => {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type:GROUP_UPDATE_SUCCESS, payload: data });
+    dispatch(getIndividualGroup(groupId));
   } catch (error) {
     const message =
       error.response && error.response.data.message
