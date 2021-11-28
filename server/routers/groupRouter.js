@@ -12,9 +12,9 @@ groupRouter.get(
     const category = req.query.category || '';
     const sortBy = req.query.sortBy || '';
     const keyword = req.query.keyword || '';
-
-    const categoryFilter = category ? { category } : {};
-
+    
+    const categoryFilter = category ? { category_id: category } : {};
+    
     const keywordFilter = keyword ? { $or: [{ title: { $regex: keyword, $options: 'i' } }, { tags: { $regex: keyword, $options: 'i' } }] } : {}
 
     const sortOrder = sortBy === 'latest' ? { createdAt: -1 } : sortBy === 'oldest'
