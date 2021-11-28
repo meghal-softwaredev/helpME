@@ -16,16 +16,16 @@ const ListItem = styled('li')(({ theme }) => ({
 
 export default function NewEvent(props) {
   const [eventState, setEventState] = React.useState({
-    title: "",
-    description: "",
-    category_id: "",
-    date_time: new Date(),
-    duration: "",
-    event_image_url: "",
-    event_video_url: "",
+    title: props.event ? props.event.title : "",
+    description: props.event ? props.event.description : "",
+    category_id: props.event ? props.event.category_id : "",
+    date_time: props.event ? props.event.date_time : new Date(),
+    duration: props.event ? props.event.duration : "",
+    event_image_url: props.event ? props.event.event_image_url : "",
+    event_video_url: props.event ? props.event.event_video_url : "",
     tag: "",
-    tags: [],
-    group_id: props.group_id
+    tags: props.event? props.event.tags : [],
+    group_id: props.event? props.event.group_id : props.group_id
   });
 
   const individualEventDetails = useSelector((state) => state.individualEventDetails);
@@ -39,21 +39,6 @@ export default function NewEvent(props) {
   }, [dispatch]);
 
   const eventDetails = event;
-  useEffect(() => {
-    if (props.edit) {
-      setEventState({
-        title: event.title,
-        description: event.description,
-        category_id: event.category_id,
-        date_time: event.date_time,
-        duration: event.duration,
-        event_image_url: event.event_image_url,
-        event_video_url: event.event_video_url,
-        group_id: event.group_id,
-        tags: event.tags
-      })
-    }
-  }, []);
 
   function handleTitleChange(e) {
     setEventState(prev => ({ ...prev, title: e.target.value }));
@@ -282,7 +267,6 @@ export default function NewEvent(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
-                // onClick={() => window.location.reload(false)}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Update Event
@@ -290,7 +274,6 @@ export default function NewEvent(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
-                // onClick={() => window.location.reload(false)}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Create Event

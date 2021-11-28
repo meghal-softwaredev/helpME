@@ -115,7 +115,7 @@ function IndividualEvent(props) {
                 <IconButton size="small" variant="outlined" onClick={handleOpenNewEvent}>
                   <ModeEditIcon />
                 </IconButton>
-                <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} edit={true} eventId={id}/>
+                <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} edit={true} eventId={id} event={event}/>
                 </div>
               )}
                 </Grid>

@@ -118,7 +118,7 @@ function IndividualGroup(props) {
                 <IconButton size="small" variant="outlined" onClick={handleOpenNewGroup}>
                   <ModeEditIcon />
                 </IconButton>
-                <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={true} groupId={id}/>
+                <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={true} groupId={id} group={group}/>
               </div>
               )}
               </Grid>
