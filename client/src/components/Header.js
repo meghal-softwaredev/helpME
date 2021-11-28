@@ -48,9 +48,10 @@ function Header() {
       {/* <Box className="header" sx={{ flexGrow: 1 }}> */}
       <CssBaseline />
       <AppBar
+        style={{ background: "#242424" }}
         className="header"
-        position="sticky"
-        sx={{ justifyContent: "center" }}
+        position="fixed"
+        sx={{ justifyContent: "center", minHeight: "100px" }}
       >
         <Toolbar>
           <Link className="link nav-link" to="/">

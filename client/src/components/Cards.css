@@ -1,6 +1,6 @@
 .cards {
   padding: 4rem;
-  background: #fff;
+  background: #252e48;
   z-index: 10;
 }
 
@@ -24,6 +24,7 @@ h1 {
 
 .cards__items {
   margin-bottom: 24px;
+  color: #252e48;
 }
 
 .cards__item {
@@ -95,7 +96,7 @@ h1 {
 }
 
 .cards__item__text {
-  color: #252e48;
+  color: white;
   font-size: 18px;
   line-height: 24px;
 }
