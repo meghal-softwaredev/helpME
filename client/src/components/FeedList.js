@@ -49,11 +49,13 @@ function FeedList(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(showProfileDetails(userInfo._id));
+    
+    userInfo && dispatch(showProfileDetails(userInfo._id));
   }, []);
 
   useEffect(() => {
     typeof profileDetails === 'object' && Object.keys(profileDetails).length > 0 && dispatch(listFeeds({ category: profileDetails.current_category}));
+    !userInfo && dispatch(listFeeds({}));
   }, [dispatch, location, profileDetailsList]);
 
 
