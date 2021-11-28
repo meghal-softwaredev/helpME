@@ -6,6 +6,7 @@ import { listCategories } from '../actions/categoryActions';
 import { updateGroup } from '../actions/groupActions';
 import PeopleSharpIcon from '@mui/icons-material/PeopleSharp';
 import { styled } from '@mui/material/styles';
+import { listGroups } from '../actions/groupActions';
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.1),
@@ -35,6 +36,7 @@ export default function NewGroup(props) {
   useEffect(() => {
     if (!group) {
       dispatch(createGroup(groupState));
+      dispatch(listGroups({}));
     } else {
       setGroupState({
         title: group.title,
