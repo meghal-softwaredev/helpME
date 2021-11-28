@@ -31,6 +31,7 @@ import {
 
 export const listFeeds = ({
   keyword = '',
+  category = '',
   sortBy = ''
 }) => async (dispatch) => {
   dispatch({
@@ -38,7 +39,7 @@ export const listFeeds = ({
   });
   try {
     const { data } = await Axios.get(
-      `/api/feeds?keyword=${keyword}&sortBy=${sortBy}`
+      `/api/feeds?keyword=${keyword}&category=${category}&sortBy=${sortBy}`
     );
     dispatch({ type: FEED_LIST_SUCCESS, payload: data });
   } catch (error) {
