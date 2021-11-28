@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,6 +33,7 @@ function IndividualFeed() {
   const [newAnswer, setNewAnswer] = useState("");
   const [alterAnswerId, setAlterAnswerId] = useState("");
   const [currentAnswer, setCurrentAnswer] = useState("");
+  const [answerVotes, setAnswerVotes] = useState({});
 
   const [openDialog, setOpenDialog] = useState(false);
   const [currentDialog, setcurrentDialog] = useState("");
@@ -57,6 +59,17 @@ function IndividualFeed() {
   useEffect(() => {
     dispatch(getFeedAnswers(feedId));
   }, [openDialog]);
+
+  useEffect(() => {
+    answers && Array.isArray(answers) && answers.map(ans => {
+      setAnswerVotes(prev => ({...prev, [ans._id]:{
+        _id: ans._id,
+        count_votes: ans.up_votes.length - ans.down_votes.length,
+        up_votes_disabled: ans.up_votes.includes(userInfo._id),
+        down_votes_disabled: ans.down_votes.includes(userInfo._id),
+      }}))
+    })
+  }, [answers]);
 
   const handleEditorChange = (state) => {
     setEditorState(state);
@@ -105,6 +118,36 @@ function IndividualFeed() {
     setEditorState("");
     dispatch(getFeedAnswers(feedId));
   };
+
+  const handleUpVote = (ans_id) => {
+    setAnswerVotes(prev => ({ ...prev, [ans_id]:{
+      ...prev[ans_id], count_votes: prev[ans_id].count_votes + 1, up_votes_disabled: true, down_votes_disabled: false
+    }}));
+    Axios.put(
+      `/api/answers/${ans_id}/upvote`, {
+      user_id: userInfo._id,
+    },
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
+    );
+  }
+
+  const handleDownVote = (ans_id) => {
+    setAnswerVotes(prev => ({
+      ...prev, [ans_id]: {
+        ...prev[ans_id], count_votes: prev[ans_id].count_votes - 1, up_votes_disabled: false, down_votes_disabled: true
+      }
+    }));
+    Axios.put(
+      `/api/answers/${ans_id}/downvote`, {
+      user_id: userInfo._id,
+    },
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }
+    );
+  }
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -205,11 +248,11 @@ function IndividualFeed() {
                     )}
                   </Card>
                   <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <IconButton color="primary" aria-label="up vote" component="span">
+                    <IconButton color="primary" aria-label="up vote" component="span" disabled={typeof answerVotes === "object" && answerVotes[ans._id] && answerVotes[ans._id].up_votes_disabled} onClick={() => handleUpVote(ans._id)}>
                       <KeyboardArrowUpIcon/>
                     </IconButton>
-                    <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold' }}>{ans.votes_count}</Typography>
-                    <IconButton color="primary" aria-label="down vote" component="span">
+                    <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold' }}>{typeof answerVotes === "object" ? answerVotes[ans._id] && answerVotes[ans._id].count_votes : 0}</Typography>
+                    <IconButton color="primary" aria-label="down vote" component="span" disabled={typeof answerVotes === "object" && answerVotes[ans._id] && answerVotes[ans._id].down_votes_disabled} onClick={() => handleDownVote(ans._id)}>
                       <KeyboardArrowDownIcon />
                     </IconButton>
                   </Box>
@@ -219,17 +262,6 @@ function IndividualFeed() {
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      {/* <TextField
-                        required
-                        fullWidth
-                        id="answer"
-                        label="Answer"
-                        placeholder="Answer"
-                        multiline
-                        rows={4}
-                        value={newAnswer}
-                        onChange={handleNewAnswerChange}
-                      /> */}
                         <Editor
                           editorState={editorState}
                           wrapperClassName="wrapper-class"
