@@ -8,7 +8,6 @@ import { getIndividualGroup } from '../actions/groupActions';
 import NewGroup from './NewGroup';
 import ConfirmDialog from './ConfirmDialog';
 import { deleteGroup } from '../actions/groupActions';
-import NewEvent from './NewEvent';
 import { joinGroup } from '../actions/groupActions';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
@@ -19,7 +18,6 @@ function IndividualGroup(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openNewGroup, setOpenNewGroup] = useState(false);
   const [openDeleteGroup, setOpenDeleteGroup] = useState(false);
-  const [openNewEvent, setOpenNewEvent] = useState(false);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -69,14 +67,6 @@ function IndividualGroup(props) {
     setOpenDeleteGroup(false);
   };
 
-  const handleOpenNewEvent = () => {
-    setOpenNewEvent(true);
-  };
-
-  const handleCloseNewEvent = () => {
-    setOpenNewEvent(false);
-  };
-
   const handleChat = (e) => {
     setAnchorEl(e.currentTarget);
   }
@@ -90,47 +80,62 @@ function IndividualGroup(props) {
       <MessageBox variant="danger">{error}</MessageBox>
     ) : (
       <div>
-        {userInfo && userInfo._id === group.user_id &&  (
-          <div>
-            <Button size="small" variant="outlined" sx={{color:"white"}} onClick={handleOpenNewEvent}>
-                Create Event
-            </Button>
-            <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} group_id ={group._id}/>
-          </div>
-        )}
-        <div>
-        <Grid container sx={{ p: 2 }}>
-          <Grid item xs={3} > 
-            <img src={group.group_url} width="150px" height="150px" alt="Group" style={{borderRadius: 50}}/>
-          </Grid>
-          <Grid item xs={7} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+        <Grid container justifyContent="space-between" sx={{ml: 4}}>
+          <Grid item sx={8}>
             <Typography component="h5" variant="h5">{group.title}</Typography>
-            <Typography component="h6" variant="h6">{group.description}</Typography>
-            {userInfo && (
-             <Button variant="outlined" sx={{color:"white"}} onClick={() => handleJoinGroup(id)}>Join</Button>
+          </Grid>
+          <Grid item sx={{mr: 20}} >
+            {userInfo && userInfo._id === group.user_id &&  (
+              <div>
+                <Button size="large" variant="outlined" sx={{color:"white"}} onClick={handleOpenNewGroup}>
+                    Create Group
+                </Button>
+                <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} group_id ={group._id}/>
+              </div>
             )}
           </Grid>
-          {userInfo && userInfo._id === group.user_id && (
-          <Grid item xs={2} >
-              <IconButton size="small" variant="outlined" onClick={handleOpenNewGroup}>
-                <ModeEditIcon />
-              </IconButton>
-              <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={true} groupId={id}/>
-              <IconButton size="small" variant="outlined" onClick={handleOpenDeleteGroup}>
-                <DeleteIcon />
-              </IconButton>
-              <ConfirmDialog
-                title="Delete Group?"
-                openDelete={openDeleteGroup}
-                handleCloseDelete={handleCloseDeleteGroup}
-                onConfirm={deleteGroupHandler}>
-                Are you sure you want to delete this group?
-              </ConfirmDialog>
-          </Grid>
-          )}
         </Grid>
-       </div>
-      
+        <br />
+        <Grid container sx={{ p: 2 }}>
+          <Grid item xs={3} sx={{mr: 4}}> 
+            <img src={group.group_url} width="300px" height="200px" alt="Group" style={{borderRadius: 50}}/>
+          </Grid>
+          <Grid item xs={8} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+            <Typography component="h6" variant="h6">{group.description}</Typography>
+          </Grid>
+        </Grid>
+        <Grid container sx={{ml: 4}}>
+          <Grid item={2} sx={{mr: 4}}>
+            {userInfo && (
+                <Button size="large" variant="outlined" sx={{color:"white"}} onClick={() => handleJoinGroup(id)}>Join</Button>
+            )}
+            </Grid>
+            <Grid item={1} sx={{mr: 2}}>
+              {userInfo && userInfo._id === group.user_id && (
+              <div>
+                <IconButton size="small" variant="outlined" onClick={handleOpenNewGroup}>
+                  <ModeEditIcon />
+                </IconButton>
+                <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={true} groupId={id}/>
+              </div>
+              )}
+              </Grid>
+              <Grid item={1}>
+              {userInfo && userInfo._id === group.user_id && (
+              <div>
+                <IconButton size="small" variant="outlined" onClick={handleOpenDeleteGroup}>
+                  <DeleteIcon />
+                </IconButton>
+                <ConfirmDialog
+                  title="Delete Group?"
+                  openDelete={openDeleteGroup}
+                  handleCloseDelete={handleCloseDeleteGroup}
+                  onConfirm={deleteGroupHandler}>
+                  Are you sure you want to delete this group?
+                </ConfirmDialog>
+                </div>
+                )}
+              </Grid>
         <Button size="small" variant="outlined" onClick={(e) => handleChat(e)}>
           <Link className="link nav-link" to="/chat">Chat</Link>
         </Button>
@@ -150,8 +155,8 @@ function IndividualGroup(props) {
           horizontal: 'right',
         }}
       >
-        
       </Popover>
+      </Grid>
       </div>
     )} 
   </Box>
