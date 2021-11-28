@@ -74,7 +74,7 @@ function Navbar() {
         <div className="navbar-container">
           <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
             helpME
-            <i class="fas fa-hands-helping"></i>
+            <i className="fas fa-hands-helping"></i>
           </Link>
           <div className="menu-icon" onClick={handleClick}>
             <i className={click ? "fas fa-times" : "fas fa-bars"} />

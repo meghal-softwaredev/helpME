@@ -8,6 +8,10 @@ import { listFeeds } from '../actions/feedActions';
 import FeedListItem from './FeedListItem';
 import SearchIcon from '@mui/icons-material/Search';
 
+import {
+  showProfileDetails,
+} from "../actions/profileActions";
+
 function FeedList(props) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,10 +43,18 @@ function FeedList(props) {
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
 
+  const profileDetailsList = useSelector((state) => state.profileDetailsList);
+  const { profileDetails } = profileDetailsList;
+
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch( listFeeds({}) );
-  }, [dispatch, location]);
+    dispatch(showProfileDetails(userInfo._id));
+  }, []);
+
+  useEffect(() => {
+    typeof profileDetails === 'object' && Object.keys(profileDetails).length > 0 && dispatch(listFeeds({ category: profileDetails.current_category}));
+  }, [dispatch, location, profileDetailsList]);
 
 
   return (

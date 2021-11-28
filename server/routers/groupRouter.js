@@ -59,7 +59,8 @@ groupRouter.post(
       description: req.body.description,
       user_id: req.body.user_id,
       group_url: req.body.group_url,
-      category_id: req.body.category_id
+      category_id: req.body.category_id,
+      tags: req.body.tags
     });
     const createdGroup = await group.save();
     res.send({ message: 'Group Created', group: createdGroup });
@@ -79,6 +80,7 @@ groupRouter.put(
       group.user_id = req.body.user_id;
       group.group_url = req.body.group_url; 
       group.category_id = req.body.category_id;
+      group.tags = req.body.tags;
       const updatedGroup = await group.save();
       res.send({ message: 'Group Updated', group: updatedGroup });
     } else {
@@ -118,15 +120,29 @@ groupRouter.put(
 );
 
 groupRouter.put(
-  '/:id/favourite',
+  '/:id/addFavourite',
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const groupId = req.params.id;
-    console.log("groupId", groupId);
     const group = await Group.findById(groupId);
-    console.log("group",group);
     if (group) {
-      group.favourites = {[req.body.user_id]: true};
+      group.group_favourites = req.body.favourites;
+      const updatedGroup = await group.save();
+      res.send({ message: 'Group Updated', group: updatedGroup });
+    } else {
+      res.status(404).send({ message: 'Group  Not Found' });
+    }
+  })
+);
+
+groupRouter.put(
+  '/:id/deleteFavourite',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const groupId = req.params.id;
+    const group = await Group.findById(groupId);
+    if (group) {
+      group.group_favourites = req.body.favourites;
       const updatedGroup = await group.save();
       res.send({ message: 'Group Updated', group: updatedGroup });
     } else {

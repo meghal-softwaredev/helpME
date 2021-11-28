@@ -10,19 +10,19 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Axios from 'axios';
 
 function GroupListItem(props) {
+  const userInfo = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null;
+
   const [anchorEl, setAnchorEl] = useState(null);
-  
-  const { _id, title, description, group_url, favourites } = props.group;
+  const { _id, title, description, group_url, group_favourites } = props.group;
+  const [groupFavourite, setGroupFavourite] = useState(group_favourites);
   
   const dispatch = useDispatch();
   const handleJoinGroup = (groupId) => {
     dispatch(joinGroup(groupId));
   }
 
-  const userInfo = localStorage.getItem('userInfo')
-  ? JSON.parse(localStorage.getItem('userInfo'))
-  : null;
-  
   const handleShareGroup = (event) => {
     setAnchorEl(event.currentTarget);
     const url = window.location.href + "/" + _id;
@@ -30,11 +30,26 @@ function GroupListItem(props) {
   }
 
   const handleLikeGroup = (groupId) => {
-    Axios.put(`/api/groups/${groupId}/favourite`, { 
-      user_id: userInfo._id }, 
+    if(groupFavourite) {
+      setGroupFavourite((prev) => [...prev, userInfo._id])
+      Axios.put(`/api/groups/${groupId}/addFavourite`, { 
+        favourites: groupFavourite 
+      }, 
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
+    }
+  }
+
+  const handleUnLikeGroup = (groupId) => {
+    const groupFav = groupFavourite.filter((item)=> item !== userInfo._id);
+    setGroupFavourite(groupFav);
+    Axios.put(`/api/groups/${groupId}/deleteFavourite`, { 
+      favourites: groupFav 
+    }, 
+    {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
   }
 
   const open = Boolean(anchorEl);
@@ -77,15 +92,17 @@ function GroupListItem(props) {
       >
         Copied Link
       </Popover>
-        { favourites && favourites[userInfo._id] === true ? (
-        <IconButton size="small" variant="outlined" onClick={() => handleLikeGroup(_id)}>
+      <div>
+      { (groupFavourite && groupFavourite.includes(userInfo._id)) ? (
+        <IconButton size="small" variant="outlined" onClick={() => handleUnLikeGroup(_id)}>
           <FavoriteIcon color="red"/>
         </IconButton>
-        ) : (
+      ):(
         <IconButton size="small" variant="outlined" onClick={() => handleLikeGroup(_id)}>
-          <FavoriteBorderIcon color="white"/>
+         <FavoriteBorderIcon color="white"/>
         </IconButton>
-        )}
+        )} 
+        </div>
       </Grid>
       )}
     </Grid>
