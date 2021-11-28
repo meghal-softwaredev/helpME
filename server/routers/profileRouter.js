@@ -104,4 +104,22 @@ profileRouter.put(
   })
 );
 
+profileRouter.put(
+  '/current_category/:id',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const userId = req.params.id;
+
+    const user = await User.findById(userId);
+    const profile = await Profile.findOne({ user: userId });
+    if (profile) {
+      profile.current_category = req.body.updated_current_category;
+      const updatedProfile = await profile.save();
+      res.send({ message: 'Profile Current Category Updated', updatedProfile: { ...updatedProfile._doc, user: user }, user });
+    } else {
+      res.status(404).send({ message: 'Profile Not Found' });
+    }
+  })
+);
+
 export default profileRouter;
