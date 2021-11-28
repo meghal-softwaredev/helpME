@@ -73,7 +73,7 @@ function GroupListItem(props) {
           )}
           </Grid>
           <Grid item xs={2} justifyContent="flex-end">
-          <Typography component="h6" variant="h6">{followers && followers.length}followers</Typography>
+          <Typography component="h6" variant="h6">{followers && followers.length} followers</Typography>
           </Grid>
           <Grid item xs={1} justifyContent="flex-end">
               {userInfo && (

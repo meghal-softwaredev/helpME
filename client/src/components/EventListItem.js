@@ -79,7 +79,7 @@ function EventListItem(props) {
           )}
           </Grid>
           <Grid item xs={2} justifyContent="flex-end">
-          <Typography component="h6" variant="h6">{attendees && attendees.length}attendees</Typography>
+          <Typography component="h6" variant="h6">{attendees && attendees.length} attendees</Typography>
           </Grid>
           <Grid item xs={1} justifyContent="flex-end">
               {userInfo && (

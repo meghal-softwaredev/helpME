@@ -9,10 +9,12 @@ const eventRouter = express.Router();
 eventRouter.get(
   '/',
   expressAsyncHandler(async (req, res) => {
+    const category = req.query.category || '';
     const group = req.query.group || '';
     const sortBy = req.query.sortBy || '';
     const keyword = req.query.keyword || '';
 
+    const categoryFilter = category ? { category_id: category } : {};
     const groupFilter = group ? { group } : {};
 
     const keywordFilter = keyword ? { $or: [{ title: { $regex: keyword, $options: 'i' } }, { tags: { $regex: keyword, $options: 'i' } }] } : {}
@@ -21,6 +23,7 @@ eventRouter.get(
           ? { createdAt: 1 } : { _id: -1 };
 
     const events = await Event.find({
+      ...categoryFilter,
       ...groupFilter,
       ...keywordFilter
     }).sort(sortOrder);
@@ -57,6 +60,7 @@ eventRouter.post(
       title: req.body.title,
       description: req.body.description,
       user_id: req.body.user_id,
+      category_id: req.body.category_id,
       date_time: req.body.date_time,
       duration: req.body.duration,
       event_image_url: req.body.event_image_url,
@@ -79,6 +83,7 @@ eventRouter.put(
       event.title = req.body.title,
       event.description = req.body.description,
       event.user_id = req.body.user_id,
+      event.category_id = req.body.category_id,
       event.date_time = req.body.date_time,
       event.duration = req.body.duration,
       event.event_image_url = req.body.event_image_url,

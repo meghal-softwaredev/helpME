@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, TextField, Dialog, DialogContent, DialogTitle, Grid, Box, Typography, Container, Paper, Chip } from '@mui/material';
+import { Button, TextField, Dialog, DialogContent, DialogTitle, Grid, Box, Typography, Container, Paper, Chip, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { createEvent, listEvents } from '../actions/eventActions';
@@ -8,6 +8,7 @@ import DateAdapter from '@mui/lab/AdapterMoment'
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import { updateEvent } from '../actions/eventActions';
 import EventSharpIcon from '@mui/icons-material/EventSharp';
+import { listCategories } from '../actions/categoryActions';
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.1),
@@ -17,6 +18,7 @@ export default function NewEvent(props) {
   const [eventState, setEventState] = React.useState({
     title: "",
     description: "",
+    category_id: "",
     date_time: new Date(),
     duration: "",
     event_image_url: "",
@@ -28,14 +30,21 @@ export default function NewEvent(props) {
 
   const individualEventDetails = useSelector((state) => state.individualEventDetails);
   let { event } = individualEventDetails;
+  
+  const dispatch = useDispatch();
+  const categoryList = useSelector((state) => state.categoryList);
+  const { categories } = categoryList;
+  useEffect(() => {
+    dispatch(listCategories());
+  }, [dispatch]);
 
   const eventDetails = event;
-  const dispatch = useDispatch();
   useEffect(() => {
     if (props.edit) {
       setEventState({
         title: event.title,
         description: event.description,
+        category_id: event.category_id,
         date_time: event.date_time,
         duration: event.duration,
         event_image_url: event.event_image_url,
@@ -51,6 +60,10 @@ export default function NewEvent(props) {
   };
   function handleDescriptionChange(e) {
     setEventState(prev => ({ ...prev, description: e.target.value }));
+  };
+
+  function handleCategoryChange(e) {
+    setEventState(prev => ({ ...prev, category_id: e.target.value }));
   };
 
   function handleDateTimeChange(date_time) {
@@ -92,6 +105,7 @@ export default function NewEvent(props) {
     setEventState(prev => ({
       ...prev, title: "",
       description: "",
+      category_id: "",
       date: "",
       start_time: "",
       duration: "",
@@ -152,6 +166,26 @@ export default function NewEvent(props) {
                     value={eventState.description}
                     onChange={handleDescriptionChange}
                   />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl fullWidth>
+                    <InputLabel>Category</InputLabel>
+                    <Select
+                      id="category"
+                      value={eventState.category_id}
+                      label="Category"
+                      onChange={handleCategoryChange}
+                    >
+                      {categories && categories.map((category) => (
+                        <MenuItem
+                          key={category._id}
+                          value={category._id}
+                        >
+                          {category.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                  <LocalizationProvider dateAdapter={DateAdapter}>
