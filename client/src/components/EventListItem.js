@@ -71,8 +71,8 @@ function EventListItem(props) {
         <Typography component="h6" variant="h6">
           {moment(date_time).format('llll')}
         </Typography>
-        <Typography component="h6" variant="h6">{description}</Typography>
-        <Grid container>
+        <Typography component="h6" variant="h6">{description.slice(0, 220)+'...'}</Typography>
+        <Grid container sx={{mt: 3}}>
           <Grid item xs={6}>
           {userInfo && (
           <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(_id)}>Attend</Button>

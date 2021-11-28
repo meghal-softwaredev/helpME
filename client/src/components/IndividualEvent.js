@@ -79,15 +79,19 @@ function IndividualEvent(props) {
   };
 
   return (
-    <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"start"}}>
+    <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"start", ml: 4}}>
     {loading ? (
       <LoadingBox></LoadingBox>
     ) : error ? (
       <MessageBox variant="danger">{error}</MessageBox>
     ) : (
-      <div>
-        <Grid container sx={{ p: 2 }}>
-          <Grid item xs={3} >
+      <Box>
+        <Typography component="h4" variant="h4">
+          {event.title}
+        </Typography>
+        <br />
+        <Grid container sx={{ p: 2}}>
+          <Grid item xs={4} sx={{mr: 7}}>
           <YoutubeEmbed embedId="FgnxcUQ5vho" />
           {/* <video width="320" height="240" controls>
             <source src="https://vimeo.com/639318053/e327486145" type="video/mp4" />
@@ -95,12 +99,9 @@ function IndividualEvent(props) {
           </video> */}
           {/* https://vimeo.com/639318053/e327486145 */}
           </Grid>
-          <Grid item xs={9} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
-            <Grid container>
-              <Grid item>
-                <Typography component="h5" variant="h5">
-                  {event.title}
-                </Typography>
+          <Grid item xs={7} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+            <Grid container justify-content="space-between">
+              <Grid item sx={5} sx={{mr: 10}}>
                 <Typography component="h6" variant="h6">
                   {moment(event.date_time).format('llll')}
                 </Typography>
@@ -108,12 +109,19 @@ function IndividualEvent(props) {
                   {event.duration +` mins` }
                 </Typography>
               </Grid>
+              <Grid item sx={1} sx={{mr: 1}}>
               {userInfo && userInfo._id === event.user_id && (
-              <Grid item >
+                <div>
                 <IconButton size="small" variant="outlined" onClick={handleOpenNewEvent}>
                   <ModeEditIcon />
                 </IconButton>
                 <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} edit={true} eventId={id}/>
+                </div>
+              )}
+                </Grid>
+                <Grid item sx={1} >
+                {userInfo && userInfo._id === event.user_id && (
+                  <div>
                 <IconButton size="small" variant="outlined" onClick={handleOpenDeleteEvent}>
                   <DeleteIcon />
                 </IconButton>
@@ -125,17 +133,21 @@ function IndividualEvent(props) {
                 >
                   Are you sure you want to delete this event?
                 </ConfirmDialog>
+                </div>
+                )}
               </Grid>
-              )}
             </Grid>
             <br/>
             {userInfo && (
              <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(id)}>Attend</Button>
             )}
           </Grid>
-          <Typography component="h6" variant="h6">{event.description}          </Typography>
         </Grid>
-        </div>
+        <br />
+        <Box>
+          <Typography component="h6" variant="h6">{event.description}</Typography>
+        </Box>
+        </Box>
     )} 
     </Box>
   );
