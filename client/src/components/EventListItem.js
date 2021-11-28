@@ -5,15 +5,18 @@ import { Grid, Typography, Divider, IconButton} from '@mui/material';
 import Axios from 'axios';
 import moment from 'moment';
 import IosShareIcon from '@mui/icons-material/IosShare';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function EventListItem(props) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const { _id, title, description, date_time, event_image_url } = props.event;
-
   const userInfo = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const { _id, title, description, date_time, event_image_url, event_favourites } = props.event;
+
+  const [eventFavourite, setEventFavourite] = useState(event_favourites);
   const handleAttendEvent = (eventId) => {
     Axios.put(`/api/events/${eventId}/attend`, { 
       user_id: userInfo._id }, 
@@ -29,12 +32,31 @@ function EventListItem(props) {
   }
 
   const handleLikeEvent = (eventId) => {
-    Axios.put(`/api/events/${eventId}/favourite`, { 
-      user_id: userInfo._id }, 
+    if(eventFavourite) {
+      setEventFavourite((prev) => [...prev, userInfo._id])
+      
+      Axios.put(`/api/events/${eventId}/addFavourite`, { 
+        favourites: eventFavourite 
+      }, 
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
       });
+    }
   }
+
+  const handleUnLikeEvent = (eventId) => {
+    if (eventFavourite) {
+      const eventFav = eventFavourite.filter((item)=> item !== userInfo._id);
+      setEventFavourite(eventFav);
+      Axios.put(`/api/events/${eventId}/deleteFavourite`, { 
+        favourites: eventFav 
+      }, 
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
+    }
+  }
+
   const open = Boolean(anchorEl);
   return (
     <div className="item-container">
@@ -77,9 +99,17 @@ function EventListItem(props) {
       >
         Copied Link
       </Popover>
-        {/* <IconButton size="small" variant="outlined" onClick={() => handleLikeEvent(_id)}>
-          <FavoriteBorderIcon color="white"/>
-        </IconButton> */}
+      <div>
+      { (Array.isArray(eventFavourite) && eventFavourite.includes(userInfo._id)) ? (
+        <IconButton size="small" variant="outlined" onClick={() => handleUnLikeEvent(_id)}>
+          <FavoriteIcon color="red"/>
+        </IconButton>
+      ):(
+        <IconButton size="small" variant="outlined" onClick={() => handleLikeEvent(_id)}>
+         <FavoriteBorderIcon color="white"/>
+        </IconButton>
+        )} 
+        </div>
       </Grid>
       )}
     </Grid>

@@ -60,6 +60,7 @@ export const createGroup = (newGroup) => async (dispatch, getState) => {
       type: GROUP_CREATE_SUCCESS,
       payload: data.group,
     });
+    dispatch(listGroups({}));
   } catch (error) {
     const message =
       error.response && error.response.data.message

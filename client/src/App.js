@@ -70,7 +70,6 @@ const ShowLeftSidebar = () => {
 
 const NotLoggedIn = () => {
   const location = useLocation();
-  console.log("location", location);
   let inputStyle =
     location.pathname === "/"
       ? {

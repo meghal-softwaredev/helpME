@@ -62,6 +62,7 @@ export const createEvent = (newEvent) => async (dispatch, getState) => {
       type: EVENT_CREATE_SUCCESS,
       payload: data.event,
     });
+    dispatch(listEvents({}));
   } catch (error) {
     const message =
       error.response && error.response.data.message
