@@ -65,8 +65,8 @@ function IndividualFeed() {
       setAnswerVotes(prev => ({...prev, [ans._id]:{
         _id: ans._id,
         count_votes: ans.up_votes.length - ans.down_votes.length,
-        up_votes_disabled: ans.up_votes.includes(userInfo._id),
-        down_votes_disabled: ans.down_votes.includes(userInfo._id),
+        up_votes_disabled: userInfo ? ans.up_votes.includes(userInfo._id) : true,
+        down_votes_disabled: userInfo ? ans.down_votes.includes(userInfo._id) : true,
       }}))
     })
   }, [answers]);
@@ -151,7 +151,7 @@ function IndividualFeed() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <div className="feed-item-container">
+      <div className="individual-feed-container">
         {loadingFeedDetails ? (
           <LoadingBox></LoadingBox>
         ) : errorFeedDetails ? (
