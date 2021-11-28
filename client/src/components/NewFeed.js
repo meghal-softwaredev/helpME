@@ -76,7 +76,8 @@ export default function NewFeed(props) {
 
   const handleEditorChange = (state) => {
     setEditorState(state);
-    const htmlDescription = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    //const htmlDescription = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    const htmlDescription = draftToHtml(convertToRaw(state.getCurrentContent()));
     setFeedState(prev => ({ ...prev, description: htmlDescription }));
   }
   /* function handleDescriptionChange(e) {

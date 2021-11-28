@@ -34,10 +34,7 @@ export default function NewGroup(props) {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!group) {
-      dispatch(createGroup(groupState));
-      dispatch(listGroups({}));
-    } else {
+    if (props.edit) {
       setGroupState({
         title: group.title,
         description: group.description,
@@ -46,7 +43,7 @@ export default function NewGroup(props) {
         tags: group.tags
       })
     }
-  }, [dispatch, group]);
+  }, []);
 
   function handleTitleChange(e) {
     setGroupState(prev => ({ ...prev, title: e.target.value }));

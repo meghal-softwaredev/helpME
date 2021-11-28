@@ -21,7 +21,7 @@ answerRouter.delete(
   })
 );
 
-/* answerRouter.put(
+answerRouter.put(
   '/:id/upvote',
   isAuth,
   expressAsyncHandler(async (req, res) => {
@@ -71,7 +71,7 @@ answerRouter.put(
       res.status(404).send({ message: 'Feed Answer Not Found' });
     }
   })
-); */
+);
 
 answerRouter.put(
   '/:id',

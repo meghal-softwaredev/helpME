@@ -17,8 +17,6 @@ export default function NewEvent(props) {
   const [eventState, setEventState] = React.useState({
     title: "",
     description: "",
-    // date: new Date(),
-    // start_time: "",
     date_time: new Date(),
     duration: "",
     event_image_url: "",
@@ -30,21 +28,14 @@ export default function NewEvent(props) {
 
   const individualEventDetails = useSelector((state) => state.individualEventDetails);
   let { event } = individualEventDetails;
+
   const eventDetails = event;
-
-  // const categoryList = useSelector((state) => state.categoryList);
-  // const { categories } = categoryList;
-
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!event) {
-      dispatch(createEvent(eventState));
-    } else {
+    if (props.edit) {
       setEventState({
         title: event.title,
         description: event.description,
-        // date: new Date(),
-        // start_time: "",
         date_time: event.date_time,
         duration: event.duration,
         event_image_url: event.event_image_url,
@@ -53,11 +44,7 @@ export default function NewEvent(props) {
         tags: event.tags
       })
     }
-  }, [dispatch,event]);
-  // useEffect(() => {
-  //   dispatch(listCategories());
-  // }, [dispatch]);
-
+  }, []);
 
   function handleTitleChange(e) {
     setEventState(prev => ({ ...prev, title: e.target.value }));
@@ -77,10 +64,6 @@ export default function NewEvent(props) {
   function handleEventImageURLChange(e) {
     setEventState(prev => ({ ...prev, event_image_url: e.target.value }));
   };
-  
-  // function handleCategoryChange(e) {
-  //   setGroupState(prev => ({ ...prev, category_id: e.target.value }));
-  // };
 
   function handleEventVideoURLChange(e) {
     setEventState(prev => ({ ...prev, event_video_url: e.target.value }));
@@ -102,7 +85,7 @@ export default function NewEvent(props) {
     e.preventDefault();
     if (!eventDetails) {
       dispatch(createEvent(eventState));
-      dispatch(listEvents());
+      dispatch(listEvents({}));
     } else {
       dispatch(updateEvent(props.eventId, eventState));
     }
@@ -171,28 +154,6 @@ export default function NewEvent(props) {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                {/* <LocalizationProvider dateAdapter={DateAdapter}>
-                  <DatePicker
-                    required
-                    fullWidth
-                    format={'MM-DD-YYYY'}
-                    value={moment(eventState.date, 'MM-DD-YYYY')}
-                    label="Event Date"
-                    onChange={handleDateChange}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                 </LocalizationProvider>
-                </Grid>
-                <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={DateAdapter}>
-                  <TimePicker
-                    required
-                    value={eventState.start_time}
-                    label="Start Time"
-                    onChange={handleStartTimeChange}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                 </LocalizationProvider> */}
                  <LocalizationProvider dateAdapter={DateAdapter}>
                   <DateTimePicker
                     required

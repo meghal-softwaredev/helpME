@@ -12,6 +12,8 @@ import {
   showProfileDetails,
 } from "../actions/profileActions";
 
+import "../styles/components/FeedList.scss";
+
 function FeedList(props) {
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,17 +51,19 @@ function FeedList(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(showProfileDetails(userInfo._id));
+    
+    userInfo && dispatch(showProfileDetails(userInfo._id));
   }, []);
 
   useEffect(() => {
     typeof profileDetails === 'object' && Object.keys(profileDetails).length > 0 && dispatch(listFeeds({ category: profileDetails.current_category}));
+    !userInfo && dispatch(listFeeds({}));
   }, [dispatch, location, profileDetailsList]);
 
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"center"}}>
+      <Box className="feed-list-main-container" sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"center"}}>
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", border: '1px solid #0077b6', my: 2, px: 2 }}>
           <Box
             component="form"
