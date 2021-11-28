@@ -6,6 +6,7 @@ import MessageBox from './MessageBox';
 import { Grid, Button, Typography, IconButton, Box, Popover } from '@mui/material';
 import { getIndividualGroup } from '../actions/groupActions';
 import NewGroup from './NewGroup';
+import NewEvent from './NewEvent';
 import ConfirmDialog from './ConfirmDialog';
 import { deleteGroup } from '../actions/groupActions';
 import { joinGroup } from '../actions/groupActions';
@@ -17,6 +18,7 @@ import "../styles/elements/link.scss";
 function IndividualGroup(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openNewGroup, setOpenNewGroup] = useState(false);
+  const [openNewEvent, setOpenNewEvent] = useState(false);
   const [openDeleteGroup, setOpenDeleteGroup] = useState(false);
 
   const { id } = useParams();
@@ -43,20 +45,20 @@ function IndividualGroup(props) {
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null;
 
-  const handleLikeGroup = (groupId) => {
-    Axios.put(`/api/groups/${groupId}/favourite`, { 
-      user_id: userInfo._id }, 
-      {
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      });
-  }
-
   const handleOpenNewGroup = () => {
     setOpenNewGroup(true);
   };
 
   const handleCloseNewGroup = () => {
     setOpenNewGroup(false);
+  };
+
+  const handleOpenNewEvent = () => {
+    setOpenNewEvent(true);
+  };
+
+  const handleCloseNewEvent = () => {
+    setOpenNewEvent(false);
   };
 
   const handleOpenDeleteGroup = () => {
@@ -87,10 +89,10 @@ function IndividualGroup(props) {
           <Grid item sx={{mr: 20}} >
             {userInfo && userInfo._id === group.user_id &&  (
               <div>
-                <Button size="large" variant="outlined" sx={{color:"white"}} onClick={handleOpenNewGroup}>
-                    Create Group
+                <Button size="large" variant="outlined" sx={{color:"white"}} onClick={handleOpenNewEvent}>
+                    Create Event
                 </Button>
-                <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} group_id ={group._id}/>
+                <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} group_id ={group._id}/>
               </div>
             )}
           </Grid>
@@ -116,7 +118,7 @@ function IndividualGroup(props) {
                 <IconButton size="small" variant="outlined" onClick={handleOpenNewGroup}>
                   <ModeEditIcon />
                 </IconButton>
-                <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={true} groupId={id}/>
+                <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={true} groupId={id} group={group}/>
               </div>
               )}
               </Grid>

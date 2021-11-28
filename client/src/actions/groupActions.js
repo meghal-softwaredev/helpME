@@ -22,6 +22,7 @@ import {
 
 export const listGroups = ({
   keyword = '',
+  category = '',
   sortBy = ''
 }) => async (dispatch) => {
   dispatch({
@@ -29,7 +30,7 @@ export const listGroups = ({
   });
   try {
     const { data } = await Axios.get(
-      `/api/groups?keyword=${keyword}&sortBy=${sortBy}`
+      `/api/groups?keyword=${keyword}&category=${category}&sortBy=${sortBy}`
     );
     dispatch({ type: GROUP_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -122,6 +123,7 @@ export const deleteGroup = (groupId) => async (dispatch, getState) => {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type: GROUP_DELETE_SUCCESS, payload: data });
+    dispatch(listGroups({}));
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -143,6 +145,7 @@ export const joinGroup = (groupId) => async (dispatch, getState) => {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
     dispatch({ type:GROUP_JOIN_SUCCESS, payload: data });
+    dispatch(getIndividualGroup(groupId))
   } catch (error) {
     const message =
       error.response && error.response.data.message

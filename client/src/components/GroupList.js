@@ -6,6 +6,7 @@ import GroupListItem from './GroupListItem';
 import { Button, Box, TextField, InputAdornment, FormControl, Select, MenuItem } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { ThemeProvider } from '@mui/material/styles';
+import { showProfileDetails } from '../actions/profileActions';
 
 function GroupList(props) {
   const groupList = useSelector((state) => state.groupList);
@@ -18,10 +19,6 @@ function GroupList(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(listGroups({}));
-  }, [dispatch, navigate, location]);
   
   const handleSortValueChange = (e) => {
     setSortValue(e.target.value);
@@ -44,6 +41,20 @@ function GroupList(props) {
   const handleEvent = () => {
     navigate('/events');
   }
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
+  const profileDetailsList = useSelector((state) => state.profileDetailsList);
+  const { profileDetails } = profileDetailsList;
+
+  useEffect(() => {
+    userInfo && dispatch(showProfileDetails(userInfo._id));
+  }, []);
+  
+  useEffect(() => {
+    typeof profileDetails === 'object' && Object.keys(profileDetails).length > 0 && dispatch(listGroups({ category: profileDetails.current_category}));
+    !userInfo && dispatch(listGroups({}));
+  }, [dispatch, location, profileDetailsList]);
 
   return (
     // <ThemeProvider theme={darkTheme}>

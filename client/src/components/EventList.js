@@ -6,6 +6,7 @@ import EventListItem from './EventListItem';
 import { Button, Box, TextField, InputAdornment, FormControl, Select, MenuItem } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { ThemeProvider } from '@mui/material/styles';
+import { showProfileDetails } from '../actions/profileActions';
 
 function EventList(props) {
   const eventList = useSelector((state) => state.eventList);
@@ -43,6 +44,22 @@ function EventList(props) {
   const handleGroup = () => {
     navigate('/groups');
   }
+
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
+  const profileDetailsList = useSelector((state) => state.profileDetailsList);
+  const { profileDetails } = profileDetailsList;
+
+  useEffect(() => {
+    userInfo && dispatch(showProfileDetails(userInfo._id));
+  }, []);
+  
+  useEffect(() => {
+    typeof profileDetails === 'object' && Object.keys(profileDetails).length > 0 && dispatch(listEvents({ category: profileDetails.current_category}));
+    !userInfo && dispatch(listEvents({}));
+  }, [dispatch, location, profileDetailsList]);
+
 
   return (
     // <ThemeProvider theme={darkTheme}>

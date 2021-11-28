@@ -14,12 +14,12 @@ const ListItem = styled('li')(({ theme }) => ({
 
 export default function NewGroup(props) {
   const [groupState, setGroupState] = React.useState({
-    title: "",
-    description: "",
-    category_id: "",
-    group_url: "",
+    title: props.group ? props.group.title : "",
+    description: props.group ? props.group.description : "",
+    category_id: props.group ? props.group.category_id : "",
+    group_url: props.group ? props.group.group_url : "",
     tag: "",
-    tags: [],
+    tags: props.group? props.group.tags : []
   });
 
   const individualGroupDetails = useSelector((state) => state.individualGroupDetails);
@@ -32,18 +32,6 @@ export default function NewGroup(props) {
   useEffect(() => {
     dispatch(listCategories());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (props.edit) {
-      setGroupState({
-        title: group.title,
-        description: group.description,
-        category_id: group.category_id,
-        group_url: group.group_url,
-        tags: group.tags
-      })
-    }
-  }, []);
 
   function handleTitleChange(e) {
     setGroupState(prev => ({ ...prev, title: e.target.value }));
@@ -224,7 +212,6 @@ export default function NewGroup(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
-                // onClick={() => window.location.reload(false)}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Update Group
@@ -232,7 +219,6 @@ export default function NewGroup(props) {
                 type="submit"
                 fullWidth
                 variant="contained"
-                // onClick={() => window.location.reload(false)}
                 sx={{ mt: 3, mb: 2 }}
               >
                 Create Group

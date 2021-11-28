@@ -19,6 +19,7 @@ import {
 
 export const listEvents = ({
   keyword = '',
+  category = '',
   sortBy = ''
 }) => async (dispatch) => {
   dispatch({
@@ -26,7 +27,7 @@ export const listEvents = ({
   });
   try {
     const { data } = await Axios.get(
-      `/api/events?keyword=${keyword}&sortBy=${sortBy}`
+      `/api/events?keyword=${keyword}&category=${category}&sortBy=${sortBy}`
     );
     dispatch({ type: EVENT_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -45,8 +46,7 @@ export const createEvent = (newEvent) => async (dispatch, getState) => {
         title: newEvent.title,
         description: newEvent.description,
         user_id: userInfo._id,
-        // date: newEvent.date,
-        // start_time: newEvent.start_time,
+        category_id: newEvent.category_id,
         date_time: newEvent.date_time,
         duration: newEvent.duration,
         event_image_url: newEvent.event_image_url,
@@ -97,8 +97,7 @@ export const updateEvent = (eventId, eventDetails) => async (dispatch, getState)
       title: eventDetails.title,
       description: eventDetails.description,
       user_id: userInfo._id,
-      // date: eventDetails.date,
-      // start_time: eventDetails.start_time,
+      category_id: eventDetails.category_id,
       date_time: eventDetails.date_time,
       duration: eventDetails.duration,
       event_image_url: eventDetails.event_image_url,
