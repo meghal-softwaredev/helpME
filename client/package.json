@@ -13,11 +13,22 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.24.0",
+    "dompurify": "^2.3.3",
+    "draft-convert": "^2.1.12",
+    "draft-js": "^0.11.7",
+    "draft-js-export-html": "^1.4.1",
+    "draftjs-to-html": "^0.9.1",
+    "html-react-parser": "^1.4.0",
+    "htmr": "^1.0.1",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+<<<<<<< HEAD
     "react-google-login": "^5.2.2",
+=======
+    "react-draft-wysiwyg": "^1.14.7",
+>>>>>>> f3a6970159fd14fed28f2a9487ec4a34bc5d839d
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",

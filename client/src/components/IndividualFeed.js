@@ -3,6 +3,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import moment from 'moment';
+
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+
 import { Chip, Box, Divider, Container, Typography, Grid, TextField, Button, Card, CardContent, CardActions, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -17,14 +23,20 @@ import NewFeed from './NewFeed';
 import DeleteConfirmDialog from './DeleteConfirmDialog';
 import EditFeedAnswer from './EditFeedAnswer';
 
+import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import convert from 'htmr';
+import '../styles/components/IndividualFeed.scss'
+
 function IndividualFeed() {
 
   const [newAnswer, setNewAnswer] = useState("");
   const [alterAnswerId, setAlterAnswerId] = useState("");
   const [currentAnswer, setCurrentAnswer] = useState("");
 
-  const [openDialog, setOpenDialog] = React.useState(false);
-  const [currentDialog, setcurrentDialog] = React.useState("");
+  const [openDialog, setOpenDialog] = useState(false);
+  const [currentDialog, setcurrentDialog] = useState("");
+
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,9 +58,15 @@ function IndividualFeed() {
     dispatch(getFeedAnswers(feedId));
   }, [openDialog]);
 
-  function handleNewAnswerChange(e) {
+  const handleEditorChange = (state) => {
+    setEditorState(state);
+    const htmlAnswer = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+    setNewAnswer(htmlAnswer);
+  }
+
+  /* function handleNewAnswerChange(e) {
     setNewAnswer(e.target.value);
-  };
+  }; */
 
   const handleOpenDialog = (data) => {
     data.ans_id && setAlterAnswerId(data.ans_id);
@@ -84,6 +102,7 @@ function IndividualFeed() {
       saveAnswer({feedId, newAnswer})
     );
     setNewAnswer("");
+    setEditorState("");
     dispatch(getFeedAnswers(feedId));
   };
 
@@ -99,7 +118,7 @@ function IndividualFeed() {
               <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
                     {feed.title}
               </Box>
-              <Typography>{feed.description}</Typography>
+              <Typography className="feed-description">{convert(feed.description)}</Typography>
               <Box>
                 {feed.tags.map(tag => (
                   <Chip key={tag} sx={{ mr: 1 }} label={tag} color="primary" variant="outlined" size="small" />
@@ -149,8 +168,8 @@ function IndividualFeed() {
                 <Box key={ans._id} sx={{ minWidth: 275, display: 'flex', gap: '10px', alignItems: 'center' }}>
                   <Card sx={{flex: 1, backgroundColor: "transparent", mt: "10px"}}>
                     <CardContent>
-                      <Typography variant="body">
-                        {ans.answer}
+                      <Typography variant="body" className="feed-answer">
+                        {convert(ans.answer)}
                       </Typography>
                       <Typography sx={{ mt: 1 }} color="text.secondary">
                         Posted by: {ans.user.name}
@@ -200,7 +219,7 @@ function IndividualFeed() {
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <TextField
+                      {/* <TextField
                         required
                         fullWidth
                         id="answer"
@@ -210,7 +229,14 @@ function IndividualFeed() {
                         rows={4}
                         value={newAnswer}
                         onChange={handleNewAnswerChange}
-                      />
+                      /> */}
+                        <Editor
+                          editorState={editorState}
+                          wrapperClassName="wrapper-class"
+                          editorClassName="editor-class"
+                          onEditorStateChange={handleEditorChange}
+
+                        />
                     </Grid>
                   </Grid>
                   <Button
