@@ -1,25 +1,32 @@
- .wrapper-class {
-  /* padding: 1rem;
-  border: 1px solid #ccc; */
+ .wrapper-gray-class {
+  // padding: 1rem;
+  // border: 1px solid #ccc;
   height: 300px;
-}
-.editor-class {
-  background-color:transparent;
-  color: white;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  //font-size: 16px;
-  height: 70%;
-}
-.toolbar-class {
-  border: 1px solid #ccc;
-  background-color:#264653;
-  color: white;
-}
-.rdw-editor-toolbar {
-  background-color: transparent;
-}
-.rdw-option-wrapper, .rdw-dropdown-wrapper, .rdw-dropdown-optionwrapper, .rdw-dropdown-selectedtext, .rdw-dropdownoption-active, .rdw-dropdownoption-default {
-  background-color: gray;
-  color: white;
+
+  .editor-class {
+    background-color:transparent;
+    color: white;
+    padding: 0.5rem;
+    border: 1px solid #6c757d;
+    //font-size: 16px;
+    height: 70%;
+  }
+  .editor-class:hover, .editor-class:focus-within {
+    border: 1px solid #fff;
+  }
+  .toolbar-class {
+    border: 1px solid #6c757d;
+    background-color:#264653;
+    color: white;
+  }
+  .rdw-editor-toolbar {
+    background-color: transparent;
+    border: 1px solid #6c757d;
+  }
+  .rdw-option-wrapper, .rdw-dropdown-wrapper, .rdw-dropdown-optionwrapper, .rdw-dropdown-selectedtext, .rdw-dropdownoption-active, .rdw-dropdownoption-default {
+    background-color: #6c757d;
+    color: white;
+    border: 1px solid #adb5bd;
+  }
+
 }

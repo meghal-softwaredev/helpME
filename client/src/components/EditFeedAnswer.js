@@ -103,7 +103,7 @@ export default function EditFeedAnswer(props) {
                     /> */}
                     <Editor
                       editorState={editorState}
-                      wrapperClassName="wrapper-class"
+                      wrapperClassName="wrapper-gray-class"
                       editorClassName="editor-class"
                       onEditorStateChange={handleEditorChange}
 

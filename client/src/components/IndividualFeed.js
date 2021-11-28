@@ -26,7 +26,8 @@ import EditFeedAnswer from './EditFeedAnswer';
 
 import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import convert from 'htmr';
-import '../styles/components/IndividualFeed.scss'
+import '../styles/components/IndividualFeed.scss';
+import "../styles/elements/richText.scss";
 
 function IndividualFeed() {
 
