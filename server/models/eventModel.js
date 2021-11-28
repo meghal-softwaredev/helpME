@@ -14,7 +14,8 @@ const eventSchema = new mongoose.Schema(
     group_id: { type: mongoose.Schema.Types.ObjectID, ref: 'Group' },
     tags: [{ type: String, required: true }],
     recorded_url: { type: String },
-    attendees: [{ type: mongoose.Schema.Types.ObjectID, ref: 'User' }]
+    attendees: [{ type: mongoose.Schema.Types.ObjectID, ref: 'User' }],
+    event_favourites: [{ type: mongoose.Schema.Types.ObjectID, ref: 'User' }]
   },
   {
     timestamps: true,

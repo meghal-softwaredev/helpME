@@ -127,4 +127,36 @@ eventRouter.put(
   })
 );
 
+eventRouter.put(
+  '/:id/addFavourite',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const eventId = req.params.id;
+    const event = await Event.findById(eventId);
+    if (event) {
+      event.event_favourites = req.body.favourites;
+      const updatedEvent = await event.save();
+      res.send({ message: 'Event Updated', event: updatedEvent });
+    } else {
+      res.status(404).send({ message: 'Event  Not Found' });
+    }
+  })
+);
+
+eventRouter.put(
+  '/:id/deleteFavourite',
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const eventId = req.params.id;
+    const event = await Event.findById(eventId);
+    if (event) {
+      event.event_favourites = req.body.favourites;
+      const updatedEvent = await event.save();
+      res.send({ message: 'Event Updated', event: updatedEvent });
+    } else {
+      res.status(404).send({ message: 'Event  Not Found' });
+    }
+  })
+);
+
 export default eventRouter;

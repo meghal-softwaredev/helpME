@@ -62,12 +62,14 @@ function IndividualFeed() {
 
   useEffect(() => {
     answers && Array.isArray(answers) && answers.map(ans => {
-      setAnswerVotes(prev => ({...prev, [ans._id]:{
-        _id: ans._id,
-        count_votes: ans.up_votes.length - ans.down_votes.length,
-        up_votes_disabled: userInfo ? ans.up_votes.includes(userInfo._id) : true,
-        down_votes_disabled: userInfo ? ans.down_votes.includes(userInfo._id) : true,
-      }}))
+      setAnswerVotes(prev => ({
+        ...prev, [ans._id]: {
+          _id: ans._id,
+          count_votes: ans.up_votes.length - ans.down_votes.length,
+          up_votes_disabled: userInfo ? ans.up_votes.includes(userInfo._id) : true,
+          down_votes_disabled: userInfo ? ans.down_votes.includes(userInfo._id) : true,
+        }
+      }))
     })
   }, [answers]);
 
@@ -109,7 +111,7 @@ function IndividualFeed() {
   };
 
   const handleEditFeedAnswer = (answer) => {
-    dispatch(updateFeedAnswer({ ans_id: alterAnswerId, answer}));
+    dispatch(updateFeedAnswer({ ans_id: alterAnswerId, answer }));
     setOpenDialog(false);
     dispatch(getFeedAnswers(feedId));
   };
@@ -117,7 +119,7 @@ function IndividualFeed() {
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(
-      saveAnswer({feedId, newAnswer})
+      saveAnswer({ feedId, newAnswer })
     );
     setNewAnswer("");
     setEditorState("");
@@ -125,9 +127,11 @@ function IndividualFeed() {
   };
 
   const handleUpVote = (ans_id) => {
-    setAnswerVotes(prev => ({ ...prev, [ans_id]:{
-      ...prev[ans_id], count_votes: prev[ans_id].count_votes + 1, up_votes_disabled: true, down_votes_disabled: false
-    }}));
+    setAnswerVotes(prev => ({
+      ...prev, [ans_id]: {
+        ...prev[ans_id], count_votes: prev[ans_id].count_votes + 1, up_votes_disabled: true, down_votes_disabled: false
+      }
+    }));
     Axios.put(
       `/api/answers/${ans_id}/upvote`, {
       user_id: userInfo._id,
@@ -160,134 +164,134 @@ function IndividualFeed() {
         {loadingFeedDetails ? (
           <LoadingBox></LoadingBox>
         ) : errorFeedDetails ? (
-            <MessageBox variant="danger">{errorFeedDetails}</MessageBox>
+          <MessageBox variant="danger">{errorFeedDetails}</MessageBox>
         ) : feed && (
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', border: '1px solid #0077b6', my: 2, p: 2 }}>
-              <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
-                    {feed.title}
-              </Box>
-              <Typography className="feed-description">{convert(feed.description)}</Typography>
-              <Box>
-                {feed.tags.map(tag => (
-                  <Chip key={tag} sx={{ mr: 1 }} label={tag} color="primary" variant="outlined" size="small" />
-                ))}
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box sx={{ flex: '1' }}>
-                    <Typography>Posted by <b>{feed.user && feed.user.name}</b> on {moment(feed.createdAt).format("MMMM Do, YYYY")}</Typography>
-                </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold', color: '#b5e48c' }}>{answers ? answers.length : 0}</Typography>
-                  <Typography>Answers</Typography>
-                </Box>
-              </Box>
-              {userInfo && feed.user && feed.user._id === userInfo._id && (
-                <CardActions>
-                  <IconButton color="warning" aria-label="edit feed" component="span" onClick={() => handleOpenDialog({msg: "EditFeed"})}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton sx={{ color: "#df7373" }} aria-label="delete feed" component="span" onClick={() => handleOpenDialog({msg:"DeleteFeed"})}>
-                    <DeleteIcon />
-                  </IconButton>
-                </CardActions>
-              )}
-              {currentDialog === "EditFeed" && (
-                <NewFeed
-                  activity="EditFeed"
-                  feed={feed}
-                  openNewFeed={openDialog}
-                  handleCloseNewFeed={handleCloseDialog} />
-              )}
-              {currentDialog === "DeleteFeed" && (
-                <DeleteConfirmDialog
-                  activity="DeleteFeed"
-                  title="Delete Feed?"
-                  openDeleteDialog={openDialog} 
-                  handleCloseDeleteDialog={handleCloseDialog}
-                  handleConfirmDelete={handleConfirmDelete} >
-                    Are you sure you want to delete this feed?
-                </DeleteConfirmDialog>
-              )}
-              <br />
-              <Divider light={true}>
-                <Chip label="ANSWERS"/>
-              </Divider>
-              {answers && answers.map(ans => (
-                <Box key={ans._id} sx={{ minWidth: 275, display: 'flex', gap: '10px', alignItems: 'center' }}>
-                  <Card sx={{flex: 1, backgroundColor: "transparent", mt: "10px"}}>
-                    <CardContent>
-                      <Typography variant="body" className="feed-answer">
-                        {convert(ans.answer)}
-                      </Typography>
-                      <Typography sx={{ mt: 1 }} color="text.secondary">
-                        Posted by: {ans.user.name}
-                      </Typography>
-                      
-                    </CardContent>
-                    {userInfo && userInfo._id === ans.user._id && (
-                      <CardActions>
-                        <IconButton color="warning" aria-label="edit answer" component="span" onClick={() => handleOpenDialog({ msg: "EditFeedAnswer", ans_id: ans._id, answer: ans.answer })}>
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton sx={{ color: "#df7373" }} aria-label="delete answer" component="span" onClick={() => handleOpenDialog({ msg: "DeleteFeedAnswer", ans_id: ans._id})}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </CardActions>
-                    )}
-                    {currentDialog === "EditFeedAnswer" && (
-                      <EditFeedAnswer
-                        answer={currentAnswer}
-                        openEditFeedAnswer={openDialog}
-                        handleEditFeedAnswer={handleEditFeedAnswer}
-                        handleCloseEditFeedAnswer={handleCloseDialog} />
-                    )}
-                    {currentDialog === "DeleteFeedAnswer" && (
-                      <DeleteConfirmDialog
-                        activity="DeleteFeedAnswer"
-                        title="Delete Feed Answer?"
-                        openDeleteDialog={openDialog}
-                        handleCloseDeleteDialog={handleCloseDialog}
-                        handleConfirmDelete={handleConfirmDelete} >
-                        Are you sure you want to delete this feed answer?
-                      </DeleteConfirmDialog>
-                    )}
-                  </Card>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <IconButton color="primary" aria-label="up vote" component="span" disabled={typeof answerVotes === "object" && answerVotes[ans._id] && answerVotes[ans._id].up_votes_disabled} onClick={() => handleUpVote(ans._id)}>
-                      <KeyboardArrowUpIcon/>
-                    </IconButton>
-                    <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold' }}>{typeof answerVotes === "object" ? answerVotes[ans._id] && answerVotes[ans._id].count_votes : 0}</Typography>
-                    <IconButton color="primary" aria-label="down vote" component="span" disabled={typeof answerVotes === "object" && answerVotes[ans._id] && answerVotes[ans._id].down_votes_disabled} onClick={() => handleDownVote(ans._id)}>
-                      <KeyboardArrowDownIcon />
-                    </IconButton>
-                  </Box>
-                </Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', border: '1px solid #0077b6', my: 2, p: 2 }}>
+            <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+              {feed.title}
+            </Box>
+            <Typography className="feed-description">{convert(feed.description)}</Typography>
+            <Box>
+              {feed.tags.map(tag => (
+                <Chip key={tag} sx={{ mr: 1 }} label={tag} color="primary" variant="outlined" size="small" />
               ))}
-              {userInfo && (
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <Editor
-                          editorState={editorState}
-                          wrapperClassName="wrapper-class"
-                          editorClassName="editor-class"
-                          onEditorStateChange={handleEditorChange}
-                          /* onEditorStateChange={editorState => {
-                            setEditorState(editorState);
-                            handleEditorChange(editorState);
-                          }} */
-                        />
-                    </Grid>
-                  </Grid>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
-                    Post Answer
-                  </Button>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ flex: '1' }}>
+                <Typography>Posted by <b>{feed.user && feed.user.name}</b> on {moment(feed.createdAt).format("MMMM Do, YYYY")}</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold', color: '#b5e48c' }}>{answers ? answers.length : 0}</Typography>
+                <Typography>Answers</Typography>
+              </Box>
+            </Box>
+            {userInfo && feed.user && feed.user._id === userInfo._id && (
+              <CardActions>
+                <IconButton color="warning" aria-label="edit feed" component="span" onClick={() => handleOpenDialog({ msg: "EditFeed" })}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton sx={{ color: "#df7373" }} aria-label="delete feed" component="span" onClick={() => handleOpenDialog({ msg: "DeleteFeed" })}>
+                  <DeleteIcon />
+                </IconButton>
+              </CardActions>
+            )}
+            {currentDialog === "EditFeed" && (
+              <NewFeed
+                activity="EditFeed"
+                feed={feed}
+                openNewFeed={openDialog}
+                handleCloseNewFeed={handleCloseDialog} />
+            )}
+            {currentDialog === "DeleteFeed" && (
+              <DeleteConfirmDialog
+                activity="DeleteFeed"
+                title="Delete Feed?"
+                openDeleteDialog={openDialog}
+                handleCloseDeleteDialog={handleCloseDialog}
+                handleConfirmDelete={handleConfirmDelete} >
+                Are you sure you want to delete this feed?
+              </DeleteConfirmDialog>
+            )}
+            <br />
+            <Divider light={true}>
+              <Chip label="ANSWERS" />
+            </Divider>
+            {answers && answers.map(ans => (
+              <Box key={ans._id} sx={{ minWidth: 275, display: 'flex', gap: '10px', alignItems: 'center' }}>
+                <Card sx={{ flex: 1, backgroundColor: "transparent", mt: "10px" }}>
+                  <CardContent>
+                    <Typography variant="body" className="feed-answer">
+                      {convert(ans.answer)}
+                    </Typography>
+                    <Typography sx={{ mt: 1 }} color="text.secondary">
+                      Posted by: {ans.user.name}
+                    </Typography>
+
+                  </CardContent>
+                  {userInfo && userInfo._id === ans.user._id && (
+                    <CardActions>
+                      <IconButton color="warning" aria-label="edit answer" component="span" onClick={() => handleOpenDialog({ msg: "EditFeedAnswer", ans_id: ans._id, answer: ans.answer })}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton sx={{ color: "#df7373" }} aria-label="delete answer" component="span" onClick={() => handleOpenDialog({ msg: "DeleteFeedAnswer", ans_id: ans._id })}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </CardActions>
+                  )}
+                  {currentDialog === "EditFeedAnswer" && (
+                    <EditFeedAnswer
+                      answer={currentAnswer}
+                      openEditFeedAnswer={openDialog}
+                      handleEditFeedAnswer={handleEditFeedAnswer}
+                      handleCloseEditFeedAnswer={handleCloseDialog} />
+                  )}
+                  {currentDialog === "DeleteFeedAnswer" && (
+                    <DeleteConfirmDialog
+                      activity="DeleteFeedAnswer"
+                      title="Delete Feed Answer?"
+                      openDeleteDialog={openDialog}
+                      handleCloseDeleteDialog={handleCloseDialog}
+                      handleConfirmDelete={handleConfirmDelete} >
+                      Are you sure you want to delete this feed answer?
+                    </DeleteConfirmDialog>
+                  )}
+                </Card>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <IconButton color="primary" aria-label="up vote" component="span" disabled={typeof answerVotes === "object" && answerVotes[ans._id] && answerVotes[ans._id].up_votes_disabled} onClick={() => handleUpVote(ans._id)}>
+                    <KeyboardArrowUpIcon />
+                  </IconButton>
+                  <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold' }}>{typeof answerVotes === "object" ? answerVotes[ans._id] && answerVotes[ans._id].count_votes : 0}</Typography>
+                  <IconButton color="primary" aria-label="down vote" component="span" disabled={typeof answerVotes === "object" && answerVotes[ans._id] && answerVotes[ans._id].down_votes_disabled} onClick={() => handleDownVote(ans._id)}>
+                    <KeyboardArrowDownIcon />
+                  </IconButton>
                 </Box>
-              )}  
+              </Box>
+            ))}
+            {userInfo && (
+              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <Editor
+                      editorState={editorState}
+                      wrapperClassName="wrapper-class"
+                      editorClassName="editor-class"
+                      onEditorStateChange={handleEditorChange}
+                    /* onEditorStateChange={editorState => {
+                      setEditorState(editorState);
+                      handleEditorChange(editorState);
+                    }} */
+                    />
+                  </Grid>
+                </Grid>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  Post Answer
+                </Button>
+              </Box>
+            )}
           </Box>
         )}
       </div>

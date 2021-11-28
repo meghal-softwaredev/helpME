@@ -14,6 +14,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
+import { Paper } from "@mui/material";
 
 export default function Register(props) {
   const [name, setName] = useState("");
@@ -44,14 +45,15 @@ export default function Register(props) {
 
   return (
     //<ThemeProvider theme={theme}>
-    <Container component="main" maxWidth="xs" sx={{ color: "white" }}>
+    <Container component="main" maxWidth="xs" sx={{ color: "Black" }}>
       <CssBaseline />
       {loading && <LoadingBox></LoadingBox>}
       {error && <MessageBox variant="danger">{error}</MessageBox>}
-      <Box
+      <Paper
         sx={{
           marginTop: 8,
           display: "flex",
+          bgcolor: "whitesmoke",
           flexDirection: "column",
           alignItems: "center",
         }}
@@ -130,7 +132,7 @@ export default function Register(props) {
             </Grid>
           </Grid>
         </Box>
-      </Box>
+      </Paper>
     </Container>
   );
 }
