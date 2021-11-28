@@ -166,7 +166,7 @@ function IndividualFeed() {
         ) : errorFeedDetails ? (
           <MessageBox variant="danger">{errorFeedDetails}</MessageBox>
         ) : feed && (
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', border: '1px solid #0077b6', my: 2, p: 2 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', border: '1px solid #144552', my: 2, p: 2 }}>
             <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
               {feed.title}
             </Box>

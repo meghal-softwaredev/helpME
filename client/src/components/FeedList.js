@@ -64,7 +64,7 @@ function FeedList(props) {
   return (
     <ThemeProvider theme={darkTheme}>
       <Box className="feed-list-main-container" sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"center"}}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", border: '1px solid #0077b6', my: 2, px: 2 }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", border: '1px solid #144552', my: 2, px: 2 }}>
           <Box
             component="form"
             noValidate
@@ -107,7 +107,7 @@ function FeedList(props) {
             </FormControl>
           </Box>
         </Box>
-        <Box sx={{ border: '1px solid #0077b6', my: 2, px: 2 }}>
+        <Box sx={{ border: '1px solid #144552', my: 2, px: 2 }}>
           {loading ? (
             <span>Loading</span>
           ) : error ? (

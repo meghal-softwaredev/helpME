@@ -79,7 +79,7 @@ function LeftSideBar() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Box className="left-sidebar-container" sx={{ border: '1px solid #0077b6', my: 2, p: 2 }}>
+      <Box className="left-sidebar-container" sx={{ border: '1px solid #144552', my: 2, p: 2 }}>
         <ul className="reset-ul">
           <li>
             <Link className="link" to="/feeds">

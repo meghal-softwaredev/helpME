@@ -28,7 +28,11 @@ footer {
 
 .base-container {
   display: flex;
-  background-color: $color-background-secondary;
+  //background-color: $color-background-secondary;
+  background-image: url("../images/background.jpg");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
 }
 
 .main-container {
