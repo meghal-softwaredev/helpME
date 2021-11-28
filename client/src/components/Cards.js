@@ -6,8 +6,8 @@ function Cards() {
   return (
     <div className="cards">
       <h1>
-        Get help with anything life throws at you! Connect with a friendly
-        volunteer through video, voice or web chats!
+        Get help with anything life throws at you<br></br>
+        Connect with a friendly volunteer over video chat and join our community
       </h1>
       <div className="cards__container">
         <div className="cards__wrapper">
