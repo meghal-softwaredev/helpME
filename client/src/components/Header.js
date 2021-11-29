@@ -60,13 +60,13 @@ function Header() {
               <i className="fas fa-hands-helping"></i>
             </Typography>
           </Link>
-          <Box sx={{ ml: 5, flexGrow: 1 }}>
-            <Link className="link nav-link get-help-btn" to="#">
-              Get Help
-            </Link>
-          </Box>
           {userInfo ? (
             <div>
+              <Box sx={{ ml: 5, flexGrow: 1 }}>
+                <Link className="link nav-link get-help-btn" to="/getHelp">
+                  Get Help
+                </Link>
+              </Box>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -91,7 +91,9 @@ function Header() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <Link className="link nav-link" to="/profile">Profile</Link>
+                </MenuItem>
                 <MenuItem onClick={signoutHandler}>Logout</MenuItem>
               </Menu>
             </div>

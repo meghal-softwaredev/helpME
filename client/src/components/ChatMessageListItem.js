@@ -1,17 +1,19 @@
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import '../styles/components/Chat.scss';
 
 function ChatMessageListItem(props){
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  const username = userInfo.name;
+
+  const username = props.message.name;
   const time = moment(props.message.created_at).format("YYYY/MM/DD hh:mm a");
   const messageContent = props.message.message_text;
+  const loggedIn = props.message.user_id === userInfo._id ? true : false;
 
   return (
-    <div>
-    {userInfo ? (
     <div className="message-container ">
+    {loggedIn ? (
       <div className="message-box logged-in">
         <div className="sent-text-header">
           <p className="message-sender">{username}</p>
@@ -19,9 +21,7 @@ function ChatMessageListItem(props){
         </div>
         <p className="message-text mine">{messageContent}</p>
       </div>
-    </div>
-  ) : (
-    <div className="message-container">
+      ) : (
       <div className="message-box">
       <div className="sent-text-header">
         <p className="message-time">{time}</p>
@@ -29,9 +29,8 @@ function ChatMessageListItem(props){
       </div>
       <p className="message-text not-mine">{messageContent}</p>  
       </div>
-    </div>
-  )}
-</div>
+    )}
+  </div>
 );
 } 
 

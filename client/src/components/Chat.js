@@ -5,23 +5,19 @@ import ChatMessageList from "../components/ChatMessageList";
 import ChatInput from "../components/ChatInput";
 import "../styles/components/Chat.scss";
 import { useSelector } from 'react-redux';
+import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
+import { IconButton } from "@mui/material";
+import { display } from '@mui/system';
 
 let socket;
 
-export default function Chat() {
+export default function Chat(props) {
   const [messageHistory, setMessageHistory] = useState([]);
   const [message, setMessage] = useState(""); // For the ChatInput form
   const ENDPOINT = "localhost:5000";
 
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-
-  // useEffect(() => {
-  //   axios.get("http://localhost:5000/api/messages").then((res) => {
-  //     console.log(res.data)
-  //    setMessageHistory([...res.data.message]);
-  //   });
-  // }, []);
 
   useEffect(() => {
     socket = io(ENDPOINT, { 
@@ -45,11 +41,12 @@ export default function Chat() {
   // Function to send messages
   const sendMessage = (event) => {
     if (message) {
-      // let newMessageID = 1 + Math.max(...messageHistory.map((el) => el.id));
       let newMessageObj = {
         user_id: userInfo._id,
-        message_text: message
+        name: userInfo.name,
+        message_text: message,
       };
+
       setMessageHistory((prev) => [...prev, newMessageObj]); // This should go inside socket.on but it works
       socket.emit("sendMessage", { ...newMessageObj }, () => setMessage("")); // This callback clears the input
     }
@@ -57,7 +54,14 @@ export default function Chat() {
 
   return (
     <div className="user-chats">
-      <h1>Welcome to the chat, {userInfo.name}!</h1>
+      {userInfo && 
+      <div style={{display:'flex'}}>
+        <h1>Welcome to the chat, {userInfo.name}!  </h1>
+        <IconButton size="large" sx={{color:"green"}}>
+          <VideoCameraFrontIcon />
+        </IconButton>
+      </div>
+      }
       <div className="chat-container">
         <ChatMessageList messages={messageHistory} />
         <ChatInput message={message} setMessage={setMessage} sendMessage={sendMessage} />

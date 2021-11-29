@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { Box, IconButton, Container, Typography, Divider, Chip, Button } from "@mui/material";
 import { styled } from '@mui/material/styles';
@@ -12,14 +12,16 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
-
+import Drawer from '@mui/material/Drawer';
 import "../styles/components/Profile.scss";
+import Chat from './Chat';
 
 import {
   showProfileDetails,
 } from "../actions/profileActions";
 
 function IndividualVolunteer(props) {
+  const [drawerOpen, setDrawerOpen] = useState();
   const navigate = useNavigate();
 
   const sections = {
@@ -51,8 +53,11 @@ function IndividualVolunteer(props) {
       props.currentVolunteer && dispatch(showProfileDetails(props.currentVolunteer));
   }, [dispatch, props.currentVolunteer]);
 
-  const handleConnectVolunteer = (volunteer_id) => {
-    //Logic to call chat component
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
+  }
+  const handleDrawerOpen = () => { 
+    setDrawerOpen(true);
   }
 
   if (!props.currentVolunteer) {
@@ -113,7 +118,14 @@ function IndividualVolunteer(props) {
           <Divider sx={{ mx: 2 }} />
           <div className="section connect-container">
             <div>
-          <Button variant="outlined" size="large" onClick={() => handleConnectVolunteer(profileDetails.user._id)}>Connect</Button>
+          <Button variant="outlined" size="large" onClick={handleDrawerOpen}>Connect</Button>
+          <Drawer
+            anchor="right"
+            open={drawerOpen}
+            onClose={() => { handleDrawerClose(false) }}
+          >
+            {profileDetails && <Chat />}
+          </Drawer>
             </div>
           </div>
         </div>
