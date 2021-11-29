@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/components/Header.scss";
 import "../styles/elements/link.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +25,7 @@ import { CssBaseline } from "@mui/material";
 import { darkTheme } from "../mui/themes";
 
 function Header() {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const userSignin = useSelector((state) => state.userSignin);
@@ -43,15 +44,21 @@ function Header() {
     setAnchorEl(null);
   };
 
+  const handleOpenProfile = () => {
+    setAnchorEl(null);
+    navigate("/profile");
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       {/* <Box className="header" sx={{ flexGrow: 1 }}> */}
       <CssBaseline />
       <AppBar
-        style={{ background: "#242424" }}
+        style={{ background: "#082449" }}
+        //style={{ background: "#242424" }}
         className="header"
         position="fixed"
-        sx={{ justifyContent: "center", minHeight: "100px" }}
+        sx={{ justifyContent: "center", minHeight: "80px" }}
       >
         <Toolbar>
           <Link className="link nav-link" to="/">
@@ -60,6 +67,11 @@ function Header() {
               <i className="fas fa-hands-helping"></i>
             </Typography>
           </Link>
+          <Box sx={{ ml: 5, flexGrow: 1 }}>
+            <Link to="/get-help" className="link nav-link get-help-btn">
+              Get Help
+            </Link>
+          </Box>
           {userInfo ? (
             <div>
               <Box sx={{ ml: 5, flexGrow: 1 }}>
@@ -91,9 +103,7 @@ function Header() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>
-                  <Link className="link nav-link" to="/profile">Profile</Link>
-                </MenuItem>
+                <MenuItem onClick={handleOpenProfile}>Profile</MenuItem>
                 <MenuItem onClick={signoutHandler}>Logout</MenuItem>
               </Menu>
             </div>

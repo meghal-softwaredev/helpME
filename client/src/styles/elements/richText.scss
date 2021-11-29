@@ -1,0 +1,27 @@
+.wrapper-class {
+  /* padding: 1rem;
+  border: 1px solid #ccc; */
+  height: 300px;
+}
+.editor-class {
+  background-color:#082449;
+  color: white;
+  padding: 0.5rem;
+  border: 1px solid #3974AEff;
+  //font-size: 16px;
+  height: 70%;
+}
+.toolbar-class {
+  border: 1px solid #3974AEff;
+  background-color:#082449;
+  color: white;
+}
+.rdw-editor-toolbar {
+  background-color: transparent;
+  border: 1px solid #3974AEff;
+}
+.rdw-option-wrapper, .rdw-dropdown-wrapper, .rdw-dropdown-optionwrapper, .rdw-dropdown-selectedtext, .rdw-dropdownoption-active, .rdw-dropdownoption-default {
+  background-color: #3974AEff;
+  color: white;
+  border: 1px solid #3974AEff;
+}

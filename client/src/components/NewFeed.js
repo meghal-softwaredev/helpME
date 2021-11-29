@@ -35,6 +35,7 @@ import { listCategories } from '../actions/categoryActions';
 
 import { darkTheme} from "../mui/themes";
 import "../styles/components/NewFeed.scss";
+//import "../styles/elements/richText.scss";
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.1),
@@ -168,7 +169,7 @@ export default function NewFeed(props) {
                     /> */}
                     <Editor
                       editorState={editorState}
-                      wrapperClassName="wrapper-class"
+                      wrapperClassName="wrapper-gray-class"
                       editorClassName="editor-class"
                       onEditorStateChange={handleEditorChange}
 

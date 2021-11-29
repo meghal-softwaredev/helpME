@@ -79,7 +79,8 @@ function LeftSideBar() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Box className="left-sidebar-container" sx={{ border: '1px solid #0077b6', my: 2, p: 2 }}>
+      <Box className="left-sidebar-container" sx={{
+        border: '1px solid #144552', my: 2, p: 2 }}>
         <ul className="reset-ul">
           <li>
             <Link className="link" to="/feeds">
@@ -95,7 +96,7 @@ function LeftSideBar() {
             <Divider sx={{ my: 2 }} />
           </li>
           <li>
-              <Button
+            <Button
                 startIcon={<PostAddIcon />}
                 variant="outlined"
                 onClick={handleOpenNewFeed}>
@@ -104,7 +105,7 @@ function LeftSideBar() {
             {openNewFeed && (<NewFeed activity="NewFeed" openNewFeed={openNewFeed} handleCloseNewFeed={handleCloseNewFeed} />)}
           </li>
           <li>
-              <Button startIcon={<PostAddIcon />} sx={{ mt: 1 }} variant="outlined" onClick={handleOpenNewGroup}>
+            <Button startIcon={<PostAddIcon />} sx={{ mt: 1 }} variant="outlined" onClick={handleOpenNewGroup}>
               Create Group
             </Button>
             <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={false} />
@@ -113,8 +114,8 @@ function LeftSideBar() {
             <Divider sx={{ my: 2 }} />
           </li>
           <li>
-            <FormControl fullWidth>
-              <InputLabel>Category</InputLabel>
+            <FormControl fullWidth size="medium">
+              <InputLabel sx={{fontSize:"15px"}}>Category</InputLabel>
               <Select
                 id="category"
                 value={selectedCategory}
