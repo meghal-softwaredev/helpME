@@ -23,7 +23,8 @@ function VolunteerListItem(props) {
         <Box >
           <Avatar
             //alt={profileDetails && profileDetails.user && profileDetails.user.name}
-            src={imageName ? `${process.env.PUBLIC_URL}/images/avatar/${imageName}` : `${process.env.PUBLIC_URL}/images/avatar/profile-avatar-1.webp`}
+            //src={imageName ? `${process.env.PUBLIC_URL}/images/avatar/${imageName}` : `${process.env.PUBLIC_URL}/images/avatar/profile-avatar-1.webp`}
+            src={volunteer && volunteer.photo_url ? `${process.env.PUBLIC_URL}/images/avatar/${volunteer.photo_url}` : `${process.env.PUBLIC_URL}/images/avatar/profile-avatar-1.webp`}
             sx={{ width: 70, height: 70 }} />
         </Box>
         <Typography sx={{fontSize:"18px"}}>{volunteer && volunteer.user && volunteer.user.name}</Typography>

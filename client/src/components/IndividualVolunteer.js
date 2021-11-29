@@ -73,7 +73,8 @@ function IndividualVolunteer(props) {
           <Box className="section profile-picture-container" >
             <Avatar
               //alt={profileDetails && profileDetails.user && profileDetails.user.name}
-              src={`${process.env.PUBLIC_URL}/images/avatar/profile-avatar-1.webp`}
+              //src={`${process.env.PUBLIC_URL}/images/avatar/profile-avatar-1.webp`}
+              src={profileDetails && profileDetails.photo_url ? `${process.env.PUBLIC_URL}/images/avatar/${profileDetails.photo_url}` : `${process.env.PUBLIC_URL}/images/avatar/profile-avatar-1.webp`}
               sx={{ width: 200, height: 200 }} />
           </Box>
           <div className="section basic-info-container">

@@ -39,7 +39,6 @@ function GetHelp() {
   const { userInfo } = userSignin;
 
   const handleShowVolunteer = (volunteer_id) => {
-    console.log("selected volunteer:::::", volunteer_id);
     setCurrentVolunteer(volunteer_id);
   }
 

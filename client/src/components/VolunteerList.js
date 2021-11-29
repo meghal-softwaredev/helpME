@@ -29,7 +29,7 @@ function VolunteerList(props) {
 
   useEffect(() => {
     Array.isArray(volunteers) && volunteers[0] && props.handleShowVolunteer(volunteers[0].user._id);
-  }, [volunteerList]);
+  }, [volunteers]);
 
   return (
     <div className="volunteers-list-container">
