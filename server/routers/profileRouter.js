@@ -5,6 +5,14 @@ import Profile from "../models/profileModel.js";
 import User from "../models/userModel.js";
 import { isAuth } from '../helpers/utils.js';
 
+function getRandomImageName() {
+  const min = 1;
+  const max = 7;
+  const rand = Math.floor(Math.random() * max) + min;
+  console.log("rand:", rand);
+  return `profile-avatar-${rand}.webp`;
+}
+
 const profileRouter = express.Router();
 
 profileRouter.get(
@@ -20,7 +28,7 @@ profileRouter.post(
   "/preferred_categories/new",
   expressAsyncHandler(async (req, res) => {
     const preferred_categories = req.body.prefferedCategories;
-    console.log(preferred_categories);
+    const photo_url = getRandomImageName();
     const categoryPreferences = new Profile({
       user: req.body.user_id,
       current_category:
@@ -28,6 +36,7 @@ profileRouter.post(
           ? preferred_categories[0]
           : "",
       preferred_categories: [...preferred_categories],
+      photo_url: photo_url ? photo_url : "profile-avatar-1.webp"
     });
     
     const addedCategoryPreferences = await categoryPreferences.save();

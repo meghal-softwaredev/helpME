@@ -5,17 +5,8 @@ import { Box, Avatar, Typography } from "@mui/material";
 import "../styles/components/VolunteerListItem.scss";
 
 function VolunteerListItem(props) {
-  const [imageName, setImageName] = useState(getRandomImageName());
   
   const { volunteer, handleShowVolunteer} = props;
-  
-  function getRandomImageName() {
-    const min = 1;
-    const max = 7;
-    const rand = Math.floor(Math.random() * max) + min;
-    console.log("rand:", rand);
-    return `profile-avatar-${rand}.webp`;
-  }
 
   return (
     <>
