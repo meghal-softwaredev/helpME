@@ -67,18 +67,19 @@ function Header() {
               <i className="fas fa-hands-helping"></i>
             </Typography>
           </Link>
-          <Box sx={{ ml: 5, flexGrow: 1 }}>
+          {/* <Box sx={{ ml: 5, flexGrow: 1 }}>
             <Link to="/get-help" className="link nav-link get-help-btn">
               Get Help
             </Link>
-          </Box>
+          </Box> */}
           {userInfo ? (
+            <>
+            <Box sx={{ ml: 5, flexGrow: 1 }}>
+              <Link className="link nav-link get-help-btn" to="/getHelp">
+                Get Help
+              </Link>
+            </Box>
             <div>
-              <Box sx={{ ml: 5, flexGrow: 1 }}>
-                <Link className="link nav-link get-help-btn" to="/getHelp">
-                  Get Help
-                </Link>
-              </Box>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -107,24 +108,28 @@ function Header() {
                 <MenuItem onClick={signoutHandler}>Logout</MenuItem>
               </Menu>
             </div>
+            </>
           ) : (
-            <div>
-              <Link className="link nav-link" to="/events">
-                Events
-              </Link>
-              <Link className="link nav-link" to="/feeds">
-                Feed
-              </Link>
-              <Link className="link nav-link" to="/about-us">
-                About Us
-              </Link>
-              <Link className="link nav-link" to="/register">
-                Register
-              </Link>
-              <Link className="link nav-link" to="/signin">
-                Login
-              </Link>
-            </div>
+            <>
+              <Box sx={{ ml: 5, flexGrow: 1 }} />
+              <div>
+                <Link className="link nav-link" to="/events">
+                  Events
+                </Link>
+                <Link className="link nav-link" to="/feeds">
+                  Feed
+                </Link>
+                <Link className="link nav-link" to="/about-us">
+                  About Us
+                </Link>
+                <Link className="link nav-link" to="/register">
+                  Register
+                </Link>
+                <Link className="link nav-link" to="/signin">
+                  Login
+                </Link>
+              </div>
+            </>
           )}
         </Toolbar>
       </AppBar>
