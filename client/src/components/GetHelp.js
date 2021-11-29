@@ -47,7 +47,7 @@ function GetHelp() {
     <ThemeProvider theme={darkTheme}>
       <div className="main-volunteers-container">
         <VolunteerList handleShowVolunteer={handleShowVolunteer} />
-        < IndividualVolunteer currentVolunteer={currentVolunteer} />
+        < IndividualVolunteer currentVolunteer={currentVolunteer}/>
       </div>
     </ThemeProvider>
   )

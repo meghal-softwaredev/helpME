@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { Divider } from "@mui/material";
+
 import "../styles/components/VolunteerList.scss";
 
 import {
@@ -25,10 +27,17 @@ function VolunteerList(props) {
     dispatch(showVolunteerList());
   }, [dispatch]);
 
+  useEffect(() => {
+    Array.isArray(volunteers) && volunteers[0] && props.handleShowVolunteer(volunteers[0].user._id);
+  }, [volunteerList]);
+
   return (
     <div className="volunteers-list-container">
-      {volunteers && Array.isArray(volunteers) && volunteers.map(volunteer => (
-        <VolunteerListItem volunteer={volunteer} handleShowVolunteer={props.handleShowVolunteer} />
+      {volunteers && Array.isArray(volunteers) && volunteers.map((volunteer, index) => (
+        <>
+          <VolunteerListItem volunteer={volunteer} handleShowVolunteer={props.handleShowVolunteer} />
+          {(volunteers.length - 1) > index && (<Divider />)}
+        </>
       ))}
     </div>
   )
