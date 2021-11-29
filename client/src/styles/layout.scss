@@ -27,15 +27,28 @@ footer {
 }
 
 .base-container {
+  position: relative;
   display: flex;
   //background-color: $color-background-secondary;
   //background-color: #1a2a5e;
-  background-image: url("../images/background.jpg");
+  
+  background-image: url("../images/background4.png");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
   //background-color: #252e48;
 }
+/* .base-container::before {    
+      content: "";
+      background-image: url("../images/background.png");
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.25;
+} */
 
 .main-container {
   flex: 1;
