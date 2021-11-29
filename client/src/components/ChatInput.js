@@ -1,31 +1,8 @@
 import React from "react";
-
-
-//import { makeStyles } from '@material-ui/styles';
 import { TextField, Button } from '@mui/material';
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     border: '1px solid #bdbdbd',
-//     overflow: 'hidden',
-//     backgroundColor: '#fcfcfc',
-//     transition: theme.transitions.create(['border-color', 'box-shadow']),
-//     '&:hover': {
-//       border: '1px solid #bdbdbd'
-//     },
-//     '&.Mui-focused': {
-//       backgroundColor: '#fff',
-//       borderColor: '#bdbdbd',
-//       'border-style': 'solid none solid solid',
-//     },
-    
-//   },
-//   focused: {},
-// }));
 
 const ChatInput = (props) => {
   const { message, setMessage, sendMessage } = props;
-  //const classes = useStyles();
 
   return (
     <div className="chat-input">
@@ -41,8 +18,7 @@ const ChatInput = (props) => {
             event.key === "Enter" ? sendMessage(event) : null
           }
           InputProps={{
-           // classes,
-            style: { borderRadius: '5px 0 0 5px' },
+            style: { borderRadius: '5px 0 0 5px', color: "black" },
           }}
           inputProps={{
             maxLength: 255,

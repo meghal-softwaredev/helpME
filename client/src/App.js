@@ -46,8 +46,8 @@ function App() {
                 <Route path="/events" element={<EventList />}></Route>
                 <Route path="/profile" element={<ShowProfile />}></Route>
                 <Route path="/events/:id" element={<IndividualEvent />}></Route>
-                <Route path="/chat" element={<Chat />}></Route>
-                <Route path="/get-help" element={<GetHelp />}></Route>
+                <Route path="/chat" element={<Chat user={userInfo}/>}></Route>
+                <Route path="/getHelp" element={<GetHelp />}></Route>
               </Routes>
             </div>
           </main>

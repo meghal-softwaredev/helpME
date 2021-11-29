@@ -83,9 +83,9 @@ function Navbar() {
             {userInfo ? (
               <>
                 <Link
-                  to="get-help"
+                  to="/getHelp"
                   className="nav-links"
-                  to="get-help"
+                  onClick={closeMobileMenu}
                 >
                   Get Help
                 </Link>

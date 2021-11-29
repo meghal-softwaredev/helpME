@@ -74,6 +74,11 @@ function Header() {
           </Box>
           {userInfo ? (
             <div>
+              <Box sx={{ ml: 5, flexGrow: 1 }}>
+                <Link className="link nav-link get-help-btn" to="/getHelp">
+                  Get Help
+                </Link>
+              </Box>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"

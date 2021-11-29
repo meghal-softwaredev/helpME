@@ -9,7 +9,6 @@ messageRouter.get(
   '/',
   expressAsyncHandler(async (req, res) => {
     const messages = await Message.find({});
-    console.log("hi", messages);
     res.send({ messages });
   })
 );
