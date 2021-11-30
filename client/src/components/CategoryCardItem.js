@@ -37,7 +37,7 @@ export default function CategoryCardItem(props) {
             image={props.category.img_url}
             alt="green iguana"
           />
-          <CardContent>
+          <CardContent sx={{backgroundColor: "#023047"}}>
             <Typography gutterBottom variant="h5" component="div">
               {props.category.name}
             </Typography>
@@ -46,7 +46,7 @@ export default function CategoryCardItem(props) {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+        <CardActions sx={{ display: "flex", justifyContent: "center", backgroundColor: "#023047" }}>
           <Button
             size="medium"
             variant="outlined"

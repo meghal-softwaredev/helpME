@@ -26,12 +26,12 @@ function EventList(props) {
 
   const handleSortValueChange = (e) => {
     setSortValue(e.target.value);
-    dispatch(listEvents({ keyword: keywordValue, sortBy: e.target.value }));
+    dispatch(listEvents({ keyword: keywordValue, sortBy: e.target.value, category: profileDetails.current_category }));
   };
 
   const handleKeywordValueChange = (e) => {
     setkeywordValue(e.target.value);
-    dispatch(listEvents({ keyword: e.target.value, sortBy: sortValue }));
+    dispatch(listEvents({ keyword: e.target.value, sortBy: sortValue, category: profileDetails.current_category }));
   };
 
   const handleSortSelectClose = () => {

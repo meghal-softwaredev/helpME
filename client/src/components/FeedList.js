@@ -24,11 +24,11 @@ function FeedList(props) {
 
   const handleSortValueChange = (event) => {
     setSortValue(event.target.value);
-    dispatch(listFeeds({ keyword: keywordValue, sortBy: event.target.value }));
+    dispatch(listFeeds({ keyword: keywordValue, sortBy: event.target.value, category: profileDetails.current_category }));
   };
   const handleKeywordValueChange = (event) => {
     setkeywordValue(event.target.value);
-    dispatch(listFeeds({ keyword: event.target.value, sortBy: sortValue }));
+    dispatch(listFeeds({ keyword: event.target.value, sortBy: sortValue, category: profileDetails.current_category }));
   };
 
   const handleSortSelectClose = () => {

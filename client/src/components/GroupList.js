@@ -23,12 +23,12 @@ function GroupList(props) {
   
   const handleSortValueChange = (e) => {
     setSortValue(e.target.value);
-    dispatch(listGroups({ keyword: keywordValue, sortBy: e.target.value }));
+    dispatch(listGroups({ keyword: keywordValue, sortBy: e.target.value, category: profileDetails.current_category }));
   };
 
   const handleKeywordValueChange = (e) => {
     setkeywordValue(e.target.value);
-    dispatch(listGroups({ keyword: e.target.value, sortBy: sortValue }));
+    dispatch(listGroups({ keyword: e.target.value, sortBy: sortValue, category: profileDetails.current_category }));
   };
 
   const handleSortSelectClose = () => {

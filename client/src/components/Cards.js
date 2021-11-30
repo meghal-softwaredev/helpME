@@ -5,9 +5,9 @@ import CardItem from "./CardItem";
 function Cards() {
   return (
     <div className="cards">
-      <h1>
+      <h1 style={{color:"white"}}>
         Get help with anything life throws at you<br></br>
-        Connect with a friendly volunteer over video chat and join our community
+        Connect with a friendly volunteer and join our community
       </h1>
       <div className="cards__container">
         <div className="cards__wrapper">
@@ -15,7 +15,7 @@ function Cards() {
             <CardItem
               src="https://venturebeat.com/wp-content/uploads/2018/01/javascript.jpg?fit=1800%2C1116&strip=all"
               text="Find help with all programming problems!"
-              label="Javascript"
+              label="Coding"
               path="/feeds"
             />
             <CardItem

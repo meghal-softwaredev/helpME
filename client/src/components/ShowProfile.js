@@ -42,6 +42,9 @@ function ShowProfile() {
     "skills": {
       title: "Skills"
     },
+    /* "preferences": {
+      title: "Preferences"
+    }, */
     "volunteer_status": {
       title: "Volunteer Status"
     }
@@ -150,6 +153,29 @@ function ShowProfile() {
           </Box>
         </div>
         <Divider sx={{ mx: 2 }} />
+        {/* <div className="section preferences-container">
+          <div>
+            <p className="section-title">Preferences</p>
+            <Box>
+              {profileDetails && profileDetails.preferred_categories && profileDetails.preferred_categories.map((preference) => (
+                <Chip
+                  key={preference}
+                  sx={{ mr: 2, fontSize: "16px" }}
+                  label={preference}
+                  color="primary"
+                  variant="outlined"
+                  size="large"
+                />
+              ))}
+            </Box>
+          </div>
+          <Box>
+            <IconButton sx={{ color: "#f4b942" }} aria-label="edit profile" component="span" onClick={() => { handleEditBtn("preferences") }}>
+              <EditIcon />
+            </IconButton>
+          </Box>
+        </div>
+        <Divider sx={{ mx: 2 }} /> */}
         <div className="section volunteer-container">
           <div>
             <p>Do you want to join our community as a volunteer?</p>

@@ -27,6 +27,7 @@ function LeftSideBar() {
   const [openNewFeed, setOpenNewFeed] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [preferredCategories, setPreferredCategories] = useState([]);
 
   const categoryList = useSelector((state) => state.categoryList);
   const { categories } = categoryList;
@@ -44,6 +45,7 @@ function LeftSideBar() {
 
   useEffect(() => {
     setSelectedCategory(profileDetails && profileDetails.current_category);
+    setPreferredCategories(profileDetails && profileDetails.preferred_categories);
   }, [profileDetails]);
 
   //const [selectedCategory, setSelectedCategory] = useState(profileDetails ? profileDetails.current_category : "");
@@ -129,12 +131,20 @@ function LeftSideBar() {
                 label="Category"
                 onChange={handleCategoryChange}
               >
-                {categories && categories.map((category) => (
+                {/* {categories && categories.map((category) => (
                   <MenuItem
                     key={category._id}
                     value={category._id}
                   >
                     {category.name}
+                  </MenuItem>
+                ))} */}
+                {categories && preferredCategories && preferredCategories.map((category) => (
+                  <MenuItem
+                    key={category}
+                    value={category}
+                  >
+                    {categories.find(c => c._id===category).name}
                   </MenuItem>
                 ))}
               </Select>
