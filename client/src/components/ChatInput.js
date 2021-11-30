@@ -1,5 +1,6 @@
 import React from "react";
 import { TextField, Button } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 
 const ChatInput = (props) => {
   const { message, setMessage, sendMessage } = props;
@@ -24,8 +25,8 @@ const ChatInput = (props) => {
             maxLength: 255,
           }}
         />
-      <Button className="send-button" onClick={(event) => sendMessage(event)} style={{borderRadius: '0 5px 5px 0'}}>
-        Send
+      <Button className="send-button" onClick={(event) => sendMessage(event)} style={{borderRadius: '0 5px 5px 0', color:"#fff"}}>
+        <SendIcon />
       </Button>
     </div>
   );

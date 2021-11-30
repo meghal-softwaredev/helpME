@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import { darkTheme } from "../mui/themes";
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 import { Grid, Button, Typography, IconButton, Box, Popover } from '@mui/material';
@@ -16,7 +18,6 @@ import Axios from 'axios';
 import "../styles/elements/link.scss";
 
 function IndividualGroup(props) {
-  const [anchorEl, setAnchorEl] = useState(null);
   const [openNewGroup, setOpenNewGroup] = useState(false);
   const [openNewEvent, setOpenNewEvent] = useState(false);
   const [openDeleteGroup, setOpenDeleteGroup] = useState(false);
@@ -69,13 +70,9 @@ function IndividualGroup(props) {
     setOpenDeleteGroup(false);
   };
 
-  const handleChat = (e) => {
-    setAnchorEl(e.currentTarget);
-  }
-
-  const open = Boolean(anchorEl);
   return (
-    <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"start"}}>
+    <ThemeProvider theme={darkTheme}>
+    <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"start", mt: 2}}>
     {loading ? (
       <LoadingBox></LoadingBox>
     ) : error ? (
@@ -84,7 +81,7 @@ function IndividualGroup(props) {
       <div>
         <Grid container justifyContent="space-between" sx={{ml: 4}}>
           <Grid item sx={8}>
-            <Typography component="h5" variant="h5">{group.title}</Typography>
+            <Typography component="h4" variant="h4">{group.title}</Typography>
           </Grid>
           <Grid item sx={{mr: 20}} >
             {userInfo && userInfo._id === group.user_id &&  (
@@ -98,9 +95,9 @@ function IndividualGroup(props) {
           </Grid>
         </Grid>
         <br />
-        <Grid container sx={{ p: 2 }}>
+        <Grid container sx={{ p: 2, gap:"20px" }}>
           <Grid item xs={3} sx={{mr: 4}}> 
-            <img src={group.group_url} width="300px" height="200px" alt="Group" style={{borderRadius: 50}}/>
+                  <img src={group.group_url} width="300px" height="200px" alt="Group" style={{ border: "1px solid #adb5bd" }} />
           </Grid>
           <Grid item xs={8} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
             <Typography component="h6" variant="h6">{group.description}</Typography>
@@ -115,8 +112,8 @@ function IndividualGroup(props) {
             <Grid item={1} sx={{mr: 2}}>
               {userInfo && userInfo._id === group.user_id && (
               <div>
-                <IconButton size="small" variant="outlined" onClick={handleOpenNewGroup}>
-                  <ModeEditIcon />
+                <IconButton sx={{ color: "#f4b942" }} size="large" variant="outlined" onClick={handleOpenNewGroup}>
+                  <ModeEditIcon sx={{ fontSize: "30px" }} />
                 </IconButton>
                 <NewGroup openNewGroup={openNewGroup} handleCloseNewGroup={handleCloseNewGroup} edit={true} groupId={id} group={group}/>
               </div>
@@ -125,8 +122,8 @@ function IndividualGroup(props) {
               <Grid item={1}>
               {userInfo && userInfo._id === group.user_id && (
               <div>
-                <IconButton size="small" variant="outlined" onClick={handleOpenDeleteGroup}>
-                  <DeleteIcon />
+                <IconButton sx={{ color: "#da5552" }} size="large" variant="outlined" onClick={handleOpenDeleteGroup}>
+                  <DeleteIcon sx={{ fontSize: "30px" }} />
                 </IconButton>
                 <ConfirmDialog
                   title="Delete Group?"
@@ -138,30 +135,11 @@ function IndividualGroup(props) {
                 </div>
                 )}
               </Grid>
-        <Button size="small" variant="outlined" onClick={(e) => handleChat(e)}>
-          <Link className="link nav-link" to="/chat">Chat</Link>
-        </Button>
-        <Popover
-        anchorEl={anchorEl}
-        open={open}
-        id={open ? "simple-popover" : undefined}
-        onClose={() => {
-          setAnchorEl(null);
-        }}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-      >
-      </Popover>
       </Grid>
       </div>
     )} 
   </Box>
+  </ThemeProvider>
   );
 }
 

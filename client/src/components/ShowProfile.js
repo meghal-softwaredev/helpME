@@ -93,7 +93,7 @@ function ShowProfile() {
         <div className="section basic-info-container">
           <p className="section-title">{profileDetails && profileDetails.user && profileDetails.user.name}</p>
           <Box>
-            <IconButton color="primary" aria-label="edit profile" component="span" onClick={() => {handleEditBtn("basic_info")}}>
+            <IconButton sx={{ color: "#f4b942" }} aria-label="edit profile" component="span" onClick={() => {handleEditBtn("basic_info")}}>
               <EditIcon />
             </IconButton>
           </Box>
@@ -102,10 +102,10 @@ function ShowProfile() {
         <div className="section bio-details-container">
           <div>
             <p className="section-title">Bio</p>
-            <p>{profileDetails && profileDetails.bio}</p>
+            <p className="section-description">{profileDetails && profileDetails.bio}</p>
           </div>
           <Box>
-            <IconButton color="primary" aria-label="edit profile" component="span" onClick={() => { handleEditBtn("bio_details") }}>
+            <IconButton sx={{ color: "#f4b942" }} aria-label="edit profile" component="span" onClick={() => { handleEditBtn("bio_details") }}>
               <EditIcon />
             </IconButton>
           </Box>
@@ -121,7 +121,7 @@ function ShowProfile() {
             <Box className="profile-link-row"><TwitterIcon /> {profileDetails && profileDetails.twitter_url}</Box>
           </div>
           <Box>
-            <IconButton color="primary" aria-label="edit profile" component="span" onClick={() => { handleEditBtn("profile_links") }}>
+            <IconButton sx={{ color: "#f4b942" }} aria-label="edit profile" component="span" onClick={() => { handleEditBtn("profile_links") }}>
               <EditIcon />
             </IconButton>
           </Box>
@@ -134,17 +134,17 @@ function ShowProfile() {
               {profileDetails && profileDetails.skills && profileDetails.skills.map((skill) => (
                 <Chip
                   key={skill}
-                  sx={{ mr: 1 }}
+                  sx={{ mr: 2, fontSize: "16px" }}
                   label={skill}
-                  color="secondary"
+                  color="primary"
                   variant="outlined"
-                  size="small"
+                  size="large"
                 />
               ))}
             </Box>
           </div>
           <Box>
-            <IconButton color="primary" aria-label="edit profile" component="span" onClick={() => { handleEditBtn("skills") }}>
+            <IconButton sx={{ color: "#f4b942" }} aria-label="edit profile" component="span" onClick={() => { handleEditBtn("skills") }}>
               <EditIcon />
             </IconButton>
           </Box>
@@ -152,10 +152,10 @@ function ShowProfile() {
         <Divider sx={{ mx: 2 }} />
         <div className="section volunteer-container">
           <div>
-            <p>Do tou want yo join our community as a volunteer?</p>
+            <p>Do you want to join our community as a volunteer?</p>
           </div>
           <Box>
-            <IconButton color="primary" aria-label="edit profile" component="span" onClick={() => { handleEditBtn("volunteer_status") }}>
+            <IconButton sx={{ color: "#f4b942" }} aria-label="edit profile" component="span" onClick={() => { handleEditBtn("volunteer_status") }}>
               <EditIcon />
             </IconButton>
           </Box>

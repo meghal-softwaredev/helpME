@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../styles/components/Header.scss";
 import "../styles/elements/link.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +26,7 @@ import { darkTheme } from "../mui/themes";
 
 function Header() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const userSignin = useSelector((state) => state.userSignin);
@@ -49,13 +50,21 @@ function Header() {
     navigate("/profile");
   };
 
+  let inputStyle =
+    location.pathname === "/"
+      ? {
+        background: "#082449"
+      }
+      : { background: "#023047"};
+
   return (
-    <ThemeProvider theme={darkTheme}>
+    <>
       {/* <Box className="header" sx={{ flexGrow: 1 }}> */}
       <CssBaseline />
       <AppBar
-        style={{ background: "#082449" }}
+        //style={{ background: "#023047" }}
         //style={{ background: "#242424" }}
+        style={inputStyle}
         className="header"
         position="fixed"
         sx={{ justifyContent: "center", minHeight: "80px" }}
@@ -86,8 +95,9 @@ function Header() {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
+                sx={{mr:5}}
               >
-                <AccountCircle />
+                <AccountCircle sx={{ fontSize: "35px" }} />
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -104,8 +114,8 @@ function Header() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleOpenProfile}>Profile</MenuItem>
-                <MenuItem onClick={signoutHandler}>Logout</MenuItem>
+                <MenuItem sx={{backgroundColor:"transparent"}} onClick={handleOpenProfile}>Profile</MenuItem>
+                <MenuItem sx={{backgroundColor:"transparent"}} onClick={signoutHandler}>Logout</MenuItem>
               </Menu>
             </div>
             </>
@@ -134,7 +144,7 @@ function Header() {
         </Toolbar>
       </AppBar>
       {/* </Box> */}
-    </ThemeProvider>
+    </>
   );
 }
 

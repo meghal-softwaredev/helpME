@@ -7,6 +7,7 @@ import { Button, Box, TextField, InputAdornment, FormControl, Select, MenuItem }
 import SearchIcon from '@mui/icons-material/Search';
 import { ThemeProvider } from '@mui/material/styles';
 import { showProfileDetails } from '../actions/profileActions';
+import { darkTheme } from "../mui/themes";
 
 function GroupList(props) {
   const groupList = useSelector((state) => state.groupList);
@@ -57,15 +58,17 @@ function GroupList(props) {
   }, [dispatch, location, profileDetailsList]);
 
   return (
-    // <ThemeProvider theme={darkTheme}>
+    <ThemeProvider theme={darkTheme}>
     <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"center"}}>
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", border: '1px solid #0077b6', my: 2, px: 2 }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", border: '1px solid #218380', my: 2, px: 2 }}>
         <Box
           component="form"
           noValidate
           autoComplete="off"
+          sx={{ width: "100%" }}
         >
           <TextField 
+            fullWidth
             id="outlined-basic"
             variant="outlined"
             size="small"
@@ -102,12 +105,13 @@ function GroupList(props) {
           </FormControl>
         </Box>
       </Box>
+      <Box sx={{ p: 2 }}>
       <div>
-        <Button size="large" variant="outlined" onClick={handleEvent} sx={{mr: 2, color:"white"}}>
-          Event
-        </Button>
-        <Button size="large" variant="outlined" sx={{color:"white"}}>
+            <Button size="large" variant="outlined" sx={{ mr: 2, color: "white", border: "solid 1px white", backgroundColor:"#adb5bd30" }}>
           Group
+        </Button>
+        <Button size="large" variant="outlined" onClick={handleEvent} sx={{color:"white"}}>
+          Event
         </Button>
       </div>
       {loading ? (
@@ -121,8 +125,9 @@ function GroupList(props) {
           ))}
         </>
       )}
+      </Box>
     </Box>
-    // </ThemeProvider>
+    </ThemeProvider>
   );
 }
 

@@ -62,17 +62,17 @@ function EventListItem(props) {
     <div className="item-container">
     <Grid container sx={{ my: 2, p: 2 }}>
       <Grid item xs={2} > 
-        <img src={event_image_url} width="130px" height="130px" alt="Event" style={{borderRadius: 50}}/>
+          <img src={event_image_url} width="130px" height="130px" alt="Event" style={{ borderRadius: "200px", border: "1px solid #adb5bd"}}/>
       </Grid>
-      <Grid item xs={10} sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+      <Grid item xs={10} sx={{ fontSize: 'h5.fontSize', fontWeight: 'medium', mb: 2 }}>
         <Typography component="h5" variant="h5">
           <Link className="link" to={`/events/${_id}`}>{title}</Link>
         </Typography>
-        <Typography component="h6" variant="h6">
+        <Typography sx={{ fontSize: "16px" }}>
           {moment(date_time).format('llll')}
         </Typography>
-        <Typography component="h6" variant="h6">{description.slice(0, 220)+'...'}</Typography>
-        <Grid container sx={{mt: 3}}>
+          <Typography sx={{ fontSize: 'h6.fontSize'}} component="h6" variant="h6">{description.slice(0, 220)+'...'}</Typography>
+          <Grid container sx={{ mt: 3 }} alignItems="center">
           <Grid item xs={6}>
           {userInfo && (
           <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(_id)}>Attend</Button>
@@ -85,7 +85,7 @@ function EventListItem(props) {
               {userInfo && (
               <div>
               <IconButton size="small" variant="outlined" onClick={(e) => handleShareEvent(e)}>
-                <IosShareIcon color="white" />
+                <IosShareIcon sx={{ fontSize: "30px" }} color="white" />
               </IconButton>
               <Popover
               anchorEl={anchorEl}
@@ -112,12 +112,12 @@ function EventListItem(props) {
               {userInfo && (
               <div>
               { (Array.isArray(eventFavourite) && eventFavourite.includes(userInfo._id)) ? (
-                <IconButton size="small" variant="outlined" onClick={() => handleUnLikeEvent(_id)}>
-                  <FavoriteIcon color="red"/>
+                <IconButton size="large" variant="outlined" onClick={() => handleUnLikeEvent(_id)}>
+                      <FavoriteIcon sx={{ fontSize: "30px", color:"#da5552" }}/>
                 </IconButton>
               ):(
-                <IconButton size="small" variant="outlined" onClick={() => handleLikeEvent(_id)}>
-                  <FavoriteBorderIcon color="white"/>
+                <IconButton size="large" variant="outlined" onClick={() => handleLikeEvent(_id)}>
+                        <FavoriteBorderIcon sx={{ fontSize: "30px", color: "white" }} />
                 </IconButton>
                 )} 
                 </div>

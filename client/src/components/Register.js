@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
 import { Paper } from "@mui/material";
+import { darkTheme } from "../mui/themes";
 
 export default function Register(props) {
   const [name, setName] = useState("");
@@ -44,7 +45,7 @@ export default function Register(props) {
   };
 
   return (
-    //<ThemeProvider theme={theme}>
+    <ThemeProvider theme={darkTheme}>
     <Container component="main" maxWidth="xs" sx={{ color: "Black" }}>
       <CssBaseline />
       {loading && <LoadingBox></LoadingBox>}
@@ -53,9 +54,11 @@ export default function Register(props) {
         sx={{
           marginTop: 8,
           display: "flex",
-          bgcolor: "whitesmoke",
+          bgcolor: "transparent",
           flexDirection: "column",
           alignItems: "center",
+          padding: "30px",
+          border: "solid 1px #6c757d"
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -121,18 +124,19 @@ export default function Register(props) {
           <Button
             type="submit"
             fullWidth
-            variant="contained"
+            variant="outlined"
             sx={{ mt: 3, mb: 2 }}
           >
             Sign Up
           </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link to="/signin">Already have an account? Sign in</Link>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link to="/signin" className="link">Already have an account? Sign in</Link>
             </Grid>
           </Grid>
         </Box>
       </Paper>
     </Container>
+    </ThemeProvider>
   );
 }

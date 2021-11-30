@@ -81,7 +81,8 @@ export default function NewEvent(props) {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!eventDetails) {
+    //if (!eventDetails) {
+    if (!props.edit) {
       dispatch(createEvent(eventState));
       dispatch(listEvents({}));
     } else {
@@ -105,9 +106,7 @@ export default function NewEvent(props) {
 
   return (
     <Dialog open={props.openNewEvent} onClose={props.handleCloseNewEvent}>
-        <DialogTitle>
-        </DialogTitle>
-        <DialogContent>
+      <DialogContent sx={{ backgroundColor: "#023047" }}>
         <Container component="main" maxWidth="xs">
           <Box
             sx={{
@@ -229,7 +228,7 @@ export default function NewEvent(props) {
                   </Grid>
                   <Grid item xs={12} sm={3}>
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       sx={{ mt: 1 }}
                       onClick={handleAddTag}
                     >
@@ -245,6 +244,7 @@ export default function NewEvent(props) {
                         listStyle: 'none',
                         p: 0.5,
                         m: 0,
+                        backgroundColor: 'transparent'
                       }}
                       component="ul"
                     >
@@ -266,14 +266,14 @@ export default function NewEvent(props) {
               {props.edit ? (<Button
                 type="submit"
                 fullWidth
-                variant="contained"
+                variant="outlined"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Update Event
               </Button>) : (<Button
                 type="submit"
                 fullWidth
-                variant="contained"
+                variant="outlined"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Create Event

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import { darkTheme } from "../mui/themes";
 import "../styles/components/LeftSideBar.scss";
@@ -21,6 +21,8 @@ import {
 } from "../actions/profileActions";
 
 function LeftSideBar() {
+  const location = useLocation();
+
   const [openNewGroup, setOpenNewGroup] = useState(false);
   const [openNewFeed, setOpenNewFeed] = useState(false);
 
@@ -77,10 +79,15 @@ function LeftSideBar() {
     setOpenNewFeed(false);
   };
 
+  /* const feedButtonStyle =
+    location.pathname === "/feeds" && {border: "solid 1px white", backgroundColor: "#adb5bd30" };
+  const eventButtonStyle =
+    location.pathname === "/events" && { border: "solid 1px white", backgroundColor: "#adb5bd30" }; */
+
   return (
     <ThemeProvider theme={darkTheme}>
       <Box className="left-sidebar-container" sx={{
-        border: '1px solid #144552', my: 2, p: 2 }}>
+        border: '1px solid #218380', my: 2, p: 2 }}>
         <ul className="reset-ul">
           <li>
             <Link className="link" to="/feeds">

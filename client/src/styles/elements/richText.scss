@@ -4,13 +4,16 @@
   height: 300px;
 }
 .editor-class {
-  background-color:#082449;
+  //background-color:#082449;
   color: white;
   padding: 0.5rem;
-  border: 1px solid #3974AEff;
+  border: 1px solid #218380;
   //font-size: 16px;
   height: 70%;
 }
+.editor-class:hover, .editor-class:focus-within {
+    border: 1px solid #adb5bd;
+  }
 .toolbar-class {
   border: 1px solid #3974AEff;
   background-color:#082449;
@@ -18,10 +21,10 @@
 }
 .rdw-editor-toolbar {
   background-color: transparent;
-  border: 1px solid #3974AEff;
+  border: 1px solid #218380;
 }
 .rdw-option-wrapper, .rdw-dropdown-wrapper, .rdw-dropdown-optionwrapper, .rdw-dropdown-selectedtext, .rdw-dropdownoption-active, .rdw-dropdownoption-default {
-  background-color: #3974AEff;
-  color: white;
-  border: 1px solid #3974AEff;
+  background-color: #adb5bd;
+  color: black;
+  border: 1px solid #218380;
 }

@@ -3,6 +3,7 @@ import {
   COLOR_PRIMARY,
   COLOR_SECONDARY,
   COLOR_GRAY_LIGHT,
+  COLOR_WHITE,
   COLOR_GRAY_DARK,
 } from "../constants/colorConstants";
 
@@ -25,7 +26,7 @@ const darkTheme = createTheme({
   palette: {
     mode: "dark",
     primary: {
-      main: COLOR_GRAY_LIGHT,
+      main: COLOR_WHITE,
     },
     secondary: {
       main: COLOR_SECONDARY,

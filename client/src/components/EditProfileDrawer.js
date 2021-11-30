@@ -21,7 +21,7 @@ export default function EditProfileDrawer(props) {
 
   const { sections, profileDetails, currentEditSection, drawerOpen, handleDrawerClose, handleUpdateProfile } = props;
 
-  const [updatedProfileDetails, setUpdatedProfileDetails] = useState(profileDetails ? { ...profileDetails, skill: ""} : {})
+  const [updatedProfileDetails, setUpdatedProfileDetails] = useState(profileDetails ? { ...profileDetails, user: { ...profileDetails.user, password:""}, skill: ""} : {})
 
   const handleProfileDetailsChange = (e, field, skillIndexToDelete) => {
     field === "name" && setUpdatedProfileDetails(prev => ({ ...prev, user: { ...prev.user, name: e.target.value }}));
@@ -41,7 +41,7 @@ export default function EditProfileDrawer(props) {
   console.log("updatedProfileDetails",updatedProfileDetails);
   const list = () => (
     <Box
-      sx={{ width: 450 }}
+      sx={{ width: 450, height:"100%", backgroundColor: "#023047" }}
       role="presentation"
       /* onClick={() => {handleDrawerClose(false)}}
       onKeyDown={() => {handleDrawerClose(false)}} */
@@ -53,7 +53,8 @@ export default function EditProfileDrawer(props) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          width: '100%'
+          width: '100%',
+          backgroundColor: "#023047"
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -73,7 +74,7 @@ export default function EditProfileDrawer(props) {
           <Button
             type="submit"
             fullWidth
-            variant="contained"
+            variant="outlined"
             sx={{ mt: 3, mb: 2 }}
           >
             Update
@@ -266,7 +267,7 @@ const EditSkills = (props) => {
       </Grid>
       <Grid item xs={12} sm={3}>
         <Button
-          variant="contained"
+          variant="outlined"
           sx={{ mt: 1 }}
           onClick={(event) => handleProfileDetailsChange(event, "add_skill")}
         >
@@ -282,14 +283,17 @@ const EditSkills = (props) => {
             listStyle: 'none',
             p: 0.5,
             m: 0,
+            backgroundColor: 'transparent'
           }}
-          component="ul"
+          /* component="ul" */
         >
           {
             Array.isArray(updatedProfileDetails.skills) && updatedProfileDetails.skills.map((data, index) => {
               return (
                 <ListItem key={index}>
-                  <Chip
+                  <Chip 
+                    size="large"
+                    sx={{ fontSize: "16px" }}
                     label={data}
                     onDelete={(event) => handleProfileDetailsChange(event, "delete_skill", index)}
                   />

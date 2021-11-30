@@ -9,17 +9,17 @@ const ConfirmDialog = (props) => {
       open={openDelete}
       onClose={handleCloseDelete}
     >
-      <DialogTitle >{title}</DialogTitle>
-      <DialogContent>{children}</DialogContent>
-      <DialogActions>
+      <DialogTitle sx={{ backgroundColor: "#023047" }}>{title}</DialogTitle>
+      <DialogContent sx={{ backgroundColor: "#023047" }}>{children}</DialogContent>
+      <DialogActions sx={{ backgroundColor: "#023047" }}>
         <Button
-          variant="contained"
+          variant="outlined"
           onClick={() => handleCloseDelete()}
         >
           No
         </Button>
         <Button
-          variant="contained"
+          variant="outlined"
           onClick={() => {
             handleCloseDelete();
             onConfirm();

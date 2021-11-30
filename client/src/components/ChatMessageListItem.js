@@ -24,8 +24,8 @@ function ChatMessageListItem(props){
       ) : (
       <div className="message-box">
       <div className="sent-text-header">
-        <p className="message-time">{time}</p>
         <p className="message-sender">{username}</p>
+        <p className="message-time">{time}</p>
       </div>
       <p className="message-text not-mine">{messageContent}</p>  
       </div>

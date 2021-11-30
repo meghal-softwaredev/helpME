@@ -13,5 +13,14 @@
 }
 
 .nav-link:hover {
-  border-bottom: 3px solid $color-primary;
+  //border-bottom: 3px solid $color-primary;
+  background-color: #adb5bd;
+  color: #05668d;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.link-title {
+  color: #fff;
+  text-decoration: none;
 }

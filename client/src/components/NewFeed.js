@@ -124,9 +124,7 @@ export default function NewFeed(props) {
   return (
     <ThemeProvider theme={darkTheme}>
       <Dialog fullWidth={true} maxWidth={'md'} open={props.openNewFeed} onClose={props.handleCloseNewFeed}>
-        <DialogTitle>
-        </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ backgroundColor: "#023047" }}>
           <Container component="main" maxWidth="md">
             <Box
               sx={{
@@ -208,7 +206,7 @@ export default function NewFeed(props) {
                   </Grid>
                   <Grid item xs={12} sm={3}>
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       sx={{ mt: 1 }}
                       onClick={handleAddTag}
                     >
@@ -224,6 +222,7 @@ export default function NewFeed(props) {
                         listStyle: 'none',
                         p: 0.5,
                         m: 0,
+                        backgroundColor: 'transparent'
                       }}
                       component="ul"
                     >
@@ -245,7 +244,7 @@ export default function NewFeed(props) {
                 <Button
                   type="submit"
                   fullWidth
-                  variant="contained"
+                  variant="outlined"
                   sx={{ mt: 3, mb: 2 }}
                 >
                   {props.activity === "EditFeed" ? "Update" : "Post"}

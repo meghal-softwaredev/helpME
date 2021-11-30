@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import { darkTheme } from "../mui/themes";
 import LoadingBox from './LoadingBox';
 import MessageBox from './MessageBox';
 import { Grid, Button, Typography, IconButton, Box } from '@mui/material';
@@ -12,6 +14,7 @@ import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import YoutubeEmbed from './YoutubeEmbed';
+import { borderColor } from '@mui/system';
          
 function IndividualEvent(props) {
   const [openNewEvent, setOpenNewEvent] = useState(false);
@@ -79,7 +82,8 @@ function IndividualEvent(props) {
   };
 
   return (
-    <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"start", ml: 4}}>
+    <ThemeProvider theme={darkTheme}>
+    <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"start", ml: 4, mt:2}}>
     {loading ? (
       <LoadingBox></LoadingBox>
     ) : error ? (
@@ -112,8 +116,8 @@ function IndividualEvent(props) {
               <Grid item sx={1} sx={{mr: 1}}>
               {userInfo && userInfo._id === event.user_id && (
                 <div>
-                <IconButton size="small" variant="outlined" onClick={handleOpenNewEvent}>
-                  <ModeEditIcon />
+                <IconButton sx={{ color: "#f4b942" }} size="large" variant="outlined" onClick={handleOpenNewEvent}>
+                  <ModeEditIcon sx={{ fontSize: "30px" }} />
                 </IconButton>
                 <NewEvent openNewEvent={openNewEvent} handleCloseNewEvent={handleCloseNewEvent} edit={true} eventId={id} event={event}/>
                 </div>
@@ -122,8 +126,8 @@ function IndividualEvent(props) {
                 <Grid item sx={1} >
                 {userInfo && userInfo._id === event.user_id && (
                   <div>
-                <IconButton size="small" variant="outlined" onClick={handleOpenDeleteEvent}>
-                  <DeleteIcon />
+                <IconButton sx={{ color: "#da5552" }} size="large" variant="outlined" onClick={handleOpenDeleteEvent}>
+                  <DeleteIcon sx={{ fontSize: "30px" }} />
                 </IconButton>
                 <ConfirmDialog
                   title="Delete Event?"
@@ -139,7 +143,7 @@ function IndividualEvent(props) {
             </Grid>
             <br/>
             {userInfo && (
-             <Button variant="outlined" sx={{color:"white"}} onClick={() => handleAttendEvent(id)}>Attend</Button>
+                    <Button variant="outlined" sx={{ color: "white"}} onClick={() => handleAttendEvent(id)}>Attend</Button>
             )}
           </Grid>
         </Grid>
@@ -150,6 +154,7 @@ function IndividualEvent(props) {
         </Box>
     )} 
     </Box>
+    </ThemeProvider>
   );
 }
 

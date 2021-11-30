@@ -84,7 +84,7 @@ function IndividualVolunteer(props) {
           <div className="section bio-details-container">
             <div>
               <p className="section-title">Bio</p>
-              <p>{profileDetails && profileDetails.bio}</p>
+              <p className="section-description" >{profileDetails && profileDetails.bio}</p>
             </div>
           </div>
           <Divider sx={{ mx: 2 }} />
@@ -106,11 +106,11 @@ function IndividualVolunteer(props) {
                 {profileDetails && profileDetails.skills && profileDetails.skills.map((skill) => (
                   <Chip
                     key={skill}
-                    sx={{ mr: 1 }}
+                    sx={{ mr: 2, fontSize: "16px" }}
                     label={skill}
-                    color="secondary"
+                    color="primary"
                     variant="outlined"
-                    size="small"
+                    size="large"
                   />
                 ))}
               </Box>

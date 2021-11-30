@@ -64,13 +64,15 @@ function FeedList(props) {
   return (
     <ThemeProvider theme={darkTheme}>
       <Box className="feed-list-main-container" sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"center"}}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", border: '1px solid #144552', my: 2, px: 2 }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", border: '1px solid #218380', my: 2, px: 2 }}>
           <Box
             component="form"
             noValidate
             autoComplete="off"
+            sx={{ width: "100%" }}
           >
             <TextField 
+            fullWidth
               id="outlined-basic"
               variant="outlined"
               size="small"
@@ -107,7 +109,7 @@ function FeedList(props) {
             </FormControl>
           </Box>
         </Box>
-        <Box sx={{ border: '1px solid #144552', my: 2, px: 2 }}>
+        <Box sx={{ my: 2, px: 2 }}>
           {loading ? (
             <span>Loading</span>
           ) : error ? (

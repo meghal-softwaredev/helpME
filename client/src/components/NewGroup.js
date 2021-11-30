@@ -64,7 +64,8 @@ export default function NewGroup(props) {
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!group) {
+    //if (!group) {
+    if (!props.edit) {
       dispatch(createGroup(groupState));
     } else {
       dispatch(updateGroup(props.groupId, groupState));
@@ -83,9 +84,7 @@ export default function NewGroup(props) {
 
   return (
     <Dialog open={props.openNewGroup} onClose={props.handleCloseNewGroup} >
-        <DialogTitle>
-        </DialogTitle>
-        <DialogContent>
+      <DialogContent sx={{ backgroundColor: "#023047" }}>
         <Container component="main" maxWidth="xs">
           <Box
             sx={{
@@ -174,7 +173,7 @@ export default function NewGroup(props) {
                   </Grid>
                   <Grid item xs={12} sm={3}>
                     <Button
-                      variant="contained"
+                      variant="outlined"
                       sx={{ mt: 1 }}
                       onClick={handleAddTag}
                     >
@@ -190,6 +189,7 @@ export default function NewGroup(props) {
                         listStyle: 'none',
                         p: 0.5,
                         m: 0,
+                        backgroundColor: 'transparent'
                       }}
                       component="ul"
                     >
@@ -211,14 +211,14 @@ export default function NewGroup(props) {
               {props.edit ? (<Button
                 type="submit"
                 fullWidth
-                variant="contained"
+                variant="outlined"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Update Group
               </Button>) : (<Button
                 type="submit"
                 fullWidth
-                variant="contained"
+                variant="outlined"
                 sx={{ mt: 3, mb: 2 }}
               >
                 Create Group

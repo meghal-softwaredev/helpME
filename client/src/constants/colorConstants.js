@@ -1,5 +1,5 @@
 export const COLOR_PRIMARY = "#8eecf5";
-export const COLOR_SECONDARY = "#b9fbc0";
+export const COLOR_SECONDARY = "#b5e48c";
 export const COLOR_BACKGROUND_PRIMARY = "#203040";
 export const COLOR_BACKGROUND_SECONDARY = "#005f73";
 /* export const COLOR_PRIMARY = '#48cae4';

@@ -167,19 +167,19 @@ function IndividualFeed() {
         ) : errorFeedDetails ? (
           <MessageBox variant="danger">{errorFeedDetails}</MessageBox>
         ) : feed && (
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', border: '1px solid #144552', my: 2, p: 2 }}>
-            <Box sx={{ fontSize: 'h6.fontSize', fontWeight: 'medium', mb: 2 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', my: 2, p: 2 }}>
+                <Box sx={{ fontSize: 'h4.fontSize', fontWeight: 'medium', mb: 2, color: "#fff" }}>
               {feed.title}
             </Box>
-            <Typography className="feed-description">{convert(feed.description)}</Typography>
+            <Typography sx={{ fontSize: 'h6.fontSize'}} className="feed-description">{convert(feed.description)}</Typography>
             <Box>
               {feed.tags.map(tag => (
-                <Chip key={tag} sx={{ mr: 1 }} label={tag} color="primary" variant="outlined" size="small" />
+                <Chip key={tag} sx={{ mr: 1, fontSize:"18px" }} label={tag} color="primary" variant="outlined" size="large" />
               ))}
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box sx={{ flex: '1' }}>
-                <Typography>Posted by <b>{feed.user && feed.user.name}</b> on {moment(feed.createdAt).format("MMMM Do, YYYY")}</Typography>
+                  <Box sx={{ flex: '1', fontSize: "18px" }}>
+                <Typography>Posted by <b>{feed.user && feed.user.name}</b> on {moment(feed.createdAt).format('llll')}</Typography>
               </Box>
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography sx={{ fontSize: 'h6.fontSize', fontWeight: 'bold', color: '#b5e48c' }}>{answers ? answers.length : 0}</Typography>
@@ -187,12 +187,12 @@ function IndividualFeed() {
               </Box>
             </Box>
             {userInfo && feed.user && feed.user._id === userInfo._id && (
-              <CardActions>
-                <IconButton color="warning" aria-label="edit feed" component="span" onClick={() => handleOpenDialog({ msg: "EditFeed" })}>
-                  <EditIcon />
+              <CardActions >
+                <IconButton sx={{ color: "#f4b942" }} aria-label="edit feed" component="span" onClick={() => handleOpenDialog({ msg: "EditFeed" })}>
+                  <EditIcon sx={{ fontSize: "30px" }}  />
                 </IconButton>
-                <IconButton sx={{ color: "#df7373" }} aria-label="delete feed" component="span" onClick={() => handleOpenDialog({ msg: "DeleteFeed" })}>
-                  <DeleteIcon />
+                <IconButton sx={{ color: "#da5552" }} size="large" aria-label="delete feed" component="span" onClick={() => handleOpenDialog({ msg: "DeleteFeed" })}>
+                  <DeleteIcon sx={{ fontSize: "30px" }} />
                 </IconButton>
               </CardActions>
             )}
@@ -215,27 +215,27 @@ function IndividualFeed() {
             )}
             <br />
             <Divider light={true}>
-              <Chip label="ANSWERS" />
+              <Chip sx={{color:"#fff"}} label="ANSWERS" />
             </Divider>
             {answers && answers.map(ans => (
               <Box key={ans._id} sx={{ minWidth: 275, display: 'flex', gap: '10px', alignItems: 'center' }}>
                 <Card sx={{ flex: 1, backgroundColor: "transparent", mt: "10px" }}>
                   <CardContent>
-                    <Typography variant="body" className="feed-answer">
+                    <Typography sx={{ fontSize: 'h6.fontSize' }} variant="body" className="feed-answer">
                       {convert(ans.answer)}
                     </Typography>
-                    <Typography sx={{ mt: 1 }} color="text.secondary">
+                    <Typography sx={{ mt: 1, fontSize:"18px" }} color="text.secondary">
                       Posted by: {ans.user.name}
                     </Typography>
 
                   </CardContent>
                   {userInfo && userInfo._id === ans.user._id && (
                     <CardActions>
-                      <IconButton color="warning" aria-label="edit answer" component="span" onClick={() => handleOpenDialog({ msg: "EditFeedAnswer", ans_id: ans._id, answer: ans.answer })}>
-                        <EditIcon />
+                      <IconButton sx={{ color: "#f4b942" }} aria-label="edit answer" component="span" onClick={() => handleOpenDialog({ msg: "EditFeedAnswer", ans_id: ans._id, answer: ans.answer })}>
+                        <EditIcon sx={{ fontSize: "30px" }}  />
                       </IconButton>
-                      <IconButton sx={{ color: "#df7373" }} aria-label="delete answer" component="span" onClick={() => handleOpenDialog({ msg: "DeleteFeedAnswer", ans_id: ans._id })}>
-                        <DeleteIcon />
+                      <IconButton sx={{ color: "#da5552" }} aria-label="delete answer" component="span" onClick={() => handleOpenDialog({ msg: "DeleteFeedAnswer", ans_id: ans._id })}>
+                        <DeleteIcon sx={{ fontSize: "30px" }}  />
                       </IconButton>
                     </CardActions>
                   )}
@@ -286,7 +286,7 @@ function IndividualFeed() {
                 </Grid>
                 <Button
                   type="submit"
-                  variant="contained"
+                  variant="outlined"
                   sx={{ mt: 3, mb: 2 }}
                 >
                   Post Answer

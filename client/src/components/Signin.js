@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signin, signinWithGoogle } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import { ThemeProvider } from "@mui/material/styles";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import Avatar from "@mui/material/Avatar";
@@ -19,6 +20,7 @@ import ReactDOM from "react-dom";
 import GoogleLogin from "react-google-login";
 import { useGoogleLogin } from "react-google-login";
 import { Paper } from "@mui/material";
+import { darkTheme } from "../mui/themes";
 
 export default function Signin(props) {
   const [email, setEmail] = useState("");
@@ -59,18 +61,20 @@ export default function Signin(props) {
   }, [navigate, redirect, userInfo]);
 
   return (
-    // <ThemeProvider theme={{darkTheme}}>
-    <Container component="main" maxWidth="xs" sx={{ color: "Black" }}>
-      <CssBaseline />
+    <ThemeProvider theme={darkTheme}>
+      <Container component="main" maxWidth="xs" sx={{ color: "Black" }}>
+        <CssBaseline />
       {loading && <LoadingBox></LoadingBox>}
       {error && <MessageBox variant="danger">{error}</MessageBox>}
       <Paper
         sx={{
           marginTop: 8,
-          bgcolor: "whitesmoke",
+          bgcolor: "transparent",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          padding: "30px",
+          border: "solid 1px #6c757d"
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
@@ -107,13 +111,13 @@ export default function Signin(props) {
           <Button
             type="submit"
             fullWidth
-            variant="contained"
+            variant="outlined"
             sx={{ mt: 3, mb: 2 }}
           >
             Sign In
           </Button>
 
-          <Grid container justifyContent="flex-end">
+          <Grid container justifyContent="flex-end" sx={{mt:2}}>
             <Grid item container xs={12} justifyContent="center">
               <GoogleLogin
                 clientId="541968906767-0v6pfapcciop5ifcqqo5gbu8dmfqkctf.apps.googleusercontent.com"
@@ -129,13 +133,14 @@ export default function Signin(props) {
                 Forgot password?
               </Link>
             </Grid> */}
-            <Grid item container justifyContent="center">
-              <Link to="/register">{"Don't have an account? Sign Up"}</Link>
+            <Grid item container justifyContent="center" sx={{mt:3}}>
+              <Link to="/register" className="link">{"Don't have an account? Sign Up"}</Link>
             </Grid>
           </Grid>
         </Box>
       </Paper>
     </Container>
+    </ThemeProvider>
   );
 }
 

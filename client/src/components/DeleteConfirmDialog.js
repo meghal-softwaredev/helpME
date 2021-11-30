@@ -21,15 +21,25 @@ export default function DeleteConfirmDialog(props) {
       onClose={props.handleCloseDeleteDialog}
       aria-describedby="alert-dialog-slide-delete-confirmation"
     >
-      <DialogTitle>{props.title}</DialogTitle>
-      <DialogContent>
+      <DialogTitle sx={{ backgroundColor: "#023047" }}>{props.title}</DialogTitle>
+      <DialogContent sx={{ backgroundColor: "#023047" }}>
         <DialogContentText id="alert-dialog-slide-confirmation">
           {props.children}
         </DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={props.handleCloseDeleteDialog}>No</Button>
-        <Button onClick={() => props.handleConfirmDelete(props.activity)}>Yes</Button>
+      <DialogActions sx={{ backgroundColor: "#023047" }}>
+        {/* <Button onClick={props.handleCloseDeleteDialog}>No</Button>
+        <Button onClick={() => props.handleConfirmDelete(props.activity)}>Yes</Button> */}
+        <Button
+          variant="outlined"
+          onClick={props.handleCloseDeleteDialog}>
+          No
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() => props.handleConfirmDelete(props.activity)}>
+          Yes
+        </Button>
       </DialogActions>
     </Dialog>
   );
