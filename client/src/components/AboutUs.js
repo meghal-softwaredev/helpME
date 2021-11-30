@@ -7,14 +7,13 @@ import { Box } from "@mui/system";
 export default function AboutUs() {
   return (
     <>
-      <CssBaseline />
-      <>
         <Box
           sx={{
             width: 1 / 2,
             fontWeight: "light",
             flexDirection: "column",
             color: "white",
+            height: "80vh"
           }}
         >
           <h1>About Us</h1>
@@ -36,7 +35,6 @@ export default function AboutUs() {
           width="500px"
           paddingRight="100px"
         ></img>
-      </>
     </>
   );
 }

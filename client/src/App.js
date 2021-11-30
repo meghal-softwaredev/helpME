@@ -79,8 +79,9 @@ const NotLoggedIn = () => {
           "flex-direction": "column",
           padding: 0,
         }
-      : {};
-  console.log("inputStyle", inputStyle);
+      : {
+        //"min-height": "100vh"
+      };
 
   return (
     <main className="base-container" style={inputStyle}>

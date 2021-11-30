@@ -70,7 +70,7 @@ function Header() {
         sx={{ justifyContent: "center", minHeight: "80px" }}
       >
         <Toolbar>
-          <Link className="link nav-link" to="/">
+          <Link className="link" to="/">
             <Typography variant="h4" component="div">
               helpME
               <i className="fas fa-hands-helping"></i>
