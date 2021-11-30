@@ -14,7 +14,8 @@ function EventListItem(props) {
   : null;
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const { _id, title, description, date_time, event_image_url, attendees,event_favourites } = props.event;
+  const [attendees, setAttendees] = useState(props.event.attendees);
+  const { _id, title, description, date_time, event_image_url, event_favourites } = props.event;
 
   const [eventFavourite, setEventFavourite] = useState(event_favourites);
   const handleAttendEvent = (eventId) => {
@@ -22,7 +23,9 @@ function EventListItem(props) {
       user_id: userInfo._id }, 
       {
         headers: { Authorization: `Bearer ${userInfo.token}` },
-      });
+      }).then((res) => {
+       setAttendees(res.data.event.attendees);
+      })
   }
   
   const handleShareEvent = (e) => {

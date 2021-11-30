@@ -15,13 +15,20 @@ function GroupListItem(props) {
   : null;
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const { _id, title, description, group_url, group_favourites, followers } = props.group;
+  const { _id, title, description, group_url, group_favourites } = props.group;
   const [groupFavourite, setGroupFavourite] = useState(group_favourites);
+  const [followers, setFollowers] = useState(props.group.followers);
   
   const dispatch = useDispatch();
 
   const handleJoinGroup = (groupId) => {
-    dispatch(joinGroup(groupId));
+    Axios.put(`/api/groups/${groupId}/join`, { 
+      user_id: userInfo._id }, 
+      {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      }).then((res) => {
+       setFollowers(res.data.group.followers);
+      })
   }
 
   const handleShareGroup = (group) => {
