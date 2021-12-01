@@ -63,7 +63,7 @@ function GroupListItem(props) {
   const open = Boolean(anchorEl);
 
   return (
-    <div className="item-container">
+    <div className="item-container" style={{ color: "white" }}>
     <Grid container sx={{ my: 2, p: 2 }}>
       <Grid item xs={2} > 
           <img src={group_url} width="130px" height="130px" alt="Group" style={{ borderRadius: "50%", border: "1px solid #adb5bd"}}/>

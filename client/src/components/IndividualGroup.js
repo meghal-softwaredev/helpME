@@ -72,7 +72,7 @@ function IndividualGroup(props) {
 
   return (
     <ThemeProvider theme={darkTheme}>
-    <Box sx={{flex:1, display:"flex", flexDirection:"column", justifyContent:"start", mt: 2}}>
+      <Box sx={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "start", mt: 2, color: "white"}}>
     {loading ? (
       <LoadingBox></LoadingBox>
     ) : error ? (

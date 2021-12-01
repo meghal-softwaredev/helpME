@@ -62,7 +62,7 @@ function EventListItem(props) {
 
   const open = Boolean(anchorEl);
   return (
-    <div className="item-container">
+    <div className="item-container" style={{color:"white"}}>
     <Grid container sx={{ my: 2, p: 2 }}>
       <Grid item xs={2} > 
           <img src={event_image_url} width="130px" height="130px" alt="Event" style={{ borderRadius: "200px", border: "1px solid #adb5bd"}}/>
