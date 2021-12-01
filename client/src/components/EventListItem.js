@@ -65,7 +65,7 @@ function EventListItem(props) {
     <div className="item-container" style={{color:"white"}}>
     <Grid container sx={{ my: 2, p: 2 }}>
       <Grid item xs={2} > 
-          <img src={event_image_url} width="180px" height="180px" alt="Event" style={{ borderRadius: "200px", border: "1px solid #adb5bd"}}/>
+          <img src={event_image_url} width="150px" height="150px" alt="Event" style={{ borderRadius: "200px", border: "1px solid #adb5bd"}}/>
       </Grid>
       <Grid item xs={10} sx={{ fontSize: 'h5.fontSize', fontWeight: 'medium', mb: 2 }}>
         <Typography component="h5" variant="h5">
