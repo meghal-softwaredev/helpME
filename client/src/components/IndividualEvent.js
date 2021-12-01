@@ -142,9 +142,9 @@ function IndividualEvent(props) {
               </Grid>
             </Grid>
             <br/>
-            {userInfo && (
+            {/* {userInfo && (
                     <Button variant="outlined" sx={{ color: "white"}} onClick={() => handleAttendEvent(id)}>Attend</Button>
-            )}
+            )} */}
           </Grid>
         </Grid>
         <br />
