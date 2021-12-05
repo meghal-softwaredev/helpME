@@ -4,63 +4,63 @@ helpME is an interactive social help network, where user can select category bas
 
 ## Login Page (With and without Google Login)
 
-![loginPage]()
+![loginPage](https://github.com/meghal-softwaredev/helpME/blob/master/docs/Login.png)
 
 ### Register Page
 
-![registerPage]()
+![registerPage](https://github.com/meghal-softwaredev/helpME/blob/master/docs/Register.png)
 
-### Category Page
+### Category Page - Select category based on interest
 
-![categoryPage]()
+![categoryPage](https://github.com/meghal-softwaredev/helpME/blob/master/docs/Category.png)
 
-### Feeds Page
+### Feeds Page - Coding category related Feeds
 
-![feedsPage]()
+![feedsPage](https://github.com/meghal-softwaredev/helpME/blob/master/docs/Feeds.png)
 
-## Post a Question
+## Post a Question 
 
-![postQuestion]()
+![postQuestion](https://github.com/meghal-softwaredev/helpME/blob/master/docs/PostQuestion.png)
 
 ### Post an Answer
 
-![postAnswer]()
+![postAnswer](https://github.com/meghal-softwaredev/helpME/blob/master/docs/PostAnswer.png)
 
 ### Delete an Answer
 
-![DeleteAnswer]()
+![DeleteAnswer](https://github.com/meghal-softwaredev/helpME/blob/master/docs/DeleteFeed.png)
 
-### Group Page
+### Group Page - Coding category related groups
 
-![groupsPage]()
+![groupsPage](https://github.com/meghal-softwaredev/helpME/blob/master/docs/Groups.png)
 
 ## Create Group
 
-![createGroup]()
+![createGroup](https://github.com/meghal-softwaredev/helpME/blob/master/docs/CreateGroup.png)
 
 ## Update Group
 
-![updateGroup]()
+![updateGroup](https://github.com/meghal-softwaredev/helpME/blob/master/docs/UpdateGroup.png)
 
-### Events Page
+### Events Page - Travel category related events 
 
-![eventsPage]()
+![eventsPage](https://github.com/meghal-softwaredev/helpME/blob/master/docs/TravelEvents.png)
 
 ## Create Event
 
-![createEvent]()
+![createEvent](https://github.com/meghal-softwaredev/helpME/blob/master/docs/CreateEvent.png)
 
 ### Profile Page
 
-![profilePage]()
+![profilePage](https://github.com/meghal-softwaredev/helpME/blob/master/docs/Profile.png)
 
 ### Get Help Page
 
-![getHelpPage]()
+![getHelpPage](https://github.com/meghal-softwaredev/helpME/blob/master/docs/GetHelp.png)
 
 ### Chat
 
-![chat]()
+![chat](https://github.com/meghal-softwaredev/helpME/blob/master/docs/Chat.png)
 
 # Contributors
 
