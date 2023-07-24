@@ -1,6 +1,7 @@
 # helpME
 
-helpME is an interactive social help network, where user can select category based on their preferences, post a question, answer, create group and events, personalize profile, contact volunteers from our community and quickly connect through chat anytime to get the help.
+helpME is an interactive social help network, where user can select category based on their preferences.
+Users can post a question, answer, create group and events, personalize profile, contact volunteers from our community and quickly connect through chat anytime to get the help.
 
 ## Login Page (With and without Google Login)
 
@@ -64,7 +65,7 @@ helpME is an interactive social help network, where user can select category bas
 
 # Contributors
 
-- [Meghal](https://github.com/meghal-softwaredev/)
+- [Meghal Patel](https://github.com/meghal-softwaredev/)
 - [Umang Patel](https://github.com/patumang)
 - [Jesson Ziegler](https://github.com/jessonziegler)
 
